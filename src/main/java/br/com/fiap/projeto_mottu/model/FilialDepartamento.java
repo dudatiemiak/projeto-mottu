@@ -15,7 +15,7 @@ import jakarta.validation.constraints.PastOrPresent;
 import lombok.Data;
 
 @Entity
-@Table(name = "filial_departamento")
+@Table(name = "t_cm_filial_departamento")
 @Data
 public class FilialDepartamento {
 	@Id

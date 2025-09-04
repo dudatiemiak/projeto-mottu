@@ -1,11 +1,17 @@
 package br.com.fiap.projeto_mottu.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
@@ -15,7 +21,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
-@Table(name = "funcionario")
+@Table(name = "t_cm_funcionario")
 @Data
 public class Funcionario {
 	@Id
@@ -42,4 +48,9 @@ public class Funcionario {
 	@Column(name = "nm_cargo")
 	@Size(max = 50, message = "O nome do cargo deve ter no máximo 50 caracteres")
 	private String nm_cargo;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "t_cm_funcionario_funcao", 
+	joinColumns = @JoinColumn(name = "id_funcionario"), 
+	inverseJoinColumns = @JoinColumn(name = "id_funcao"))
+	private Set<Funcao> funcoes = new HashSet<Funcao>();
 }

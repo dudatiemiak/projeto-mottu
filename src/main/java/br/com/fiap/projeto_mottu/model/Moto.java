@@ -1,6 +1,5 @@
 package br.com.fiap.projeto_mottu.model;
 
-import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,7 +16,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
-@Table(name = "moto")
+@Table(name = "t_cm_moto")
 @Data
 public class Moto{
 	

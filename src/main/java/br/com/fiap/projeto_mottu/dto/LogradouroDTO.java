@@ -1,9 +1,11 @@
 package br.com.fiap.projeto_mottu.dto;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import br.com.fiap.projeto_mottu.model.Bairro;
 import br.com.fiap.projeto_mottu.model.Logradouro;
 
-public class LogradouroDTO {
+public class LogradouroDTO extends RepresentationModel<LogradouroDTO>{
 	private Long id_logradouro;
 	private Bairro bairro;
 	private String nm_logradouro;

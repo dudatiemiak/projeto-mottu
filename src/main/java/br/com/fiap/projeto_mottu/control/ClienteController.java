@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.ModelAndView;
 
 import br.com.fiap.projeto_mottu.dto.ClienteDTO;
 import br.com.fiap.projeto_mottu.model.Cliente;
@@ -25,8 +27,7 @@ import br.com.fiap.projeto_mottu.repository.ClienteRepository;
 import br.com.fiap.projeto_mottu.service.ClienteCachingService;
 import br.com.fiap.projeto_mottu.service.ClienteService;
 
-@RestController
-@RequestMapping(value = "/clientes")
+@Controller
 public class ClienteController {
 
 	@Autowired
@@ -37,6 +38,16 @@ public class ClienteController {
 	
 	@Autowired
 	private ClienteCachingService cacheC;
+	
+	@GetMapping("/index")
+	public ModelAndView popularIndex() {
+
+		ModelAndView mv = new ModelAndView("/cliente/lista");
+
+		mv.addObject("clientes", repC.findAll());
+
+		return mv;
+	}
 	
 	@GetMapping(value = "/todos")
 	public List<Cliente> retornaTodosClientes(){

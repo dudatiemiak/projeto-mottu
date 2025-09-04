@@ -13,7 +13,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
-@Table(name = "telefone")
+@Table(name = "t_cm_telefone")
 @Data
 public class Telefone {
 	

@@ -3,7 +3,7 @@ package br.com.fiap.projeto_mottu.dto;
 import br.com.fiap.projeto_mottu.model.Cliente;
 import br.com.fiap.projeto_mottu.model.Telefone;
 
-public class TelefoneDTO {
+public class TelefoneDTO{
 	private Long id_telefone;
 	private Cliente cliente;
 	private String nr_telefone;

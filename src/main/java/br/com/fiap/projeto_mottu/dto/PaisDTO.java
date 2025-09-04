@@ -2,7 +2,7 @@ package br.com.fiap.projeto_mottu.dto;
 
 import br.com.fiap.projeto_mottu.model.Pais;
 
-public class PaisDTO {
+public class PaisDTO{
 	private Long id_pais;
 	private String nm_pais;
 	

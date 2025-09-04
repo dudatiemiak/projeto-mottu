@@ -1,6 +1,7 @@
 package br.com.fiap.projeto_mottu.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,6 +12,8 @@ import br.com.fiap.projeto_mottu.projection.FuncionarioProjection;
 
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long>{
 
+	Optional<Funcionario> findByUsername(String username);
+	
 	// Busca todos os funcionários de uma filial pelo nome da filial
 	@Query("""
 	        SELECT 

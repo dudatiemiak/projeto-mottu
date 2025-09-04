@@ -1,5 +1,6 @@
 package br.com.fiap.projeto_mottu.model;
 
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.hateoas.RepresentationModel;
 
 import jakarta.persistence.Column;
@@ -18,7 +19,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
-@Table(name = "cliente")
+@Table(name = "t_cm_cliente")
 @Data
 public class Cliente extends RepresentationModel<Cliente>{
 	@Id
@@ -35,7 +36,7 @@ public class Cliente extends RepresentationModel<Cliente>{
 	@Column(name = "nm_cliente")
 	private String nm_cliente;
 	@NotEmpty
-	@Pattern(regexp = "\\d{11}", message = "CPF deve conter exatamente 11 dígitos numéricos")
+	@CPF(message = "O CPF informado é inválido")
 	@Column(name = "nr_cpf")
 	private String nr_cpf;
 	@NotEmpty

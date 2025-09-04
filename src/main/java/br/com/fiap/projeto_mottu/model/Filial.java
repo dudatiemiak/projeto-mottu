@@ -1,5 +1,6 @@
 package br.com.fiap.projeto_mottu.model;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +15,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
-@Table(name = "filial")
+@Table(name = "t_cm_filial")
 @Data
 public class Filial{
 	
@@ -29,6 +30,5 @@ public class Filial{
 	@Size(min = 0, max = 100, message = "Valor de nome inválido")
 	@Column(name = "nm_filial")
 	private String nome_filial;
-	
 	
 }

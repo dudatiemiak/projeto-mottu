@@ -3,7 +3,7 @@ package br.com.fiap.projeto_mottu.dto;
 import br.com.fiap.projeto_mottu.model.Estado;
 import br.com.fiap.projeto_mottu.model.Pais;
 
-public class EstadoDTO {
+public class EstadoDTO{
 	private Long id_estado;
 	private Pais pais;
 	private String nm_estado;

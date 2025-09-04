@@ -17,7 +17,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
-@Table(name = "manutencao")
+@Table(name = "t_cm_manutencao")
 @Data
 public class Manutencao {
 	@Id

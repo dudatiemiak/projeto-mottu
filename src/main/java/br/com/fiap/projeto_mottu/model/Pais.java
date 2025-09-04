@@ -11,7 +11,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
-@Table(name = "pais")
+@Table(name = "t_cm_pais")
 @Data
 public class Pais {
 	@Id
