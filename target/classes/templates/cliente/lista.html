@@ -5,12 +5,11 @@
 
   <body>
 
-	<form th:action="@{/logout}" method="post">
-		<button type="submit" style="float: right;">Sair</button>
-	</form>
-
+	<form th:replace="~{fragmentos :: form-logout}" />
 
 	<div class="container">
+		<div th:replace="~{fragmentos :: saudacoes(${funcionario})}" />
+	
         <div class="row">
             <h1>Lista de Clientes</h1>
         </div>

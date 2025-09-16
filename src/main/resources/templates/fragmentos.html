@@ -7,3 +7,11 @@
 
     <title th:text="${titulo}"></title>
 </head>
+
+<form th:fragment="form-logout" th:action="@{/logout}" method="post">
+		<button type="submit" style="float: right;">Sair</button>
+</form>
+
+<div th:fragment="saudacoes(funcionario)" style="display: flex; align-items: center;">
+			<h1><b> Olá, <span th:text="${funcionario.nm_funcionario}"></span> !</b></h1>
+		</div>

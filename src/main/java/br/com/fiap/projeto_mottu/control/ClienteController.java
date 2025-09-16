@@ -24,8 +24,17 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.fiap.projeto_mottu.dto.ClienteDTO;
+import br.com.fiap.projeto_mottu.model.Bairro;
+import br.com.fiap.projeto_mottu.model.Cidade;
 import br.com.fiap.projeto_mottu.model.Cliente;
+import br.com.fiap.projeto_mottu.model.Estado;
+import br.com.fiap.projeto_mottu.model.Funcionario;
+import br.com.fiap.projeto_mottu.model.Logradouro;
+import br.com.fiap.projeto_mottu.model.Pais;
 import br.com.fiap.projeto_mottu.repository.ClienteRepository;
+import br.com.fiap.projeto_mottu.repository.FuncionarioRepository;
+import br.com.fiap.projeto_mottu.repository.LogradouroRepository;
+import br.com.fiap.projeto_mottu.repository.TelefoneRepository;
 import br.com.fiap.projeto_mottu.service.ClienteCachingService;
 import br.com.fiap.projeto_mottu.service.ClienteService;
 
@@ -34,6 +43,15 @@ public class ClienteController {
 
 	@Autowired
 	private ClienteRepository repC;
+	
+	@Autowired
+	private LogradouroRepository repL;
+	
+	@Autowired
+	private TelefoneRepository repT;
+	
+	@Autowired
+	private FuncionarioRepository repFunc;
 	
 	@Autowired
 	private ClienteService servC;
@@ -129,5 +147,45 @@ public class ClienteController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
 
+	}
+	
+	@GetMapping("/cliente/lista")
+	public ModelAndView popularIndex() {
+
+		ModelAndView mv = new ModelAndView("/home/index");
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		Optional<Funcionario> op = repFunc.findByUsername(auth.getName());
+		
+		if(op.isPresent()) {
+			mv.addObject("funcionario", op.get());
+		}
+		
+		mv.addObject("clientes", repC.findAll());
+
+		return mv;
+	}
+	
+	@GetMapping("/logradouro/nova")
+	public ModelAndView retornaPagCadPessoa() {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		Optional<Funcionario> op = repFunc.findByUsername(auth.getName());
+
+		ModelAndView mv = new ModelAndView("/logradouro/nova");
+
+		if(op.isPresent()) {
+			mv.addObject("funcionario",op.get());
+		}
+		
+		mv.addObject("logradouro", new Logradouro());
+		mv.addObject("pais", new Pais());
+		mv.addObject("estado", new Estado());
+		mv.addObject("cidade", new Cidade());
+		mv.addObject("bairro", new Bairro());
+
+		return mv;
 	}
 }
