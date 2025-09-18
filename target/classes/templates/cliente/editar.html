@@ -1,0 +1,51 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragmentos :: cabecalho('Editar Cliente')}" />
+
+<body>
+    <form th:replace="~{fragmentos :: form-logout}" />
+
+    <div class="container">
+        <div th:replace="~{fragmentos :: saudacoes(${funcionario})}" />
+
+        <h1>Editar Cliente</h1>
+
+        <form th:action="@{'/cliente/editar/' + ${cliente.id_cliente}}" th:object="${cliente}" method="post" class="form">
+            <div class="mb-3">
+                <label class="form-label">Nome</label>
+                <input type="text" th:field="*{nm_cliente}" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">CPF</label>
+                <input type="text" th:field="*{nr_cpf}" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" th:field="*{nm_email}" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Logradouro</label>
+                <select th:field="*{logradouro}" class="form-select">
+                    <option th:each="log : ${logradouros}" th:value="${log.id_logradouro}" th:text="${log.nm_logradouro}" th:selected="${log.id_logradouro == cliente.logradouro.id_logradouro}"></option>
+                </select>
+            </div>
+            <h4>Telefone</h4>
+            <div class="mb-3">
+                <label class="form-label">DDD</label>
+                <input type="text" name="nr_ddd" th:value="${#lists.isEmpty(cliente.telefones) ? '' : cliente.telefones[0].nr_ddd}" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">DDI</label>
+                <input type="text" name="nr_ddi" th:value="${#lists.isEmpty(cliente.telefones) ? '' : cliente.telefones[0].nr_ddi}" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Número</label>
+                <input type="text" name="nr_telefone" th:value="${#lists.isEmpty(cliente.telefones) ? '' : cliente.telefones[0].nr_telefone}" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary">Atualizar</button>
+            <a th:href="@{/cliente/lista}" class="btn btn-secondary">Voltar</a>
+        </form>
+    </div>
+</body>
+</html>

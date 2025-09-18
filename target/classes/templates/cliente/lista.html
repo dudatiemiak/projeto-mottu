@@ -3,13 +3,12 @@
 
 <head th:replace="~{fragmentos :: cabecalho('Lista de Clientes')}" />
 
-  <body>
+<body>
+    <form th:replace="~{fragmentos :: form-logout}" />
 
-	<form th:replace="~{fragmentos :: form-logout}" />
+    <div class="container">
+        <div th:replace="~{fragmentos :: saudacoes(${funcionario})}" />
 
-	<div class="container">
-		<div th:replace="~{fragmentos :: saudacoes(${funcionario})}" />
-	
         <div class="row">
             <h1>Lista de Clientes</h1>
         </div>
@@ -18,28 +17,26 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-							<th scope="col">ID</th>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Cpf</th>
-                            <th scope="col">Telefone</th>
-                            <th scope="col">Logradouro</th>
-                            <th scope="col">#</th>
-                            <th scope="col">#</th>
-                            <th scope="col">#</th>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>CPF</th>
+                            <th>Telefone</th>
+                            <th>Logradouro</th>
+                            <th colspan="3" class="text-center">Ações</th>
                         </tr>
-                      </thead>
+                    </thead>
                     <tbody>
-                        <tr th:each="aluno : ${alunos}">
-                            <th class="col-2" scope="row" th:text="${clinte.id_cliente}">A</th>
-                            <td class="col-2" th:text="${cliente.nm_cliente}">B</td>
-                            <td class="col-2" th:text="${cliente.nm_email}">C</td>
-                            <td class="col-2" th:text="${cliente.nr_cpf}">D</td>
-                            <td class="col-2" th:text="${cliente.telefone.nr_telefone}">E</td>
-                            <td class="col-2" th:text="${cliente.logradouro.nm_logradouro}">F</td>
-                            <td class="col-2"><a th:href="@{/cliente/detalhes/{idCliente}(idCliente = ${cliente.id})}">Detalhes</a></td>
-                            <td class="col-2"><a th:href="@{/cliente/editar/{idCliente}(idCliente = ${cliente.id})}">Editar</a></td>
-                            <td class="col-2"><a th:href="@{/cliente/remover/{idCliente}(idCliente = ${cliente.id})}">Remover</a></td>
+                        <tr th:each="cliente : ${clientes}">
+                            <td th:text="${cliente.id_cliente}"></td>
+                            <td th:text="${cliente.nm_cliente}"></td>
+                            <td th:text="${cliente.nm_email}"></td>
+                            <td th:text="${cliente.nr_cpf}"></td>
+                            <td th:text="${#lists.isEmpty(cliente.telefones) ? '-' : cliente.telefones[0].nr_ddd + ' ' + cliente.telefones[0].nr_telefone}"></td>
+                            <td th:text="${cliente.logradouro.nm_logradouro}"></td>
+                            <td><a th:href="@{/cliente/detalhes/{id}(id=${cliente.id_cliente})}">Detalhes</a></td>
+                            <td><a th:href="@{/cliente/editar/{id}(id=${cliente.id_cliente})}">Editar</a></td>
+                            <td><a th:href="@{/cliente/remover/{id}(id=${cliente.id_cliente})}">Remover</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -49,8 +46,5 @@
             <a href="/cliente/nova">Cadastrar um novo cliente</a>
         </div>
     </div>
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-  </body>
+</body>
 </html>
