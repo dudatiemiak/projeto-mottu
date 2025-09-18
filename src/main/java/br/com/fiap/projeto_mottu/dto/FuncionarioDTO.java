@@ -30,7 +30,7 @@ public class FuncionarioDTO extends RepresentationModel<FuncionarioDTO>{
 		setId_funcionario(funcionario.getId_funcionario());
 		setFilial(funcionario.getFilial());
 		setNm_funcionario(funcionario.getNm_funcionario());
-		setNm_email_corporativo(funcionario.getNm_email_corporativo());
+		setNmEmailCorporativo(funcionario.getNmEmailCorporativo());
 		setNm_senha(funcionario.getNm_senha());
 		setNm_cargo(funcionario.getNm_cargo());
 	}
@@ -59,11 +59,11 @@ public class FuncionarioDTO extends RepresentationModel<FuncionarioDTO>{
 		this.nm_funcionario = nm_funcionario;
 	}
 
-	public String getNm_email_corporativo() {
+	public String getNmEmailCorporativo() {
 		return nm_email_corporativo;
 	}
 
-	public void setNm_email_corporativo(String nm_email_corporativo) {
+	public void setNmEmailCorporativo(String nm_email_corporativo) {
 		this.nm_email_corporativo = nm_email_corporativo;
 	}
 

@@ -1,6 +1,7 @@
 package br.com.fiap.projeto_mottu.model;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -18,11 +19,11 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
+
+import br.com.fiap.projeto_mottu.model.Filial;
 
 @Entity
 @Table(name = "t_cm_funcionario")
-@Data
 public class Funcionario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,4 +54,85 @@ public class Funcionario {
 	joinColumns = @JoinColumn(name = "id_funcionario"), 
 	inverseJoinColumns = @JoinColumn(name = "id_funcao"))
 	private Set<Funcao> funcoes = new HashSet<Funcao>();
+
+    public Funcionario() {}
+
+    public Funcionario(Long id_funcionario, Filial filial, String nm_funcionario, String nm_email_corporativo, String nm_senha, String nm_cargo, Set<Funcao> funcoes) {
+        this.id_funcionario = id_funcionario;
+        this.filial = filial;
+        this.nm_funcionario = nm_funcionario;
+        this.nm_email_corporativo = nm_email_corporativo;
+        this.nm_senha = nm_senha;
+        this.nm_cargo = nm_cargo;
+        this.funcoes = funcoes;
+    }
+
+    public Long getId_funcionario() {
+        return id_funcionario;
+    }
+
+    public void setId_funcionario(Long id_funcionario) {
+        this.id_funcionario = id_funcionario;
+    }
+
+    public Filial getFilial() {
+        return filial;
+    }
+
+    public void setFilial(Filial filial) {
+        this.filial = filial;
+    }
+
+    public String getNm_funcionario() {
+        return nm_funcionario;
+    }
+
+    public void setNm_funcionario(String nm_funcionario) {
+        this.nm_funcionario = nm_funcionario;
+    }
+
+    public String getNmEmailCorporativo() {
+        return this.nm_email_corporativo;
+    }
+
+    public void setNmEmailCorporativo(String nm_email_corporativo) {
+        this.nm_email_corporativo = nm_email_corporativo;
+    }
+
+    public String getNm_senha() {
+        return nm_senha;
+    }
+
+    public void setNm_senha(String nm_senha) {
+        this.nm_senha = nm_senha;
+    }
+
+    public String getNm_cargo() {
+        return nm_cargo;
+    }
+
+    public void setNm_cargo(String nm_cargo) {
+        this.nm_cargo = nm_cargo;
+    }
+
+    public Set<Funcao> getFuncoes() {
+        return funcoes;
+    }
+
+    public void setFuncoes(Set<Funcao> funcoes) {
+        this.funcoes = funcoes;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Funcionario that = (Funcionario) o;
+        return Objects.equals(id_funcionario, that.id_funcionario);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id_funcionario);
+    }
 }

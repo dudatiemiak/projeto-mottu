@@ -12,7 +12,9 @@ import br.com.fiap.projeto_mottu.projection.FuncionarioProjection;
 
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long>{
 
-	Optional<Funcionario> findByUsername(String username);
+    // Busca por e-mail corporativo mantendo campo nm_email_corporativo em snake_case
+    @Query("SELECT f FROM Funcionario f WHERE f.nm_email_corporativo = :email")
+    Optional<Funcionario> findByNmEmailCorporativo(@Param("email") String email);
 	
 	// Busca todos os funcionários de uma filial pelo nome da filial
 	@Query("""

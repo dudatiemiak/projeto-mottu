@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -104,7 +106,7 @@ public class FuncionarioController {
 
 			funcionario_atual.setNm_funcionario(funcionario.getNm_funcionario());
 			funcionario_atual.setNm_cargo(funcionario.getNm_cargo());
-			funcionario_atual.setNm_email_corporativo(funcionario.getNm_email_corporativo());
+			funcionario_atual.setNmEmailCorporativo(funcionario.getNmEmailCorporativo());
 			funcionario_atual.setNm_senha(funcionario.getNm_senha());
 
 			repFunc.save(funcionario_atual);
@@ -158,6 +160,15 @@ public class FuncionarioController {
 	public ModelAndView retornarCadFuncionario() {
 		
 		ModelAndView mv = new ModelAndView("/funcionario/novo");
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		Optional<Funcionario> op = repFunc.findByNmEmailCorporativo(auth.getName());
+		
+		if(op.isPresent()) {
+			mv.addObject("funcionario_logado", op.get());
+		}
+		
 		mv.addObject("funcionario", new Funcionario());
 		mv.addObject("lista_funcoes", repFc.findAll());
 		

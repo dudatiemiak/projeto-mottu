@@ -20,19 +20,15 @@ public class FuncionarioDetailsService implements UserDetailsService {
 	private FuncionarioRepository repF;
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String nm_email_corporativo) throws UsernameNotFoundException {
 		
-		Funcionario funcionario = repF.findByUsername(username)
+		Funcionario funcionario = repF.findByNmEmailCorporativo(nm_email_corporativo)
 				.orElseThrow( () -> new UsernameNotFoundException("Usuário não encontrado") );
 		
-		return new User(funcionario.getNm_email_corporativo(), funcionario.getNm_senha(),
+		return new User(funcionario.getNmEmailCorporativo(), funcionario.getNm_senha(),
 				funcionario.getFuncoes().stream()
 				.map(funcao -> new SimpleGrantedAuthority(funcao.getNm_funcao().toString()))
 				.collect(Collectors.toList()));
 	}
 	
-	
-	
-	
-
 }

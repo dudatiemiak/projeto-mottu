@@ -151,7 +151,7 @@ public class ClienteController {
         
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-		Optional<Funcionario> op = repFunc.findByUsername(auth.getName());
+		Optional<Funcionario> op = repFunc.findByNmEmailCorporativo(auth.getName());
 		
 		if(op.isPresent()) {
 			mv.addObject("funcionario", op.get());
@@ -165,7 +165,7 @@ public class ClienteController {
     public ModelAndView formularioNovoCliente() {        
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         
-		Optional<Funcionario> op = repFunc.findByUsername(auth.getName());
+		Optional<Funcionario> op = repFunc.findByNmEmailCorporativo(auth.getName());
 
         ModelAndView mv = new ModelAndView("/cliente/nova");
         
@@ -186,7 +186,7 @@ public class ClienteController {
             
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             
-    		Optional<Funcionario> op = repFunc.findByUsername(auth.getName());
+    		Optional<Funcionario> op = repFunc.findByNmEmailCorporativo(auth.getName());
     		
     		if(op.isPresent()) {
 				mv.addObject("funcionario", op.get());
@@ -213,7 +213,7 @@ public class ClienteController {
             
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             
-    		Optional<Funcionario> op1 = repFunc.findByUsername(auth.getName());
+    		Optional<Funcionario> op1 = repFunc.findByNmEmailCorporativo(auth.getName());
     		
     		if(op1.isPresent()) {
 				mv.addObject("funcionario", op1.get());
@@ -233,7 +233,7 @@ public class ClienteController {
             
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             
-    		Optional<Funcionario> op1 = repFunc.findByUsername(auth.getName());
+    		Optional<Funcionario> op1 = repFunc.findByNmEmailCorporativo(auth.getName());
     		
     		if(op1.isPresent()) {
 				mv.addObject("funcionario", op1.get());
