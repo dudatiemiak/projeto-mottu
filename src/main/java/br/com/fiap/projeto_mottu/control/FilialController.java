@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +26,7 @@ import br.com.fiap.projeto_mottu.repository.FilialRepository;
 import br.com.fiap.projeto_mottu.service.FilialCachingService;
 import br.com.fiap.projeto_mottu.service.FilialService;
 
-@RestController
+@Controller
 @RequestMapping(value = "/filiais")
 public class FilialController {
 	@Autowired

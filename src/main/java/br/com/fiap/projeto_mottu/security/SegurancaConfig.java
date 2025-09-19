@@ -11,21 +11,33 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SegurancaConfig {
 
 	@Bean
-	public SecurityFilterChain chain(HttpSecurity http) throws Exception {
-		
-		http.authorizeHttpRequests( (request) -> request.requestMatchers("/funcionario/novo").hasAuthority("ADMIN")
-				.anyRequest().authenticated() )
-		.formLogin( (login) -> login.loginPage("/login").defaultSuccessUrl("/index", true)
-				.failureUrl("/login?falha=true").permitAll())
-		.logout((logout) -> logout.logoutUrl("/logout")
-				.logoutSuccessUrl("/login?logout=true").permitAll()  )
-		.exceptionHandling((exception) -> 
-		exception.accessDeniedHandler((request, response, AccessDeniedException) 
-		-> {response.sendRedirect("/acesso_negado");}) );
-		
-		return http.build();
-		
-	}
+    public SecurityFilterChain chain(HttpSecurity http) throws Exception {
+
+        http.authorizeHttpRequests((request) -> request
+                    .requestMatchers("/funcionario/novo").hasAuthority("ADMIN")
+                    .anyRequest().authenticated()
+                )
+            .formLogin((login) -> login
+                    .loginPage("/login")
+                    .usernameParameter("email")      // mapeia o campo email
+                    .passwordParameter("password")   // mantém o padrão password
+                    .defaultSuccessUrl("/index", true)
+                    .failureUrl("/login?falha=true")
+                    .permitAll()
+            )
+            .logout((logout) -> logout
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/login?logout=true")
+                    .permitAll()
+            )
+            .exceptionHandling((exception) -> 
+                exception.accessDeniedHandler((request, response, ex) -> {
+                    response.sendRedirect("/acesso_negado");
+                })
+            );
+
+        return http.build();
+    }
 
 	@Bean
 	public PasswordEncoder encoder() {

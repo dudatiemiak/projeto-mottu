@@ -32,7 +32,10 @@
                             <td th:text="${cliente.nm_cliente}"></td>
                             <td th:text="${cliente.nm_email}"></td>
                             <td th:text="${cliente.nr_cpf}"></td>
-                            <td th:text="${#lists.isEmpty(cliente.telefones) ? '-' : cliente.telefones[0].nr_ddd + ' ' + cliente.telefones[0].nr_telefone}"></td>
+                            <td>
+                                <span th:if="${#lists.isEmpty(cliente.telefones)}">-</span>
+                                <span th:each="tel : ${cliente.telefones}" th:text="${tel.nr_ddd + ' ' + tel.nr_telefone}" th:unless="${#lists.isEmpty(cliente.telefones)}"></span>
+                            </td>
                             <td th:text="${cliente.logradouro.nm_logradouro}"></td>
                             <td><a th:href="@{/cliente/detalhes/{id}(id=${cliente.id_cliente})}">Detalhes</a></td>
                             <td><a th:href="@{/cliente/editar/{id}(id=${cliente.id_cliente})}">Editar</a></td>

@@ -76,6 +76,6 @@ INSERT INTO t_cm_funcao (nm_funcao) VALUES ('OPERACIONAL');
 INSERT INTO t_cm_funcao (nm_funcao) VALUES ('ATENDIMENTO');
 INSERT INTO t_cm_funcao (nm_funcao) VALUES ('ANALISTA');
 -- Funcionario
-INSERT INTO t_cm_funcionario (id_filial, nm_funcionario, nm_email_corporativo, nm_senha, nm_cargo) VALUES (1, 'Eduarda Tiemi', 'duda@empresa.com', '$2a$10$Dow1x3T3wzqj9YEXrB9jF.s2MZEVr7A2Eqg8SKQvAhGB5z4xYnq0O', 'Gerente de Filial');
+INSERT INTO t_cm_funcionario (id_filial, nm_funcionario, nm_email_corporativo, nm_senha, nm_cargo) VALUES (1, 'Eduarda Tiemi', 'duda@empresa.com', '$2a$12$G0dtDbKrJ8SQEQR1T/tCaeq.Qr1iQLmXTiAms9C4LIb816l/PaeGK', 'Gerente de Filial');
 INSERT INTO t_cm_funcionario_funcao (id_funcionario, id_funcao) VALUES ((SELECT id_funcionario FROM t_cm_funcionario WHERE nm_email_corporativo = 'duda@empresa.com'), (SELECT id_funcao FROM t_cm_funcao WHERE nm_funcao = 'ADMIN'));
 

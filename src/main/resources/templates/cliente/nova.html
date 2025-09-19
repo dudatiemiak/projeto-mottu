@@ -30,21 +30,45 @@
                     <option th:each="log : ${logradouros}" th:value="${log.id_logradouro}" th:text="${log.nm_logradouro}"></option>
                 </select>
             </div>
-            <h4>Telefone</h4>
-            <div class="mb-3">
-                <label class="form-label">DDD</label>
-                <input type="text" name="nr_ddd" class="form-control" />
+            <h4>Telefones</h4>
+            <div id="telefones-wrapper">
+                <div th:each="tel, iterStat : *{telefones}">
+                    <div class="row mb-2">
+                        <div class="col">
+                            <input type="text" th:field="*{telefones[__${iterStat.index}__].nr_ddd}" placeholder="DDD" class="form-control" />
+                        </div>
+                        <div class="col">
+                            <input type="text" th:field="*{telefones[__${iterStat.index}__].nr_ddi}" placeholder="DDI" class="form-control" />
+                        </div>
+                        <div class="col">
+                            <input type="text" th:field="*{telefones[__${iterStat.index}__].nr_telefone}" placeholder="Número" class="form-control" />
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="mb-3">
-                <label class="form-label">DDI</label>
-                <input type="text" name="nr_ddi" class="form-control" />
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Número</label>
-                <input type="text" name="nr_telefone" class="form-control" />
-            </div>
+            <button type="button" class="btn btn-secondary mb-2" onclick="adicionarTelefone()">Adicionar Telefone</button>
             <button type="submit" class="btn btn-primary">Salvar</button>
             <a th:href="@{/cliente/lista}" class="btn btn-secondary">Voltar</a>
+            <script>
+                function adicionarTelefone() {
+                    const wrapper = document.getElementById('telefones-wrapper');
+                    const idx = wrapper.querySelectorAll('.row.mb-2').length;
+                    const row = document.createElement('div');
+                    row.className = 'row mb-2';
+                    row.innerHTML = `
+                        <div class="col">
+                            <input type="text" name="telefones[${idx}].nr_ddd" placeholder="DDD" class="form-control" />
+                        </div>
+                        <div class="col">
+                            <input type="text" name="telefones[${idx}].nr_ddi" placeholder="DDI" class="form-control" />
+                        </div>
+                        <div class="col">
+                            <input type="text" name="telefones[${idx}].nr_telefone" placeholder="Número" class="form-control" />
+                        </div>
+                    `;
+                    wrapper.appendChild(row);
+                }
+            </script>
         </form>
     </div>
 </body>

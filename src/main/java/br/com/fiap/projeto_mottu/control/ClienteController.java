@@ -180,29 +180,24 @@ public class ClienteController {
     }
 
     @PostMapping("/cliente/inserir")
-    public ModelAndView inserirCliente(@Valid Cliente cliente, BindingResult bd, @Valid Telefone telefone) {
-        if (bd.hasErrors()) {
-            ModelAndView mv = new ModelAndView("/cliente/nova");
-            
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            
-    		Optional<Funcionario> op = repFunc.findByNmEmailCorporativo(auth.getName());
-    		
-    		if(op.isPresent()) {
+	public ModelAndView inserirCliente(@Valid Cliente cliente, BindingResult bd) {
+		if (bd.hasErrors()) {
+			ModelAndView mv = new ModelAndView("/cliente/nova");
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			Optional<Funcionario> op = repFunc.findByNmEmailCorporativo(auth.getName());
+			if(op.isPresent()) {
 				mv.addObject("funcionario", op.get());
 			}
-    		
-            mv.addObject("cliente", cliente);
-            mv.addObject("logradouros", repL.findAll());
-            mv.addObject("telefones", repT.findAll());
-            return mv;
-        }
-
-        repC.save(cliente);
-        telefone.setCliente(cliente);
-        repT.save(telefone);
-
-        return new ModelAndView("redirect:/cliente/lista");
+			mv.addObject("cliente", cliente);
+			mv.addObject("logradouros", repL.findAll());
+			return mv;
+		}
+		// Salva cliente e todos os telefones associados
+		if (cliente.getTelefones() != null) {
+			cliente.getTelefones().forEach(t -> t.setCliente(cliente));
+		}
+		repC.save(cliente);
+		return new ModelAndView("redirect:/cliente/lista");
     }
 
     @GetMapping("/cliente/detalhes/{id}")
@@ -249,36 +244,30 @@ public class ClienteController {
 
     @PostMapping("/cliente/editar/{id}")
     public ModelAndView editarCliente(@PathVariable Long id, @Valid Cliente cliente, BindingResult bd, @Valid Telefone telefone) {
-        if (bd.hasErrors()) {
-            ModelAndView mv = new ModelAndView("/cliente/editar");
-            mv.addObject("cliente", cliente);
-            mv.addObject("logradouros", repL.findAll());
-            mv.addObject("telefones", repT.findAll());
-            return mv;
-        }
-
-        Optional<Cliente> op = repC.findById(id);
-        if (op.isPresent()) {
-            Cliente atual = op.get();
-            atual.setNm_cliente(cliente.getNm_cliente());
-            atual.setNr_cpf(cliente.getNr_cpf());
-            atual.setNm_email(cliente.getNm_email());
-            atual.setLogradouro(cliente.getLogradouro());
-            repC.save(atual);
-
-            Optional<Telefone> telOp = repT.findByCliente(atual); // precisa criar este método no TelefoneRepository
-            if (telOp.isPresent()) {
-                Telefone telAtual = telOp.get();
-                telAtual.setNr_ddd(telefone.getNr_ddd());
-                telAtual.setNr_ddi(telefone.getNr_ddi());
-                telAtual.setNr_telefone(telefone.getNr_telefone());
-                repT.save(telAtual);
-            } else {
-                telefone.setCliente(atual);
-                repT.save(telefone);
-            }
-        }
-        return new ModelAndView("redirect:/cliente/lista");
+		if (bd.hasErrors()) {
+			ModelAndView mv = new ModelAndView("/cliente/editar");
+			mv.addObject("cliente", cliente);
+			mv.addObject("logradouros", repL.findAll());
+			return mv;
+		}
+		Optional<Cliente> op = repC.findById(id);
+		if (op.isPresent()) {
+			Cliente atual = op.get();
+			atual.setNm_cliente(cliente.getNm_cliente());
+			atual.setNr_cpf(cliente.getNr_cpf());
+			atual.setNm_email(cliente.getNm_email());
+			atual.setLogradouro(cliente.getLogradouro());
+			// Remove todos os telefones antigos e adiciona os novos
+			atual.getTelefones().clear();
+			if (cliente.getTelefones() != null) {
+				cliente.getTelefones().forEach(t -> {
+					t.setCliente(atual);
+					atual.getTelefones().add(t);
+				});
+			}
+			repC.save(atual);
+		}
+		return new ModelAndView("redirect:/cliente/lista");
     }
 
     @GetMapping("/cliente/remover/{id}")

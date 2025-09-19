@@ -18,6 +18,11 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
+
 @Entity
 @Table(name = "t_cm_cliente")
 @Data
@@ -44,5 +49,8 @@ public class Cliente extends RepresentationModel<Cliente>{
     @Size(max = 100, message = "Email deve ter no máximo 100 caracteres")
 	@Column(name = "nm_email")
 	private String nm_email;
+
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Telefone> telefones = new ArrayList<>();
 	
 }

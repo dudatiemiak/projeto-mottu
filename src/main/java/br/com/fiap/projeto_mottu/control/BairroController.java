@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +20,7 @@ import br.com.fiap.projeto_mottu.model.Bairro;
 import br.com.fiap.projeto_mottu.repository.BairroRepository;
 import br.com.fiap.projeto_mottu.service.BairroCachingService;
 
-@RestController
+@Controller
 @RequestMapping(value = "/bairros")
 public class BairroController {
 
