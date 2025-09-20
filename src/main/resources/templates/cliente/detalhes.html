@@ -4,7 +4,8 @@
 <head th:replace="~{fragmentos :: cabecalho('Detalhes do Cliente')}" />
 
 <body>
-    <form th:replace="~{fragmentos :: form-logout}" />
+	<form th:replace="~{fragmentos :: form-logout}" />
+    <div th:replace="fragmentos :: voltar-home"></div>
 
     <div class="container">
         <div th:replace="~{fragmentos :: saudacoes(${funcionario})}" />
