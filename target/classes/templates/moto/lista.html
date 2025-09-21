@@ -5,6 +5,7 @@
 	<form th:replace="~{fragmentos :: form-logout}" />
 	<div th:replace="fragmentos :: voltar-home"></div>
 	<div class="container mt-4">
+		<div th:replace="~{fragmentos :: saudacoes(${funcionario})}" />
 		<h2>Lista de Motos</h2>
 		<a class="btn btn-success mb-3" th:href="@{/moto/nova}">
 			<i class="bi bi-plus-circle"></i> Nova Moto

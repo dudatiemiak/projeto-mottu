@@ -41,7 +41,7 @@ public class FuncionarioController {
 		ModelAndView mv = new ModelAndView("funcionario/lista");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Optional<Funcionario> op = repFunc.findByNmEmailCorporativo(auth.getName());
-		op.ifPresent(func -> mv.addObject("funcionario_logado", func));
+		op.ifPresent(func -> mv.addObject("funcionario", func));
 		mv.addObject("funcionarios", repFunc.findAll());
 		mv.addObject("lista_funcoes", repFc.findAll());
 		mv.addObject("lista_filiais", repFilial.findAll());

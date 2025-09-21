@@ -5,6 +5,7 @@
     <form th:replace="~{fragmentos :: form-logout}" />
     <div th:replace="fragmentos :: voltar-home"></div>
     <div class="container mt-4">
+        <div th:replace="~{fragmentos :: saudacoes(${funcionario})}" />
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2 class="fw-bold text-primary mb-0"><i class="bi bi-people"></i> Lista de Funcionários</h2>
             <a class="btn btn-success" th:href="@{/funcionario/novo}">
