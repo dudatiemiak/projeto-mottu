@@ -17,7 +17,7 @@
 		</div>
 		<div class="row">
 
-			<form th:object="${funcionario}" th:action="@{/funcionario/inserir}" method="post">
+			<form th:object="${funcionario}" th:action="@{/funcionario/novo}" method="post">
 				
 				   Email: <input class="form-control" type="email" th:field="*{nmEmailCorporativo}">
 				   Senha: <input class="form-control" type="password" th:field="*{nm_senha}">

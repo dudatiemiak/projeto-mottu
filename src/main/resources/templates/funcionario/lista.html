@@ -15,6 +15,8 @@
                     <th>ID</th>
                     <th>Nome</th>
                     <th>Email</th>
+                    <th>Filial</th>
+                    <th>Funções</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -23,8 +25,12 @@
                     <td th:text="${funcionario.id_funcionario}"></td>
                     <td th:text="${funcionario.nm_funcionario}"></td>
                     <td th:text="${funcionario.nmEmailCorporativo}"></td>
+                    <td th:text="${funcionario.filial.nome_filial}"></td>
                     <td>
-                        <a th:href="@{'/funcionario/editar/' + ${funcionario.id_funcionario}}" class="btn btn-warning btn-sm">
+                        <span th:text="${#lists.isEmpty(funcionario.funcoes) ? '' : funcionario.funcoes.iterator().next().nm_funcao}"></span>
+                    </td>
+                    <td>
+                        <a th:href="@{'/funcionario/editar?id=' + ${funcionario.id_funcionario}}" class="btn btn-warning btn-sm">
                             <i class="bi bi-pencil"></i> Editar
                         </a>
                         <a th:href="@{'/funcionario/excluir/' + ${funcionario.id_funcionario}}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir?');">

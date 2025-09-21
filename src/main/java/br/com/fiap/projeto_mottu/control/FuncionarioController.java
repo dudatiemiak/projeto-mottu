@@ -35,7 +35,6 @@ public class FuncionarioController {
 	@Autowired
 	private FilialRepository repFilial;
 
-	// Listar funcionários (apenas ADMIN)
 	@GetMapping("/funcionario/lista")
 	public ModelAndView listarFuncionarios() {
 		ModelAndView mv = new ModelAndView("funcionario/lista");
@@ -50,7 +49,6 @@ public class FuncionarioController {
 		return mv;
 	}
 
-	// Exibir formulário de novo funcionário (apenas ADMIN)
 	@GetMapping("/funcionario/novo")
 	public ModelAndView novoFuncionario() {
 		ModelAndView mv = new ModelAndView("funcionario/novo");
@@ -60,18 +58,9 @@ public class FuncionarioController {
 		return mv;
 	}
 
-	// Salvar novo funcionário (apenas ADMIN)
 	@PostMapping("/funcionario/novo")
-	public ModelAndView inserirFuncionario(Funcionario funcionario, @RequestParam(name = "id_funcao") Long id_funcao, @RequestParam(name = "id_filial") Long id_filial) {
+	public ModelAndView inserirFuncionario(Funcionario funcionario) {
 		funcionario.setNm_senha(encoder.encode(funcionario.getNm_senha()));
-		Set<Funcao> funcoes = new HashSet<>();
-		if (id_funcao != null) {
-			funcoes.add(repFc.findById(id_funcao).orElse(null));
-		}
-		funcionario.setFuncoes(funcoes);
-		if (id_filial != null) {
-			funcionario.setFilial(repFilial.findById(id_filial).orElse(null));
-		}
 		repFunc.save(funcionario);
 		return new ModelAndView("redirect:/funcionario/lista");
 	}
@@ -89,16 +78,8 @@ public class FuncionarioController {
 
 	// Salvar edição (apenas ADMIN)
 	@PostMapping("/funcionario/editar")
-	public ModelAndView atualizarFuncionario(Funcionario funcionario, @RequestParam(name = "id_funcao") Long id_funcao, @RequestParam(name = "id_filial") Long id_filial) {
+	public ModelAndView atualizarFuncionario(Funcionario funcionario) {
 		funcionario.setNm_senha(encoder.encode(funcionario.getNm_senha()));
-		Set<Funcao> funcoes = new HashSet<>();
-		if (id_funcao != null) {
-			funcoes.add(repFc.findById(id_funcao).orElse(null));
-		}
-		funcionario.setFuncoes(funcoes);
-		if (id_filial != null) {
-			funcionario.setFilial(repFilial.findById(id_filial).orElse(null));
-		}
 		repFunc.save(funcionario);
 		return new ModelAndView("redirect:/funcionario/lista");
 	}
