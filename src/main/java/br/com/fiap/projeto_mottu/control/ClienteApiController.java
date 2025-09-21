@@ -28,15 +28,15 @@ public class ClienteApiController {
     @Autowired
     private ClienteCachingService cacheC;
 
-    @GetMapping("/todos")
-    public List<Cliente> retornaTodosClientes(){
-        return repC.findAll();
-    }
+	@GetMapping("/todos")
+	public List<ClienteDTO> retornaTodosClientes(){
+		return repC.findAll().stream().map(ClienteDTO::new).toList();
+	}
 
-    @GetMapping("/todos_cacheable")
-    public List<Cliente> retornaTodosClientesCacheable(){
-        return cacheC.findAll();
-    }
+	@GetMapping("/todos_cacheable")
+	public List<ClienteDTO> retornaTodosClientesCacheable(){
+		return cacheC.findAll().stream().map(ClienteDTO::new).toList();
+	}
 
     @GetMapping("/paginados")
     public ResponseEntity<Page<ClienteDTO>> paginarClientes(
@@ -47,52 +47,52 @@ public class ClienteApiController {
         return ResponseEntity.ok(paginas_clientes_dto);
     }
 
-    @GetMapping("/{id_cliente}")
-    public Cliente retornaClientePorID(@PathVariable Long id_cliente) {
-        Optional<Cliente> op = cacheC.findById(id_cliente);
-        if(op.isPresent()) {
-            return op.get();
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-    }
+	@GetMapping("/{id_cliente}")
+	public ClienteDTO retornaClientePorID(@PathVariable Long id_cliente) {
+		Optional<Cliente> op = cacheC.findById(id_cliente);
+		if(op.isPresent()) {
+			return new ClienteDTO(op.get());
+		} else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		}
+	}
 
-    @PostMapping("/inserir")
-    public Cliente inserirCliente(@RequestBody Cliente cliente) {
-        repC.save(cliente);
-        cacheC.limparCache();
-        return cliente;
-    }
+	@PostMapping("/inserir")
+	public ClienteDTO inserirCliente(@RequestBody Cliente cliente) {
+		repC.save(cliente);
+		cacheC.limparCache();
+		return new ClienteDTO(cliente);
+	}
 
-    @GetMapping("/buscar_por_substring")
-    public List<Cliente> buscarClientePorSubstring(@RequestParam String filtro) {
-        return repC.buscarClientePorSubstringOrdenadoPorNome(filtro);
-    }
+	@GetMapping("/buscar_por_substring")
+	public List<ClienteDTO> buscarClientePorSubstring(@RequestParam String filtro) {
+		return repC.buscarClientePorSubstringOrdenadoPorNome(filtro).stream().map(ClienteDTO::new).toList();
+	}
 
-    @PutMapping("/atualizar/{id_cliente}")
-    public Cliente atualizarCliente(@RequestBody Cliente cliente, @PathVariable Long id_cliente) {
-        Optional<Cliente> op = cacheC.findById(id_cliente);
-        if (op.isPresent()) {
-            Cliente cliente_atual = op.get();
-            cliente_atual.setNm_cliente(cliente.getNm_cliente());
-            cliente_atual.setNr_cpf(cliente.getNr_cpf());
-            cliente_atual.setNm_email(cliente.getNm_email());
-            repC.save(cliente_atual);
-            cacheC.limparCache();
-            return cliente_atual;
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-    }
+	@PutMapping("/atualizar/{id_cliente}")
+	public ClienteDTO atualizarCliente(@RequestBody Cliente cliente, @PathVariable Long id_cliente) {
+		Optional<Cliente> op = cacheC.findById(id_cliente);
+		if (op.isPresent()) {
+			Cliente cliente_atual = op.get();
+			cliente_atual.setNm_cliente(cliente.getNm_cliente());
+			cliente_atual.setNr_cpf(cliente.getNr_cpf());
+			cliente_atual.setNm_email(cliente.getNm_email());
+			repC.save(cliente_atual);
+			cacheC.limparCache();
+			return new ClienteDTO(cliente_atual);
+		} else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		}
+	}
 
     @DeleteMapping("/remover/{id_cliente}")
-    public Cliente removerCliente(@PathVariable Long id_cliente) {
+    public ClienteDTO removerCliente(@PathVariable Long id_cliente) {
         Optional<Cliente> op = cacheC.findById(id_cliente);
         if (op.isPresent()) {
             Cliente cliente = op.get();
             repC.delete(cliente);
             cacheC.limparCache();
-            return cliente;
+            return new ClienteDTO(cliente);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }

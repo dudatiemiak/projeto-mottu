@@ -11,14 +11,16 @@
             <dd class="col-sm-9" th:text="${moto.nm_placa}"></dd>
             <dt class="col-sm-3">Modelo</dt>
             <dd class="col-sm-9" th:text="${moto.nm_modelo}"></dd>
-            <dt class="col-sm-3">Ano</dt>
-            <dd class="col-sm-9" th:text="${moto.ano}"></dd>
             <dt class="col-sm-3">Situação</dt>
             <dd class="col-sm-9" th:text="${moto.st_moto}"></dd>
             <dt class="col-sm-3">KM Rodado</dt>
             <dd class="col-sm-9" th:text="${moto.km_rodado}"></dd>
             <dt class="col-sm-3">Filial/Departamento</dt>
-            <dd class="col-sm-9" th:text="${moto.filial_departamento.nome}"></dd>
+            <dd class="col-sm-9">
+                <span th:text="${moto.filial_departamento.filial.nome_filial}"></span>
+                <span> / </span>
+                <span th:text="${moto.filial_departamento.departamento.nm_departamento}"></span>
+            </dd>
             <dt class="col-sm-3">Cliente (Alugada para)</dt>
             <dd class="col-sm-9">
                 <span th:if="${moto.cliente != null}" th:text="${moto.cliente.nm_cliente}"></span>
@@ -29,16 +31,16 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Data</th>
+                    <th>Data Entrada</th>
+                    <th>Data Saída</th>
                     <th>Descrição</th>
-                    <th>Responsável</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="manut : ${manutencoes}">
-                    <td th:text="${#dates.format(manut.data, 'dd/MM/yyyy')}"></td>
-                    <td th:text="${manut.descricao}"></td>
-                    <td th:text="${manut.responsavel}"></td>
+                    <td th:text="${manut.dt_entrada}"></td>
+                    <td th:text="${manut.dt_saida != null ? manut.dt_saida : '-'}"></td>
+                    <td th:text="${manut.ds_manutencao}"></td>
                 </tr>
                 <tr th:if="${#lists.isEmpty(manutencoes)}">
                     <td colspan="3" class="text-center text-muted">Nenhuma manutenção registrada</td>

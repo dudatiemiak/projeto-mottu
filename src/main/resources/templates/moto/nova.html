@@ -6,18 +6,24 @@
     <div th:replace="fragmentos :: voltar-home"></div>
     <div class="container mt-4">
         <h2>Cadastrar Nova Moto</h2>
-        <form th:action="@{/moto/nova}" th:object="${moto}" method="post">
+        <form th:action="@{/moto/inserir}" th:object="${moto}" method="post">
             <div class="mb-3">
                 <label class="form-label">Placa</label>
                 <input type="text" class="form-control" th:field="*{nm_placa}" required />
             </div>
             <div class="mb-3">
                 <label class="form-label">Modelo</label>
-                <input type="text" class="form-control" th:field="*{nm_modelo}" required />
+                <select class="form-select" th:field="*{nm_modelo}" required>
+                    <option value="" th:text="'Selecione...'" disabled selected></option>
+                    <option th:each="modelo : ${lista_modelos}" th:value="${modelo}" th:text="${modelo}"></option>
+                </select>
             </div>
             <div class="mb-3">
                 <label class="form-label">Situação</label>
-                <input type="text" class="form-control" th:field="*{st_moto}" required />
+                <select class="form-select" th:field="*{st_moto}" required>
+                    <option value="" th:text="'Selecione...'" disabled selected></option>
+                    <option th:each="sit : ${lista_situacoes}" th:value="${sit}" th:text="${sit}"></option>
+                </select>
             </div>
             <div class="mb-3">
                 <label class="form-label">KM Rodado</label>
@@ -26,14 +32,18 @@
             <div class="mb-3">
                 <label class="form-label">Filial/Departamento</label>
                 <select class="form-select" th:field="*{filial_departamento}" required>
-                    <option th:each="fd : ${filiaisDepartamentos}" th:value="${fd}" th:text="${fd.nome}"></option>
+                    <option value="" th:text="'Selecione...'" disabled selected></option>
+                    <option th:each="fd : ${filiaisDepartamentos}" th:value="${fd.id_filial_departamento}">
+                        <span th:text="${fd.filial.nome_filial}" style="font-weight:bold"></span> - <span th:text="${fd.departamento.nm_departamento}"></span>
+                    </option>
                 </select>
+                <small class="form-text text-muted">Escolha a filial (em negrito) e o departamento correspondente.</small>
             </div>
             <div class="mb-3">
                 <label class="form-label">Cliente (opcional)</label>
                 <select class="form-select" th:field="*{cliente}">
-                    <option th:value="" th:text="'Nenhum'"></option>
-                    <option th:each="cli : ${clientes}" th:value="${cli}" th:text="${cli.nm_cliente}"></option>
+                    <option th:value="__${null}__" th:text="'Nenhum'"></option>
+                    <option th:each="cli : ${clientes}" th:value="${cli.id_cliente}" th:text="${cli.nm_cliente}"></option>
                 </select>
             </div>
             <button type="submit" class="btn btn-success">Cadastrar</button>

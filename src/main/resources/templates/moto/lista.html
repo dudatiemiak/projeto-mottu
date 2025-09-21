@@ -27,7 +27,7 @@
 					<td th:text="${moto.nm_modelo}"></td>
 					<td th:text="${moto.st_moto}"></td>
 					<td th:text="${moto.km_rodado}"></td>
-					<td th:text="${moto.filial_departamento.nome}"></td>
+					<td th:text="${moto.filial_departamento.filial.nome_filial}"></td>
 					<td>
 						<span th:if="${moto.cliente != null}" th:text="${moto.cliente.nm_cliente}"></span>
 						<span th:if="${moto.cliente == null}" class="text-muted">Nenhum</span>
