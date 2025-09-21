@@ -17,16 +17,20 @@
 		</div>
 		<div class="row">
 
-			<form th:object="${funcionario}" action="/insere_funcionario" method="post">
+			<form th:object="${funcionario}" th:action="@{/funcionario/inserir}" method="post">
 				
-				Email: <input class="form-control" type="email" th:field="*{nm_email_corporativo}">
-				Senha: <input class="form-control" type="password" th:field="*{nm_senha}">
-				Nome Funcionário: <input class="form-control" type="text" th:field="*{nm_funcionario}">
-				Cargo: <input class="form-control" type="text" th:field="*{nm_cargo}">
-				Funções: 
-				<select class="form-select" th:name="'id_funcao'">
-					<option th:each="funcao : ${lista_funcoes}" th:value="${funcao.id_funcao}" th:text="${funcao.nm_funcao}" />
-				</select><br>
+				   Email: <input class="form-control" type="email" th:field="*{nmEmailCorporativo}">
+				   Senha: <input class="form-control" type="password" th:field="*{nm_senha}">
+				   Nome Funcionário: <input class="form-control" type="text" th:field="*{nm_funcionario}">
+				   Cargo: <input class="form-control" type="text" th:field="*{nm_cargo}">
+				   Função:
+				   <select class="form-select" th:field="*{funcoes}" multiple>
+					   <option th:each="funcao : ${lista_funcoes}" th:value="${funcao.id_funcao}" th:text="${funcao.nm_funcao}" />
+				   </select><br>
+				   Filial:
+				   <select class="form-select" th:field="*{filial}">
+					   <option th:each="filial : ${lista_filiais}" th:value="${filial.id_filial}" th:text="${filial.nome_filial}" />
+				   </select><br>
 				
 				<input type="hidden" name="_csrf" th:value="${_csrf.token}">
 				

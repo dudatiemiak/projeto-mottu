@@ -14,6 +14,7 @@ public class SegurancaConfig {
     public SecurityFilterChain chain(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests((request) -> request
+                    .requestMatchers("/h2-console/**").hasAuthority("ADMIN")
                     .requestMatchers("/funcionario/novo").hasAuthority("ADMIN")
                     .anyRequest().authenticated()
                 )
@@ -36,7 +37,9 @@ public class SegurancaConfig {
                 })
             );
 
-        return http.build();
+    http.headers(headers -> headers.frameOptions().disable()); // Permite uso de frames para H2
+    http.csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**")); // Desabilita CSRF só para H2
+    return http.build();
     }
 
 	@Bean

@@ -20,7 +20,6 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import br.com.fiap.projeto_mottu.model.Filial;
 
 @Entity
 @Table(name = "t_cm_funcionario")

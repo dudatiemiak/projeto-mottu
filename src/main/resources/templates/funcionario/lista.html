@@ -1,0 +1,39 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: cabecalho('Lista de Funcionários')}" />
+<body>
+    <form th:replace="~{fragmentos :: form-logout}" />
+    <div th:replace="fragmentos :: voltar-home"></div>
+    <div class="container mt-4">
+        <h2>Funcionários</h2>
+        <a class="btn btn-primary mb-3" th:href="@{/funcionario/novo}">
+            <i class="bi bi-plus-circle"></i> Novo Funcionário
+        </a>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="funcionario : ${funcionarios}">
+                    <td th:text="${funcionario.id_funcionario}"></td>
+                    <td th:text="${funcionario.nm_funcionario}"></td>
+                    <td th:text="${funcionario.nmEmailCorporativo}"></td>
+                    <td>
+                        <a th:href="@{'/funcionario/editar/' + ${funcionario.id_funcionario}}" class="btn btn-warning btn-sm">
+                            <i class="bi bi-pencil"></i> Editar
+                        </a>
+                        <a th:href="@{'/funcionario/excluir/' + ${funcionario.id_funcionario}}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir?');">
+                            <i class="bi bi-trash"></i> Excluir
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
