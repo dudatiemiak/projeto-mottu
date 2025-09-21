@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -40,9 +41,7 @@ public class FuncionarioController {
 		ModelAndView mv = new ModelAndView("funcionario/lista");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Optional<Funcionario> op = repFunc.findByNmEmailCorporativo(auth.getName());
-		if(op.isPresent()) {
-			mv.addObject("funcionario_logado", op.get());
-		}
+		op.ifPresent(func -> mv.addObject("funcionario_logado", func));
 		mv.addObject("funcionarios", repFunc.findAll());
 		mv.addObject("lista_funcoes", repFc.findAll());
 		mv.addObject("lista_filiais", repFilial.findAll());
@@ -52,6 +51,9 @@ public class FuncionarioController {
 	@GetMapping("/funcionario/novo")
 	public ModelAndView novoFuncionario() {
 		ModelAndView mv = new ModelAndView("funcionario/novo");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Optional<Funcionario> op = repFunc.findByNmEmailCorporativo(auth.getName());
+		op.ifPresent(func -> mv.addObject("funcionario_logado", func));
 		mv.addObject("funcionario", new Funcionario());
 		mv.addObject("lista_funcoes", repFc.findAll());
 		mv.addObject("lista_filiais", repFilial.findAll());
@@ -59,16 +61,23 @@ public class FuncionarioController {
 	}
 
 	@PostMapping("/funcionario/novo")
-	public ModelAndView inserirFuncionario(Funcionario funcionario) {
+	public ModelAndView inserirFuncionario(Funcionario funcionario, @RequestParam(name = "id_funcao") Long id_funcao) {
 		funcionario.setNm_senha(encoder.encode(funcionario.getNm_senha()));
+		Set<Funcao> funcoes = new HashSet<>();
+		if (id_funcao != null) {
+			funcoes.add(repFc.findById(id_funcao).orElse(null));
+		}
+		funcionario.setFuncoes(funcoes);
 		repFunc.save(funcionario);
 		return new ModelAndView("redirect:/funcionario/lista");
 	}
 
-	// Exibir formulário de edição (apenas ADMIN)
 	@GetMapping("/funcionario/editar")
-	public ModelAndView editarFuncionario(@RequestParam Long id) {
+	public ModelAndView editarFuncionarioForm(@RequestParam Long id) {
 		ModelAndView mv = new ModelAndView("funcionario/editar");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Optional<Funcionario> op = repFunc.findByNmEmailCorporativo(auth.getName());
+		op.ifPresent(func -> mv.addObject("funcionario_logado", func));
 		Funcionario funcionario = repFunc.findById(id).orElseThrow(() -> new IllegalArgumentException("Funcionário não encontrado"));
 		mv.addObject("funcionario", funcionario);
 		mv.addObject("lista_funcoes", repFc.findAll());
@@ -76,16 +85,20 @@ public class FuncionarioController {
 		return mv;
 	}
 
-	// Salvar edição (apenas ADMIN)
 	@PostMapping("/funcionario/editar")
-	public ModelAndView atualizarFuncionario(Funcionario funcionario) {
+	public ModelAndView editarFuncionario(Funcionario funcionario, @RequestParam(name = "id_funcao") Long id_funcao) {
 		funcionario.setNm_senha(encoder.encode(funcionario.getNm_senha()));
+		Set<Funcao> funcoes = new HashSet<>();
+		if (id_funcao != null) {
+			funcoes.add(repFc.findById(id_funcao).orElse(null));
+		}
+		funcionario.setFuncoes(funcoes);
 		repFunc.save(funcionario);
 		return new ModelAndView("redirect:/funcionario/lista");
 	}
 
-	@GetMapping("/funcionario/remover/{id}")
-	public ModelAndView excluirFuncionario(@RequestParam Long id) {
+	@GetMapping("/funcionario/excluir/{id}")
+	public ModelAndView removerFuncionarioExistente(@PathVariable Long id) {
 		repFunc.deleteById(id);
 		return new ModelAndView("redirect:/funcionario/lista");
 	}

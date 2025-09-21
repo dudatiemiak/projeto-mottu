@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: cabecalho('Nova Moto')}"></head>
+<body>
+    <form th:replace="~{fragmentos :: form-logout}" />
+    <div th:replace="fragmentos :: voltar-home"></div>
+    <div class="container mt-4">
+        <h2>Cadastrar Nova Moto</h2>
+        <form th:action="@{/moto/nova}" th:object="${moto}" method="post">
+            <div class="mb-3">
+                <label class="form-label">Placa</label>
+                <input type="text" class="form-control" th:field="*{nm_placa}" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Modelo</label>
+                <input type="text" class="form-control" th:field="*{nm_modelo}" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Situação</label>
+                <input type="text" class="form-control" th:field="*{st_moto}" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">KM Rodado</label>
+                <input type="number" class="form-control" th:field="*{km_rodado}" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Filial/Departamento</label>
+                <select class="form-select" th:field="*{filial_departamento}" required>
+                    <option th:each="fd : ${filiaisDepartamentos}" th:value="${fd}" th:text="${fd.nome}"></option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Cliente (opcional)</label>
+                <select class="form-select" th:field="*{cliente}">
+                    <option th:value="" th:text="'Nenhum'"></option>
+                    <option th:each="cli : ${clientes}" th:value="${cli}" th:text="${cli.nm_cliente}"></option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success">Cadastrar</button>
+            <a th:href="@{/moto/lista}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</body>
+</html>

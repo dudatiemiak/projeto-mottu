@@ -5,41 +5,48 @@
     <form th:replace="~{fragmentos :: form-logout}" />
     <div th:replace="fragmentos :: voltar-home"></div>
     <div class="container mt-4">
-        <h2>Funcionários</h2>
-        <a class="btn btn-primary mb-3" th:href="@{/funcionario/novo}">
-            <i class="bi bi-plus-circle"></i> Novo Funcionário
-        </a>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>Filial</th>
-                    <th>Funções</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="funcionario : ${funcionarios}">
-                    <td th:text="${funcionario.id_funcionario}"></td>
-                    <td th:text="${funcionario.nm_funcionario}"></td>
-                    <td th:text="${funcionario.nmEmailCorporativo}"></td>
-                    <td th:text="${funcionario.filial.nome_filial}"></td>
-                    <td>
-                        <span th:text="${#lists.isEmpty(funcionario.funcoes) ? '' : funcionario.funcoes.iterator().next().nm_funcao}"></span>
-                    </td>
-                    <td>
-                        <a th:href="@{'/funcionario/editar?id=' + ${funcionario.id_funcionario}}" class="btn btn-warning btn-sm">
-                            <i class="bi bi-pencil"></i> Editar
-                        </a>
-                        <a th:href="@{'/funcionario/excluir/' + ${funcionario.id_funcionario}}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir?');">
-                            <i class="bi bi-trash"></i> Excluir
-                        </a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="fw-bold text-primary mb-0"><i class="bi bi-people"></i> Lista de Funcionários</h2>
+            <a class="btn btn-success" th:href="@{/funcionario/novo}">
+                <i class="bi bi-plus-circle"></i> Novo Funcionário
+            </a>
+        </div>
+        <div class="table-responsive rounded shadow-sm">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Filial</th>
+                        <th>Função</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="funcionario : ${funcionarios}">
+                        <td th:text="${funcionario.id_funcionario}"></td>
+                        <td class="fw-semibold" th:text="${funcionario.nm_funcionario}"></td>
+                        <td th:text="${funcionario.nmEmailCorporativo}"></td>
+                        <td>
+                            <span class="badge bg-info text-dark" th:text="${funcionario.filial.nome_filial}"></span>
+                        </td>
+                        <td>
+                            <span th:if="${!#lists.isEmpty(funcionario.funcoes)}" class="badge bg-secondary" th:text="${funcionario.funcoes.iterator().next().nm_funcao}"></span>
+                            <span th:if="${#lists.isEmpty(funcionario.funcoes)}" class="text-muted">-</span>
+                        </td>
+                        <td class="text-center">
+                            <a th:href="@{'/funcionario/editar?id=' + ${funcionario.id_funcionario}}" class="btn btn-warning btn-sm">
+                                <i class="bi bi-pencil"></i> Editar
+                            </a>
+                            <a th:href="@{'/funcionario/excluir/' + ${funcionario.id_funcionario}}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir?');">
+                                <i class="bi bi-trash"></i> Excluir
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 </html>

@@ -38,9 +38,17 @@
                                 <span th:each="tel : ${cliente.telefones}" th:text="${tel.nr_ddd + ' ' + tel.nr_telefone}" th:unless="${#lists.isEmpty(cliente.telefones)}"></span>
                             </td>
                             <td th:text="${cliente.logradouro.nm_logradouro}"></td>
-                            <td><a th:href="@{/cliente/detalhes/{id}(id=${cliente.id_cliente})}">Detalhes</a></td>
-                            <td><a th:href="@{/cliente/editar/{id}(id=${cliente.id_cliente})}">Editar</a></td>
-                            <td><a th:href="@{/cliente/remover/{id}(id=${cliente.id_cliente})}">Remover</a></td>
+                            <td colspan="3" class="text-center">
+                                <a th:href="@{/cliente/detalhes/{id}(id=${cliente.id_cliente})}" class="btn btn-info btn-sm me-1" title="Detalhes">
+                                    <i class="bi bi-search"></i> Detalhes
+                                </a>
+                                <a th:href="@{/cliente/editar/{id}(id=${cliente.id_cliente})}" class="btn btn-warning btn-sm me-1" title="Editar">
+                                    <i class="bi bi-pencil"></i> Editar
+                                </a>
+                                <a th:href="@{/cliente/remover/{id}(id=${cliente.id_cliente})}" class="btn btn-danger btn-sm" title="Remover" onclick="return confirm('Tem certeza que deseja remover este cliente?');">
+                                    <i class="bi bi-trash"></i> Remover
+                                </a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

@@ -24,7 +24,7 @@
 				   Nome Funcionário: <input class="form-control" type="text" th:field="*{nm_funcionario}">
 				   Cargo: <input class="form-control" type="text" th:field="*{nm_cargo}">
 				   Função:
-				   <select class="form-select" th:field="*{funcoes}" multiple>
+				   <select class="form-select" name="id_funcao">
 					   <option th:each="funcao : ${lista_funcoes}" th:value="${funcao.id_funcao}" th:text="${funcao.nm_funcao}" />
 				   </select><br>
 				   Filial:

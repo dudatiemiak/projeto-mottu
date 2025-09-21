@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: cabecalho('Lista de Motos')}"></head>
+<body>
+	<form th:replace="~{fragmentos :: form-logout}" />
+	<div th:replace="fragmentos :: voltar-home"></div>
+	<div class="container mt-4">
+		<h2>Lista de Motos</h2>
+		<a class="btn btn-success mb-3" th:href="@{/moto/nova}">
+			<i class="bi bi-plus-circle"></i> Nova Moto
+		</a>
+		<table class="table table-hover align-middle">
+			<thead class="table-light">
+				<tr>
+					<th>Placa</th>
+					<th>Modelo</th>
+					<th>Situação</th>
+					<th>KM Rodado</th>
+					<th>Filial/Departamento</th>
+					<th>Cliente</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="moto : ${motos}">
+					<td th:text="${moto.nm_placa}"></td>
+					<td th:text="${moto.nm_modelo}"></td>
+					<td th:text="${moto.st_moto}"></td>
+					<td th:text="${moto.km_rodado}"></td>
+					<td th:text="${moto.filial_departamento.nome}"></td>
+					<td>
+						<span th:if="${moto.cliente != null}" th:text="${moto.cliente.nm_cliente}"></span>
+						<span th:if="${moto.cliente == null}" class="text-muted">Nenhum</span>
+					</td>
+					<td>
+						<a th:href="@{'/moto/detalhes/' + ${moto.id_moto}}" class="btn btn-info btn-sm me-1">
+							<i class="bi bi-search"></i> Detalhes
+						</a>
+						<a th:href="@{'/moto/editar/' + ${moto.id_moto}}" class="btn btn-warning btn-sm me-1">
+							<i class="bi bi-pencil"></i> Editar
+						</a>
+						<a th:href="@{'/moto/excluir/' + ${moto.id_moto}}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir esta moto?');">
+							<i class="bi bi-trash"></i> Excluir
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
