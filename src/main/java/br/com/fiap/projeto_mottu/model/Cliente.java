@@ -40,11 +40,11 @@ public class Cliente extends RepresentationModel<Cliente>{
     @Size(max = 100, message = "O nome do cliente deve ter no máximo 100 caracteres")
 	@Column(name = "nm_cliente")
 	private String nm_cliente;
-	@NotEmpty
+	@NotEmpty(message = "O CPF deve ser informado!")
 	@CPF(message = "O CPF informado é inválido")
 	@Column(name = "nr_cpf")
 	private String nr_cpf;
-	@NotEmpty
+	@NotEmpty(message = "O email deve ser informado!")
 	@Email(message = "Email deve ser válido")
     @Size(max = 100, message = "Email deve ter no máximo 100 caracteres")
 	@Column(name = "nm_email")

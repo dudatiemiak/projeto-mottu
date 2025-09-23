@@ -19,6 +19,7 @@
 									<option value="" th:text="'Selecione...'" disabled selected></option>
 									<option th:each="m : ${motos}" th:value="${m.id_moto}" th:text="${m.nm_placa + ' - ' + m.nm_modelo}"></option>
 								</select>
+								<div class="invalid-feedback" th:errors="*{moto}"></div>
 							</div>
 							<div class="mb-4">
 								<label class="form-label">Data Entrada</label>
@@ -38,6 +39,7 @@
 							<div class="mb-4">
 								<label class="form-label">Descrição</label>
 								<textarea class="form-control" th:field="*{ds_manutencao}" maxlength="300" required placeholder="Descreva a manutenção"></textarea>
+								<div class="invalid-feedback" th:errors="*{ds_manutencao}"></div>
 							</div>
 							<div class="d-flex justify-content-end gap-2">
 								<button type="submit" class="btn btn-success">

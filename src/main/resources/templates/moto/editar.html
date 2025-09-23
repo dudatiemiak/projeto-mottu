@@ -17,6 +17,7 @@
                             <div class="mb-3">
                                 <label class="form-label">Placa</label>
                                 <input type="text" class="form-control" th:field="*{nm_placa}" required />
+                                <div class="invalid-feedback" th:errors="*{nm_placa}"></div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Modelo</label>
@@ -24,6 +25,7 @@
                                     <option value="" th:text="'Selecione...'" disabled></option>
                                     <option th:each="modelo : ${lista_modelos}" th:value="${modelo}" th:text="${modelo}"></option>
                                 </select>
+                                <div class="invalid-feedback" th:errors="*{nm_modelo}"></div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Situação</label>
@@ -31,6 +33,7 @@
                                     <option value="" th:text="'Selecione...'" disabled></option>
                                     <option th:each="sit : ${lista_situacoes}" th:value="${sit}" th:text="${sit}"></option>
                                 </select>
+                                <div class="invalid-feedback" th:errors="*{st_moto}"></div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">KM Rodado</label>
@@ -41,6 +44,7 @@
                                 <select class="form-select" th:field="*{filial_departamento}" required>
                                     <option th:each="fd : ${filiaisDepartamentos}" th:value="${fd.id_filial_departamento}" th:text="${fd.filial.nome_filial + ' / ' + fd.departamento.nm_departamento}"></option>
                                 </select>
+                                <div class="invalid-feedback" th:errors="*{filial_departamento}"></div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Cliente (opcional)</label>

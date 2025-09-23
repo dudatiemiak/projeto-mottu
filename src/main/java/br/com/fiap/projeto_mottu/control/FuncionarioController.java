@@ -51,9 +51,6 @@ public class FuncionarioController {
 	@GetMapping("/funcionario/novo")
 	public ModelAndView novoFuncionario() {
 		ModelAndView mv = new ModelAndView("funcionario/novo");
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Optional<Funcionario> op = repFunc.findByNmEmailCorporativo(auth.getName());
-		op.ifPresent(func -> mv.addObject("funcionario_logado", func));
 		mv.addObject("funcionario", new Funcionario());
 		mv.addObject("lista_funcoes", repFc.findAll());
 		mv.addObject("lista_filiais", repFilial.findAll());
@@ -75,9 +72,6 @@ public class FuncionarioController {
 	@GetMapping("/funcionario/editar")
 	public ModelAndView editarFuncionarioForm(@RequestParam Long id) {
 		ModelAndView mv = new ModelAndView("funcionario/editar");
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Optional<Funcionario> op = repFunc.findByNmEmailCorporativo(auth.getName());
-		op.ifPresent(func -> mv.addObject("funcionario_logado", func));
 		Funcionario funcionario = repFunc.findById(id).orElseThrow(() -> new IllegalArgumentException("Funcionário não encontrado"));
 		mv.addObject("funcionario", funcionario);
 		mv.addObject("lista_funcoes", repFc.findAll());

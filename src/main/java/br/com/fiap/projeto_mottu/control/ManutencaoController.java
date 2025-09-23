@@ -43,9 +43,6 @@ public class ManutencaoController {
     @GetMapping("/manutencao/nova")
     public ModelAndView novaManutencao() {
         ModelAndView mv = new ModelAndView("manutencao/nova");
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Optional<Funcionario> op = repFunc.findByNmEmailCorporativo(auth.getName());
-        op.ifPresent(func -> mv.addObject("funcionario", func));
         mv.addObject("manutencao", new Manutencao());
         mv.addObject("motos", repMoto.findAll());
         return mv;
@@ -68,9 +65,6 @@ public class ManutencaoController {
         Optional<Manutencao> op = repManutencao.findById(id);
         if (op.isPresent()) {
             ModelAndView mv = new ModelAndView("manutencao/editar");
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            Optional<Funcionario> opFunc = repFunc.findByNmEmailCorporativo(auth.getName());
-            opFunc.ifPresent(func -> mv.addObject("funcionario", func));
             Manutencao manut = op.get();
             Moto moto = new Moto();
             moto.setId_moto(manut.getMoto().getId_moto());

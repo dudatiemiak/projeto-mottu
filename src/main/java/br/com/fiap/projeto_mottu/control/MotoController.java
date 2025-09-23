@@ -51,12 +51,7 @@ public class MotoController {
 
 	@GetMapping("/moto/nova")
 	public ModelAndView novaMoto() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Optional<Funcionario> op = repFunc.findByNmEmailCorporativo(auth.getName());
 		ModelAndView mv = new ModelAndView("moto/nova");
-		if(op.isPresent()) {
-			mv.addObject("funcionario",op.get());
-		}
 		mv.addObject("moto", new Moto());
 		mv.addObject("filiaisDepartamentos", repFD.findAll());
 		mv.addObject("clientes", repC.findAll());
@@ -69,11 +64,6 @@ public class MotoController {
 	public ModelAndView inserirMoto(@Valid Moto moto, BindingResult bd) {
 		if (bd.hasErrors()) {
 			ModelAndView mv = new ModelAndView("moto/nova");
-			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-			Optional<Funcionario> op = repFunc.findByNmEmailCorporativo(auth.getName());
-			if(op.isPresent()) {
-				mv.addObject("funcionario", op.get());
-			}
 			mv.addObject("moto", moto);
 			mv.addObject("filiaisDepartamentos", repFD.findAll());
 			mv.addObject("clientes", repC.findAll());
@@ -90,14 +80,6 @@ public class MotoController {
 		Optional<Moto> op = repM.findById(id);
 		if (op.isPresent()) {
 			ModelAndView mv = new ModelAndView("moto/editar");
-            
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            
-    		Optional<Funcionario> op1 = repFunc.findByNmEmailCorporativo(auth.getName());
-    		
-    		if(op1.isPresent()) {
-				mv.addObject("funcionario", op1.get());
-			}
 			mv.addObject("moto", op.get());
 			mv.addObject("filiaisDepartamentos", repFD.findAll());
 			mv.addObject("clientes", repC.findAll());

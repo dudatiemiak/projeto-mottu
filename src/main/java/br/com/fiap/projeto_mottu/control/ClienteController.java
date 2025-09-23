@@ -54,16 +54,7 @@ public class ClienteController {
 
     @GetMapping("/cliente/nova")
     public ModelAndView formularioNovoCliente() {        
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        
-		Optional<Funcionario> op = repFunc.findByNmEmailCorporativo(auth.getName());
-
         ModelAndView mv = new ModelAndView("/cliente/nova");
-        
-        if(op.isPresent()) {
-			mv.addObject("funcionario",op.get());
-		}
-
         mv.addObject("cliente", new Cliente());
         mv.addObject("logradouros", repL.findAll());
         mv.addObject("telefones", repT.findAll());
@@ -74,11 +65,6 @@ public class ClienteController {
 	public ModelAndView inserirCliente(@Valid Cliente cliente, BindingResult bd) {
 		if (bd.hasErrors()) {
 			ModelAndView mv = new ModelAndView("/cliente/nova");
-			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-			Optional<Funcionario> op = repFunc.findByNmEmailCorporativo(auth.getName());
-			if(op.isPresent()) {
-				mv.addObject("funcionario", op.get());
-			}
 			mv.addObject("cliente", cliente);
 			mv.addObject("logradouros", repL.findAll());
 			return mv;
@@ -96,15 +82,6 @@ public class ClienteController {
         Optional<Cliente> op = repC.findById(id);
         if (op.isPresent()) {
             ModelAndView mv = new ModelAndView("/cliente/detalhes");
-            
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            
-    		Optional<Funcionario> op1 = repFunc.findByNmEmailCorporativo(auth.getName());
-    		
-    		if(op1.isPresent()) {
-				mv.addObject("funcionario", op1.get());
-			}
-    		
             mv.addObject("cliente", op.get());
             return mv;
         }
@@ -116,15 +93,6 @@ public class ClienteController {
         Optional<Cliente> op = repC.findById(id);
         if (op.isPresent()) {
             ModelAndView mv = new ModelAndView("/cliente/editar");
-            
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            
-    		Optional<Funcionario> op1 = repFunc.findByNmEmailCorporativo(auth.getName());
-    		
-    		if(op1.isPresent()) {
-				mv.addObject("funcionario", op1.get());
-			}
-            
             mv.addObject("cliente", op.get());
             mv.addObject("logradouros", repL.findAll());
             mv.addObject("telefones", repT.findAll());
@@ -134,11 +102,13 @@ public class ClienteController {
     }
 
     @PostMapping("/cliente/editar/{id}")
-    public ModelAndView editarCliente(@PathVariable Long id, @Valid Cliente cliente, BindingResult bd, @Valid Telefone telefone) {
+    public ModelAndView editarCliente(@PathVariable Long id, @Valid Cliente cliente, BindingResult bd,
+            String nr_ddd, String nr_ddi, String nr_telefone) {
 		if (bd.hasErrors()) {
 			ModelAndView mv = new ModelAndView("/cliente/editar");
 			mv.addObject("cliente", cliente);
 			mv.addObject("logradouros", repL.findAll());
+			mv.addObject("telefones", repT.findAll());
 			return mv;
 		}
 		Optional<Cliente> op = repC.findById(id);
@@ -148,14 +118,20 @@ public class ClienteController {
 			atual.setNr_cpf(cliente.getNr_cpf());
 			atual.setNm_email(cliente.getNm_email());
 			atual.setLogradouro(cliente.getLogradouro());
-			// Remove todos os telefones antigos e adiciona os novos
+			
+			// Remove todos os telefones antigos
 			atual.getTelefones().clear();
-			if (cliente.getTelefones() != null) {
-				cliente.getTelefones().forEach(t -> {
-					t.setCliente(atual);
-					atual.getTelefones().add(t);
-				});
+			
+			// Adiciona novo telefone se os dados foram preenchidos
+			if (nr_telefone != null && !nr_telefone.trim().isEmpty()) {
+				Telefone novoTelefone = new Telefone();
+				novoTelefone.setNr_ddd(nr_ddd);
+				novoTelefone.setNr_ddi(nr_ddi);
+				novoTelefone.setNr_telefone(nr_telefone);
+				novoTelefone.setCliente(atual);
+				atual.getTelefones().add(novoTelefone);
 			}
+			
 			repC.save(atual);
 		}
 		return new ModelAndView("redirect:/cliente/lista");
