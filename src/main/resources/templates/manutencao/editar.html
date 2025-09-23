@@ -12,7 +12,7 @@
 						<h2 class="mb-0">Editar Manutenção</h2>
 					</div>
 					<div class="card-body">
-						<form th:action="@{/manutencao/editar/{id}(id=${manutencao.id_manutencao})}" th:object="${manutencao}" method="post">
+						<form th:action="@{/manutencao/editar/{id}(id=${manutencao.id_manutencao})}" th:object="${manutencao}" method="post" id="manutencaoForm" onsubmit="return validarDatasManutencao(event)">
 							<input type="hidden" th:field="*{id_manutencao}" />
 							<div class="mb-4">
 								<label class="form-label">Moto</label>
@@ -23,11 +23,18 @@
 							</div>
 							<div class="mb-4">
 								<label class="form-label">Data Entrada</label>
-								<input type="date" class="form-control" th:field="*{dt_entrada}" required placeholder="Data de entrada" />
+								<input type="date" class="form-control" th:field="*{dt_entrada}" required placeholder="Data de entrada" id="dt_entrada" />
+								<div id="erroDataEntrada" class="text-danger mt-1" style="display:none"></div>
+								<div th:if="${#fields.hasErrors('dt_entrada')}" class="text-danger mt-1">
+									<span th:errors="*{dt_entrada}"></span>
+								</div>
 							</div>
 							<div class="mb-4">
 								<label class="form-label">Data Saída</label>
 								<input type="date" class="form-control" th:field="*{dt_saida}" placeholder="Data de saída" />
+								<div th:if="${#fields.hasErrors('dt_saida')}" class="text-danger mt-1">
+									<span th:errors="*{dt_saida}"></span>
+								</div>
 							</div>
 							<div class="mb-4">
 								<label class="form-label">Descrição</label>
@@ -47,5 +54,26 @@
 			</div>
 		</div>
 	</div>
+<script>
+function validarDatasManutencao(event) {
+	const dataEntradaInput = document.getElementById('dt_entrada');
+	const erroDataEntrada = document.getElementById('erroDataEntrada');
+	erroDataEntrada.style.display = 'none';
+	erroDataEntrada.textContent = '';
+	if (dataEntradaInput && dataEntradaInput.value) {
+		const hoje = new Date();
+		hoje.setHours(0,0,0,0);
+		const dataEntrada = new Date(dataEntradaInput.value);
+		if (dataEntrada > hoje) {
+			erroDataEntrada.textContent = 'A data de entrada não pode ser futura.';
+			erroDataEntrada.style.display = 'block';
+			dataEntradaInput.focus();
+			event.preventDefault();
+			return false;
+		}
+	}
+	return true;
+}
+</script>
 </body>
 </html>
