@@ -5,49 +5,65 @@
     <form th:replace="~{fragmentos :: form-logout}" />
     <div th:replace="fragmentos :: voltar-home"></div>
     <div class="container mt-4">
-        <h2>Detalhes da Moto</h2>
-        <dl class="row">
-            <dt class="col-sm-3">Placa</dt>
-            <dd class="col-sm-9" th:text="${moto.nm_placa}"></dd>
-            <dt class="col-sm-3">Modelo</dt>
-            <dd class="col-sm-9" th:text="${moto.nm_modelo}"></dd>
-            <dt class="col-sm-3">Situação</dt>
-            <dd class="col-sm-9" th:text="${moto.st_moto}"></dd>
-            <dt class="col-sm-3">KM Rodado</dt>
-            <dd class="col-sm-9" th:text="${moto.km_rodado}"></dd>
-            <dt class="col-sm-3">Filial/Departamento</dt>
-            <dd class="col-sm-9">
-                <span th:text="${moto.filial_departamento.filial.nome_filial}"></span>
-                <span> / </span>
-                <span th:text="${moto.filial_departamento.departamento.nm_departamento}"></span>
-            </dd>
-            <dt class="col-sm-3">Cliente (Alugada para)</dt>
-            <dd class="col-sm-9">
-                <span th:if="${moto.cliente != null}" th:text="${moto.cliente.nm_cliente}"></span>
-                <span th:if="${moto.cliente == null}" class="text-muted">Nenhum</span>
-            </dd>
-        </dl>
-        <h4>Histórico de Manutenções</h4>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Data Entrada</th>
-                    <th>Data Saída</th>
-                    <th>Descrição</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="manut : ${manutencoes}">
-                    <td th:text="${manut.dt_entrada}"></td>
-                    <td th:text="${manut.dt_saida != null ? manut.dt_saida : '-'}"></td>
-                    <td th:text="${manut.ds_manutencao}"></td>
-                </tr>
-                <tr th:if="${#lists.isEmpty(manutencoes)}">
-                    <td colspan="3" class="text-center text-muted">Nenhuma manutenção registrada</td>
-                </tr>
-            </tbody>
-        </table>
-        <a th:href="@{/moto/lista}" class="btn btn-secondary">Voltar</a>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-info text-white text-center">
+                        <h2 class="mb-0">Detalhes da Moto</h2>
+                    </div>
+                    <div class="card-body">
+                        <dl class="row mb-0">
+                            <dt class="col-sm-4">Placa</dt>
+                            <dd class="col-sm-8" th:text="${moto.nm_placa}"></dd>
+                            <dt class="col-sm-4">Modelo</dt>
+                            <dd class="col-sm-8" th:text="${moto.nm_modelo}"></dd>
+                            <dt class="col-sm-4">Situação</dt>
+                            <dd class="col-sm-8" th:text="${moto.st_moto}"></dd>
+                            <dt class="col-sm-4">KM Rodado</dt>
+                            <dd class="col-sm-8" th:text="${moto.km_rodado}"></dd>
+                            <dt class="col-sm-4">Filial/Departamento</dt>
+                            <dd class="col-sm-8">
+                                <span th:text="${moto.filial_departamento.filial.nome_filial}"></span>
+                                <span> / </span>
+                                <span th:text="${moto.filial_departamento.departamento.nm_departamento}"></span>
+                            </dd>
+                            <dt class="col-sm-4">Cliente (Alugada para)</dt>
+                            <dd class="col-sm-8">
+                                <span th:if="${moto.cliente != null}" th:text="${moto.cliente.nm_cliente}"></span>
+                                <span th:if="${moto.cliente == null}" class="text-muted">Nenhum</span>
+                            </dd>
+                        </dl>
+                        <h4 class="mt-4">Histórico de Manutenções</h4>
+                        <div class="table-responsive">
+                            <table class="table table-bordered align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Data Entrada</th>
+                                        <th>Data Saída</th>
+                                        <th>Descrição</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="manut : ${manutencoes}">
+                                        <td th:text="${manut.dt_entrada}"></td>
+                                        <td th:text="${manut.dt_saida != null ? manut.dt_saida : '-'}"></td>
+                                        <td th:text="${manut.ds_manutencao}"></td>
+                                    </tr>
+                                    <tr th:if="${#lists.isEmpty(manutencoes)}">
+                                        <td colspan="3" class="text-center text-muted">Nenhuma manutenção registrada</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <a th:href="@{/moto/lista}" class="btn btn-secondary btn-lg fw-bold">
+                                <i class="bi bi-arrow-left"></i> Voltar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

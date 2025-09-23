@@ -1,144 +1,134 @@
 package br.com.fiap.projeto_mottu.control;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.ModelAndView;
 
-import br.com.fiap.projeto_mottu.dto.ManutencaoDTO;
 import br.com.fiap.projeto_mottu.model.Manutencao;
+import br.com.fiap.projeto_mottu.model.Funcionario;
+import br.com.fiap.projeto_mottu.model.Moto;
 import br.com.fiap.projeto_mottu.repository.ManutencaoRepository;
-import br.com.fiap.projeto_mottu.service.ManutencaoCachingService;
-import br.com.fiap.projeto_mottu.service.ManutencaoService;
-
+import br.com.fiap.projeto_mottu.repository.MotoRepository;
+import br.com.fiap.projeto_mottu.repository.FuncionarioRepository;
+import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping(value = "/manutencoes")
 public class ManutencaoController {
 
-	@Autowired
-	private ManutencaoRepository repMan;
-	
-	@Autowired
-	private ManutencaoService servMan;
-	
-	@Autowired
-	private ManutencaoCachingService cacheMan;
-	
-	@GetMapping(value = "/todas")
-	public List<Manutencao> retornaTodosManutencoes(){
-		return repMan.findAll();
-	}
-	
-	@GetMapping(value = "/todos_cacheable")
-	public List<Manutencao> retornaTodasManutencoesCacheable(){
-		return cacheMan.findAll();
-	}
-	
-	@GetMapping(value = "/paginados")
-	public ResponseEntity<Page<ManutencaoDTO>> paginarManutencoes(
-			@RequestParam(value = "pagina", defaultValue = "0") Integer page, 
-			@RequestParam(value = "tamanho", defaultValue = "2") Integer size){
-		
-		PageRequest pr = PageRequest.of(page, size);
-		
-		Page<ManutencaoDTO> paginas_manutencoes_dto = servMan.paginar(pr);
-		
-		return ResponseEntity.ok(paginas_manutencoes_dto);
-		
-	}
-	
-	@GetMapping(value = "/{id_manutencao}")
-	public Manutencao retornaManutencaoPorID(@PathVariable Long id_manutencao) {
-		
-		Optional<Manutencao> op = cacheMan.findById(id_manutencao);
-		
-		if(op.isPresent()) {
-			return op.get();
-		} else {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-		}
-		
-	}
-	
-	@PostMapping(value = "/inserir")
-	public Manutencao inserirManutencao(@RequestBody Manutencao manutencao) {
-		repMan.save(manutencao);
-		cacheMan.limparCache();
-		return manutencao;
-	}
-	
-	@GetMapping("/buscar_todas_ordenada_por_data")
-    public List<Manutencao> buscarOrdenadasPorDataEntrada() {
-        return repMan.buscarTodasOrdenadasPorDataEntrada();
-    }
-	
-	@GetMapping("/buscar_em_aberto")
-    public ResponseEntity<List<Manutencao>> buscarManutencoesEmAberto() {
-        List<Manutencao> manutencoes = repMan.buscarManutencoesEmAberto();
-        return manutencoes.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(manutencoes);
-    }
-	
-	@GetMapping("/buscar_por_descricao")
-    public ResponseEntity<List<Manutencao>> buscarPorDescricao(@RequestParam String keyword) {
-        List<Manutencao> manutencoes = repMan.buscarPorDescricao(keyword);
-        return manutencoes.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(manutencoes);
+    @Autowired
+    private ManutencaoRepository repManutencao;
+    @Autowired
+    private MotoRepository repMoto;
+    @Autowired
+    private FuncionarioRepository repFunc;
+
+    @GetMapping("/manutencao/lista")
+    public ModelAndView listarManutencoes() {
+        ModelAndView mv = new ModelAndView("manutencao/lista");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Optional<Funcionario> op = repFunc.findByNmEmailCorporativo(auth.getName());
+        op.ifPresent(func -> mv.addObject("funcionario", func));
+        mv.addObject("manutencoes", repManutencao.buscarTodasOrdenadasPorDataEntrada());
+        return mv;
     }
 
-	@PutMapping(value = "/atualizar/{id_manutencao}")
-	public Manutencao atualizarManutencao(@RequestBody Manutencao manutencao, @PathVariable Long id_manutencao) {
+    @GetMapping("/manutencao/nova")
+    public ModelAndView novaManutencao() {
+        ModelAndView mv = new ModelAndView("manutencao/nova");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Optional<Funcionario> op = repFunc.findByNmEmailCorporativo(auth.getName());
+        op.ifPresent(func -> mv.addObject("funcionario", func));
+        mv.addObject("manutencao", new Manutencao());
+        mv.addObject("motos", repMoto.findAll());
+        return mv;
+    }
 
-		Optional<Manutencao> op = cacheMan.findById(id_manutencao);
+    @PostMapping("/manutencao/inserir")
+    public ModelAndView inserirManutencao(@Valid Manutencao manutencao, BindingResult bd) {
+        if (bd.hasErrors()) {
+            ModelAndView mv = new ModelAndView("manutencao/nova");
+            mv.addObject("manutencao", manutencao);
+            mv.addObject("motos", repMoto.findAll());
+            return mv;
+        }
+        repManutencao.save(manutencao);
+        return new ModelAndView("redirect:/manutencao/lista");
+    }
 
-		if (op.isPresent()) {
+    @GetMapping("/manutencao/editar/{id}")
+    public ModelAndView editarManutencaoForm(@PathVariable Long id) {
+        Optional<Manutencao> op = repManutencao.findById(id);
+        if (op.isPresent()) {
+            ModelAndView mv = new ModelAndView("manutencao/editar");
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            Optional<Funcionario> opFunc = repFunc.findByNmEmailCorporativo(auth.getName());
+            opFunc.ifPresent(func -> mv.addObject("funcionario", func));
+            Manutencao manut = op.get();
+            Moto moto = new Moto();
+            moto.setId_moto(manut.getMoto().getId_moto());
+            moto.setNm_placa(manut.getMoto().getNm_placa());
+            moto.setNm_modelo(manut.getMoto().getNm_modelo());
+            manut.setMoto(moto);
+            mv.addObject("manutencao", manut);
+            mv.addObject("motos", repMoto.findAll());
+            return mv;
+        }
+        return new ModelAndView("redirect:/manutencao/lista");
+    }
 
-			Manutencao manutencao_atual = op.get();
+    @PostMapping("/manutencao/editar/{id}")
+    public ModelAndView editarManutencao(@PathVariable Long id, @Valid Manutencao manutencao, BindingResult bd) {
+        if (bd.hasErrors()) {
+            ModelAndView mv = new ModelAndView("manutencao/editar");
+            mv.addObject("manutencao", manutencao);
+            mv.addObject("motos", repMoto.findAll());
+            return mv;
+        }
 
-			manutencao_atual.setMoto(manutencao.getMoto());
-			manutencao_atual.setDs_manutencao(manutencao.getDs_manutencao());
-			manutencao_atual.setDt_entrada(manutencao.getDt_entrada());
-			manutencao_atual.setDt_saida(manutencao.getDt_saida());
-		
-			repMan.save(manutencao_atual);
-			cacheMan.limparCache();
+        Optional<Manutencao> opManutencao = repManutencao.findById(id);
+        if (opManutencao.isEmpty()) {
+            return new ModelAndView("redirect:/manutencao/lista");
+        }
 
-			return manutencao_atual;
+        Manutencao atual = opManutencao.get();
 
-		} else {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-		}
+        // Atualiza a moto vinculada
+        Moto moto = null;
+        if (manutencao.getMoto() != null && manutencao.getMoto().getId_moto() != null) {
+            moto = repMoto.findById(manutencao.getMoto().getId_moto()).orElse(null);
+        }
+        if (moto != null) {
+            atual.setMoto(moto);
+        }
 
-	}
+        // Atualiza os demais campos
+        atual.setDt_entrada(manutencao.getDt_entrada());
+        atual.setDt_saida(manutencao.getDt_saida());
+        atual.setDs_manutencao(manutencao.getDs_manutencao());
 
-	@DeleteMapping(value = "/remover/{id_manutencao}")
-	public Manutencao removerManutencao(@PathVariable Long id_manutencao) {
+        repManutencao.save(atual);
+        return new ModelAndView("redirect:/manutencao/lista");
+    }
 
-		Optional<Manutencao> op = cacheMan.findById(id_manutencao);
+    @GetMapping("/manutencao/excluir/{id}")
+    public ModelAndView excluirManutencao(@PathVariable Long id) {
+        repManutencao.deleteById(id);
+        return new ModelAndView("redirect:/manutencao/lista");
+    }
 
-		if (op.isPresent()) {
-
-			Manutencao manutencao = op.get();
-			repMan.delete(manutencao);
-			cacheMan.limparCache();
-			return manutencao;
-
-		} else {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-		}
-
-	}
+    @GetMapping("/manutencao/detalhes/{id}")
+    public ModelAndView detalhesManutencao(@PathVariable Long id) {
+        ModelAndView mv = new ModelAndView("manutencao/detalhes");
+        Manutencao manutencao = repManutencao.findById(id).orElseThrow();
+        mv.addObject("manutencao", manutencao);
+        return mv;
+    }
 }

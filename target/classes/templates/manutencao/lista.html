@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: cabecalho('Lista de Manutenções')}"></head>
+<body>
+	<form th:replace="~{fragmentos :: form-logout}" />
+	<div th:replace="fragmentos :: voltar-home"></div>
+	<div class="container mt-4">
+		<div th:replace="~{fragmentos :: saudacoes(${funcionario})}" />
+		<div class="row justify-content-center">
+			<div class="col-lg-10">
+				<div class="card shadow-sm">
+					<div class="card-header bg-primary text-white text-center">
+						<h2 class="mb-0">Lista de Manutenções</h2>
+					</div>
+					<div class="card-body">
+						<a class="btn btn-success mb-3" th:href="@{/manutencao/nova}">
+							<i class="bi bi-plus-circle"></i> Nova Manutenção
+						</a>
+						<div class="table-responsive">
+							<table class="table table-hover align-middle">
+								<thead class="table-light">
+									<tr>
+										<th>Moto</th>
+										<th>Data Entrada</th>
+										<th>Data Saída</th>
+										<th>Descrição</th>
+										<th>Ações</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="manut : ${manutencoes}">
+										<td>
+											<span class="fw-bold" th:text="${manut.moto.nm_placa}"></span>
+											<span class="text-muted">-</span>
+											<span th:text="${manut.moto.nm_modelo}"></span>
+										</td>
+										<td th:text="${manut.dt_entrada}"></td>
+										<td th:text="${manut.dt_saida}"></td>
+										<td th:text="${manut.ds_manutencao}"></td>
+										<td>
+											<div class="btn-group" role="group">
+												<a th:href="@{'/manutencao/detalhes/' + ${manut.id_manutencao}}" class="btn btn-info btn-sm me-1">
+													<i class="bi bi-search"></i> Detalhes
+												</a>
+												<a th:href="@{'/manutencao/editar/' + ${manut.id_manutencao}}" class="btn btn-warning btn-sm me-1">
+													<i class="bi bi-pencil"></i> Editar
+												</a>
+												<a th:href="@{'/manutencao/excluir/' + ${manut.id_manutencao}}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir?');">
+													<i class="bi bi-trash"></i> Excluir
+												</a>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

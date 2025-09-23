@@ -12,32 +12,58 @@
 	<div class="container">
 	
 	
-		<div class="row">
-			<h1>Cadastro de Funcionário</h1>
+		<div class="container mt-4">
+			<div class="row justify-content-center">
+				<div class="col-lg-7">
+					<div class="card shadow-sm">
+						<div class="card-header bg-success text-white text-center">
+							<h2 class="mb-0">Cadastro de Funcionário</h2>
+						</div>
+						<div class="card-body">
+							<form th:object="${funcionario}" th:action="@{/funcionario/novo}" method="post">
+								<div class="mb-3">
+									<label class="form-label">Email</label>
+									<input class="form-control" type="email" th:field="*{nmEmailCorporativo}" required>
+								</div>
+								<div class="mb-3">
+									<label class="form-label">Senha</label>
+									<input class="form-control" type="password" th:field="*{nm_senha}" required>
+								</div>
+								<div class="mb-3">
+									<label class="form-label">Nome Funcionário</label>
+									<input class="form-control" type="text" th:field="*{nm_funcionario}" required>
+								</div>
+								<div class="mb-3">
+									<label class="form-label">Cargo</label>
+									<input class="form-control" type="text" th:field="*{nm_cargo}" required>
+								</div>
+								<div class="mb-3">
+									<label class="form-label">Função</label>
+									<select class="form-select" name="id_funcao" required>
+										<option th:each="funcao : ${lista_funcoes}" th:value="${funcao.id_funcao}" th:text="${funcao.nm_funcao}" />
+									</select>
+								</div>
+								<div class="mb-3">
+									<label class="form-label">Filial</label>
+									<select class="form-select" th:field="*{filial}" required>
+										<option th:each="filial : ${lista_filiais}" th:value="${filial.id_filial}" th:text="${filial.nome_filial}" />
+									</select>
+								</div>
+								<input type="hidden" name="_csrf" th:value="${_csrf.token}">
+								<div class="d-flex justify-content-end gap-2">
+									<button type="submit" class="btn btn-success fw-bold">
+										<i class="bi bi-save"></i> Cadastrar Funcionário
+									</button>
+									<a th:href="@{/funcionario/lista}" class="btn btn-secondary fw-bold">
+										<i class="bi bi-x-circle"></i> Cancelar
+									</a>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="row">
-
-			<form th:object="${funcionario}" th:action="@{/funcionario/novo}" method="post">
-				
-				   Email: <input class="form-control" type="email" th:field="*{nmEmailCorporativo}">
-				   Senha: <input class="form-control" type="password" th:field="*{nm_senha}">
-				   Nome Funcionário: <input class="form-control" type="text" th:field="*{nm_funcionario}">
-				   Cargo: <input class="form-control" type="text" th:field="*{nm_cargo}">
-				   Função:
-				   <select class="form-select" name="id_funcao">
-					   <option th:each="funcao : ${lista_funcoes}" th:value="${funcao.id_funcao}" th:text="${funcao.nm_funcao}" />
-				   </select><br>
-				   Filial:
-				   <select class="form-select" th:field="*{filial}">
-					   <option th:each="filial : ${lista_filiais}" th:value="${filial.id_filial}" th:text="${filial.nome_filial}" />
-				   </select><br>
-				
-				<input type="hidden" name="_csrf" th:value="${_csrf.token}">
-				
-				<button type="submit">Cadastrar Funcionário</button>
-			</form>
-
-
 		</div>
 		<div class="row">
 			<a href="/index">Menu</a>

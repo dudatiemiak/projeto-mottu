@@ -7,55 +7,62 @@
 	<form th:replace="~{fragmentos :: form-logout}" />
     <div th:replace="fragmentos :: voltar-home"></div>
 
-    <div class="container">
+    <div class="container mt-4">
         <div th:replace="~{fragmentos :: saudacoes(${funcionario})}" />
-
-        <div class="row">
-            <h1>Lista de Clientes</h1>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Email</th>
-                            <th>CPF</th>
-                            <th>Telefone</th>
-                            <th>Logradouro</th>
-                            <th colspan="3" class="text-center">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="cliente : ${clientes}">
-                            <td th:text="${cliente.id_cliente}"></td>
-                            <td th:text="${cliente.nm_cliente}"></td>
-                            <td th:text="${cliente.nm_email}"></td>
-                            <td th:text="${cliente.nr_cpf}"></td>
-                            <td>
-                                <span th:if="${#lists.isEmpty(cliente.telefones)}">-</span>
-                                <span th:each="tel : ${cliente.telefones}" th:text="${tel.nr_ddd + ' ' + tel.nr_telefone}" th:unless="${#lists.isEmpty(cliente.telefones)}"></span>
-                            </td>
-                            <td th:text="${cliente.logradouro.nm_logradouro}"></td>
-                            <td colspan="3" class="text-center">
-                                <a th:href="@{/cliente/detalhes/{id}(id=${cliente.id_cliente})}" class="btn btn-info btn-sm me-1" title="Detalhes">
-                                    <i class="bi bi-search"></i> Detalhes
-                                </a>
-                                <a th:href="@{/cliente/editar/{id}(id=${cliente.id_cliente})}" class="btn btn-warning btn-sm me-1" title="Editar">
-                                    <i class="bi bi-pencil"></i> Editar
-                                </a>
-                                <a th:href="@{/cliente/remover/{id}(id=${cliente.id_cliente})}" class="btn btn-danger btn-sm" title="Remover" onclick="return confirm('Tem certeza que deseja remover este cliente?');">
-                                    <i class="bi bi-trash"></i> Remover
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="row justify-content-center">
+            <div class="col-lg-11">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h2 class="mb-0">Lista de Clientes</h2>
+                    </div>
+                    <div class="card-body">
+                        <a class="btn btn-success mb-3" th:href="@{/cliente/nova}">
+                            <i class="bi bi-plus-circle"></i> Novo Cliente
+                        </a>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nome</th>
+                                        <th>Email</th>
+                                        <th>CPF</th>
+                                        <th>Telefone</th>
+                                        <th>Logradouro</th>
+                                        <th class="text-center">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="cliente : ${clientes}">
+                                        <td th:text="${cliente.id_cliente}"></td>
+                                        <td th:text="${cliente.nm_cliente}"></td>
+                                        <td th:text="${cliente.nm_email}"></td>
+                                        <td th:text="${cliente.nr_cpf}"></td>
+                                        <td>
+                                            <span th:if="${#lists.isEmpty(cliente.telefones)}">-</span>
+                                            <span th:each="tel : ${cliente.telefones}" th:text="${tel.nr_ddd + ' ' + tel.nr_telefone}" th:unless="${#lists.isEmpty(cliente.telefones)}"></span>
+                                        </td>
+                                        <td th:text="${cliente.logradouro.nm_logradouro}"></td>
+                                        <td class="text-center">
+                                            <div class="btn-group" role="group">
+                                                <a th:href="@{/cliente/detalhes/{id}(id=${cliente.id_cliente})}" class="btn btn-info btn-sm me-1" title="Detalhes">
+                                                    <i class="bi bi-search"></i> Detalhes
+                                                </a>
+                                                <a th:href="@{/cliente/editar/{id}(id=${cliente.id_cliente})}" class="btn btn-warning btn-sm me-1" title="Editar">
+                                                    <i class="bi bi-pencil"></i> Editar
+                                                </a>
+                                                <a th:href="@{/cliente/remover/{id}(id=${cliente.id_cliente})}" class="btn btn-danger btn-sm" title="Remover" onclick="return confirm('Tem certeza que deseja remover este cliente?');">
+                                                    <i class="bi bi-trash"></i> Remover
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <a href="/cliente/nova">Cadastrar um novo cliente</a>
         </div>
     </div>
 </body>

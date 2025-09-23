@@ -4,31 +4,57 @@
 <body>
 <form th:replace="~{fragmentos :: form-logout}" />
 <div th:replace="fragmentos :: voltar-home"></div>
-<div class="container">
-    <div class="row">
-        <h1>Editar Funcionário</h1>
-    </div>
-    <div class="row">
-        <form th:object="${funcionario}" th:action="@{/funcionario/editar}" method="post">
-            <input type="hidden" th:field="*{id_funcionario}" />
-            Email: <input class="form-control" type="email" th:field="*{nmEmailCorporativo}" readonly><br>
-            Senha: <input class="form-control" type="password" th:field="*{nm_senha}"><br>
-            Nome Funcionário: <input class="form-control" type="text" th:field="*{nm_funcionario}"><br>
-            Cargo: <input class="form-control" type="text" th:field="*{nm_cargo}"><br>
-            Função:
-            <select class="form-select" name="id_funcao">
-                <option th:each="funcao : ${lista_funcoes}" th:value="${funcao.id_funcao}" th:text="${funcao.nm_funcao}" th:selected="${funcionario.funcoes.contains(funcao)}" />
-            </select><br>
-            Filial:
-            <select class="form-select" th:field="*{filial}">
-                <option th:each="filial : ${lista_filiais}" th:value="${filial.id_filial}" th:text="${filial.nome_filial}" th:selected="${filial.id_filial == funcionario.filial?.id_filial}" />
-            </select><br>
-            <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-            <button type="submit">Salvar Alterações</button>
-        </form>
-    </div>
-    <div class="row">
-        <a href="/index">Menu</a>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-dark text-center">
+                    <h2 class="mb-0">Editar Funcionário</h2>
+                </div>
+                <div class="card-body">
+                    <form th:object="${funcionario}" th:action="@{/funcionario/editar}" method="post">
+                        <input type="hidden" th:field="*{id_funcionario}" />
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input class="form-control" type="email" th:field="*{nmEmailCorporativo}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Senha</label>
+                            <input class="form-control" type="password" th:field="*{nm_senha}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Nome Funcionário</label>
+                            <input class="form-control" type="text" th:field="*{nm_funcionario}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Cargo</label>
+                            <input class="form-control" type="text" th:field="*{nm_cargo}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Função</label>
+                            <select class="form-select" name="id_funcao" required>
+                                <option th:each="funcao : ${lista_funcoes}" th:value="${funcao.id_funcao}" th:text="${funcao.nm_funcao}" th:selected="${funcionario.funcoes.contains(funcao)}" />
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Filial</label>
+                            <select class="form-select" th:field="*{filial}" required>
+                                <option th:each="filial : ${lista_filiais}" th:value="${filial.id_filial}" th:text="${filial.nome_filial}" th:selected="${filial.id_filial == funcionario.filial?.id_filial}" />
+                            </select>
+                        </div>
+                        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                        <div class="d-flex justify-content-end gap-2">
+                            <button type="submit" class="btn btn-success fw-bold">
+                                <i class="bi bi-save"></i> Salvar Alterações
+                            </button>
+                            <a th:href="@{/funcionario/lista}" class="btn btn-secondary fw-bold">
+                                <i class="bi bi-x-circle"></i> Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
