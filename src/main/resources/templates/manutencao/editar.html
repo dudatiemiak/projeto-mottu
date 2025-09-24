@@ -3,7 +3,7 @@
 <head th:replace="~{fragmentos :: cabecalho('Editar Manutenção')}"></head>
 <body>
 	<form th:replace="~{fragmentos :: form-logout}" />
-	<div th:replace="fragmentos :: voltar-home"></div>
+	<div th:replace="~{fragmentos :: voltar-home}"></div>
 	<div class="container mt-4">
 		<div class="row justify-content-center">
 			<div class="col-lg-8">
@@ -24,17 +24,17 @@
 							</div>
 							<div class="mb-4">
 								<label class="form-label">Data Entrada</label>
-								<input type="date" class="form-control" th:field="*{dt_entrada}" required placeholder="Data de entrada"/>
+								<input type="date" class="form-control" th:field="*{dt_entrada}" required placeholder="Data de entrada" th:errorclass="is-invalid"/>
 								<div class="invalid-feedback" th:errors="*{dt_entrada}"></div>
 							</div>
 							<div class="mb-4">
 								<label class="form-label">Data Saída</label>
-								<input type="date" class="form-control" th:field="*{dt_saida}" placeholder="Data de saída" />
+								<input type="date" class="form-control" th:field="*{dt_saida}" placeholder="Data de saída" th:errorclass="is-invalid"/>
 								<div class="invalid-feedback" th:errors="*{dt_saida}"></div>
 							</div>
 							<div class="mb-4">
 								<label class="form-label">Descrição</label>
-								<textarea class="form-control" th:field="*{ds_manutencao}" maxlength="300" required placeholder="Descreva a manutenção"></textarea>
+								<textarea class="form-control" th:field="*{ds_manutencao}" maxlength="300" required placeholder="Descreva a manutenção" th:errorclass="is-invalid"></textarea>
 								<div class="invalid-feedback" th:errors="*{ds_manutencao}"></div>
 							</div>
 							<div class="d-flex justify-content-end gap-2">

@@ -5,7 +5,7 @@
 
 <body>
 	<form th:replace="~{fragmentos :: form-logout}" />
-    <div th:replace="fragmentos :: voltar-home"></div>
+    <div th:replace="~{fragmentos :: voltar-home}"></div>
 
     <div class="container mt-4">
         <div class="row justify-content-center">
@@ -23,12 +23,12 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">CPF</label>
-                                <input type="text" th:field="*{nr_cpf}" class="form-control" required />
+                                <input type="text" th:field="*{nr_cpf}" class="form-control" required th:errorclass="is-invalid"/>
                                 <div class="invalid-feedback" th:errors="*{nr_cpf}"></div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Email</label>
-                                <input type="email" th:field="*{nm_email}" class="form-control" required />
+                                <input type="email" th:field="*{nm_email}" class="form-control" required th:errorclass="is-invalid"/>
                                 <div class="invalid-feedback" th:errors="*{nm_email}"></div>
                             </div>
                             <div class="mb-3">
@@ -36,7 +36,6 @@
                                 <select th:field="*{logradouro}" class="form-select" required>
                                     <option th:each="log : ${logradouros}" th:value="${log.id_logradouro}" th:text="${log.nm_logradouro}"></option>
                                 </select>
-                                <div class="invalid-feedback" th:errors="*{logradouro}"></div>
                             </div>
                             <h4 class="mt-4">Telefones</h4>
                             <div id="telefones-wrapper">

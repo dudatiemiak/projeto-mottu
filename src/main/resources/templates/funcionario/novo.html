@@ -6,7 +6,7 @@
 <body>
 
 <form th:replace="~{fragmentos :: form-logout}" />
-<div th:replace="fragmentos :: voltar-home"></div>
+<div th:replace="~{fragmentos :: voltar-home}"></div>
 
 
 	<div class="container">
@@ -23,22 +23,22 @@
 							<form th:object="${funcionario}" th:action="@{/funcionario/novo}" method="post">
 								<div class="mb-3">
 									<label class="form-label">Email</label>
-									<input class="form-control" type="email" th:field="*{nmEmailCorporativo}" required>
+									<input class="form-control" type="email" th:field="*{nmEmailCorporativo}" required th:errorclass="is-invalid">
 									<div class="invalid-feedback" th:errors="*{nmEmailCorporativo}"></div>
 								</div>
 								<div class="mb-3">
 									<label class="form-label">Senha</label>
-									<input class="form-control" type="password" th:field="*{nm_senha}" required>
+									<input class="form-control" type="password" th:field="*{nm_senha}" required th:errorclass="is-invalid">
 									<div class="invalid-feedback" th:errors="*{nm_senha}"></div>
 								</div>
 								<div class="mb-3">
 									<label class="form-label">Nome Funcionário</label>
-									<input class="form-control" type="text" th:field="*{nm_funcionario}" required>
+									<input class="form-control" type="text" th:field="*{nm_funcionario}" required th:errorclass="is-invalid">
 									<div class="invalid-feedback" th:errors="*{nm_funcionario}"></div>
 								</div>
 								<div class="mb-3">
 									<label class="form-label">Cargo</label>
-									<input class="form-control" type="text" th:field="*{nm_cargo}" required>
+									<input class="form-control" type="text" th:field="*{nm_cargo}" required th:errorclass="is-invalid">
 									<div class="invalid-feedback" th:errors="*{nm_cargo}"></div>
 								</div>
 								<div class="mb-3">
@@ -52,7 +52,6 @@
 									<select class="form-select" th:field="*{filial}" required>
 										<option th:each="filial : ${lista_filiais}" th:value="${filial.id_filial}" th:text="${filial.nome_filial}" />
 									</select>
-									<div class="invalid-feedback" th:errors="*{filial}"></div>
 								</div>
 								<input type="hidden" name="_csrf" th:value="${_csrf.token}">
 								<div class="d-flex justify-content-end gap-2">

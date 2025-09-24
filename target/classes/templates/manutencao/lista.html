@@ -3,7 +3,7 @@
 <head th:replace="~{fragmentos :: cabecalho('Lista de Manutenções')}"></head>
 <body>
 	<form th:replace="~{fragmentos :: form-logout}" />
-	<div th:replace="fragmentos :: voltar-home"></div>
+	<div th:replace="~{fragmentos :: voltar-home}"></div>
 	<div class="container mt-4">
 		<div th:replace="~{fragmentos :: saudacoes(${funcionario})}" />
 		<div class="row justify-content-center">
@@ -16,6 +16,22 @@
 						<a class="btn btn-success mb-3" th:href="@{/manutencao/nova}">
 							<i class="bi bi-plus-circle"></i> Nova Manutenção
 						</a>
+						<form class="row g-3 mb-3" method="get" th:action="@{/manutencao/lista}">
+							<div class="col-md-6">
+								<label for="q" class="form-label">Buscar por descrição</label>
+								<input type="text" id="q" name="q" class="form-control" placeholder="Ex.: troca de óleo" th:value="${q}">
+							</div>
+							<div class="col-md-3 d-flex align-items-end">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" id="abertas" name="abertas" th:checked="${abertas}">
+									<label class="form-check-label" for="abertas">Somente em aberto</label>
+								</div>
+							</div>
+							<div class="col-md-3 d-flex align-items-end gap-2">
+								<button class="btn btn-primary" type="submit"><i class="bi bi-search"></i> Filtrar</button>
+								<a class="btn btn-outline-secondary" th:href="@{/manutencao/lista}"><i class="bi bi-x-circle"></i> Limpar</a>
+							</div>
+						</form>
 						<div class="table-responsive">
 							<table class="table table-hover align-middle">
 								<thead class="table-light">
@@ -28,6 +44,9 @@
 									</tr>
 								</thead>
 								<tbody>
+									<tr th:if="${#lists.isEmpty(manutencoes)}">
+										<td colspan="5" class="text-center text-muted">Nenhum registro encontrado.</td>
+									</tr>
 									<tr th:each="manut : ${manutencoes}">
 										<td>
 											<span class="fw-bold" th:text="${manut.moto.nm_placa}"></span>

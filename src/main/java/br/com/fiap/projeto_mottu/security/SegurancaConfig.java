@@ -14,8 +14,20 @@ public class SegurancaConfig {
     public SecurityFilterChain chain(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests((request) -> request
+                    // Páginas públicas necessárias para autenticação e assets estáticos
+                    .requestMatchers("/", "/login", "/login/**", "/acesso_negado", "/error",
+                                     "/css/**", "/js/**", "/images/**", "/webjars/**", "/favicon.ico")
+                        .permitAll()
+
+                    // Somente ADMIN pode acessar recursos administrativos
                     .requestMatchers("/h2-console/**").hasAuthority("ADMIN")
-                    .requestMatchers("/funcionario/novo").hasAuthority("ADMIN")
+                    .requestMatchers("/funcionario/**").hasAuthority("ADMIN")
+
+                    // Áreas funcionais abertas a OPERACIONAL, ATENDIMENTO, ANALISTA e ADMIN
+                    .requestMatchers("/manutencao/**", "/moto/**", "/cliente/**")
+                        .hasAnyAuthority("OPERACIONAL", "ATENDIMENTO", "ANALISTA", "ADMIN")
+
+                    // Demais rotas exigem autenticação
                     .anyRequest().authenticated()
                 )
             .formLogin((login) -> login
@@ -37,7 +49,7 @@ public class SegurancaConfig {
                 })
             );
 
-    http.headers(headers -> headers.frameOptions().disable()); // Permite uso de frames para H2
+    http.headers(headers -> headers.frameOptions(frame -> frame.disable())); // Permite uso de frames para H2
     http.csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**")); // Desabilita CSRF só para H2
     return http.build();
     }

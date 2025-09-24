@@ -3,7 +3,7 @@
 <head th:replace="~{fragmentos :: cabecalho('Editar Moto')}"></head>
 <body>
     <form th:replace="~{fragmentos :: form-logout}" />
-    <div th:replace="fragmentos :: voltar-home"></div>
+    <div th:replace="~{fragmentos :: voltar-home}"></div>
     <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-lg-7">
@@ -16,7 +16,7 @@
                             <input type="hidden" th:field="*{id_moto}" />
                             <div class="mb-3">
                                 <label class="form-label">Placa</label>
-                                <input type="text" class="form-control" th:field="*{nm_placa}" required />
+                                <input type="text" class="form-control" th:field="*{nm_placa}" required th:errorclass="is-invalid"/>
                                 <div class="invalid-feedback" th:errors="*{nm_placa}"></div>
                             </div>
                             <div class="mb-3">
@@ -25,7 +25,6 @@
                                     <option value="" th:text="'Selecione...'" disabled></option>
                                     <option th:each="modelo : ${lista_modelos}" th:value="${modelo}" th:text="${modelo}"></option>
                                 </select>
-                                <div class="invalid-feedback" th:errors="*{nm_modelo}"></div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Situação</label>
@@ -33,18 +32,17 @@
                                     <option value="" th:text="'Selecione...'" disabled></option>
                                     <option th:each="sit : ${lista_situacoes}" th:value="${sit}" th:text="${sit}"></option>
                                 </select>
-                                <div class="invalid-feedback" th:errors="*{st_moto}"></div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">KM Rodado</label>
-                                <input type="number" class="form-control" th:field="*{km_rodado}" />
+                                <input type="number" class="form-control" th:field="*{km_rodado}" th:errorclass="is-invalid"/>
+                                <div class="invalid-feedback" th:errors="*{km_rodado}"></div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Filial/Departamento</label>
                                 <select class="form-select" th:field="*{filial_departamento}" required>
                                     <option th:each="fd : ${filiaisDepartamentos}" th:value="${fd.id_filial_departamento}" th:text="${fd.filial.nome_filial + ' / ' + fd.departamento.nm_departamento}"></option>
                                 </select>
-                                <div class="invalid-feedback" th:errors="*{filial_departamento}"></div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Cliente (opcional)</label>

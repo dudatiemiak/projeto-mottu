@@ -3,7 +3,7 @@
 <head th:replace="~{fragmentos :: cabecalho('Lista de Motos')}"></head>
 <body>
 	<form th:replace="~{fragmentos :: form-logout}" />
-	<div th:replace="fragmentos :: voltar-home"></div>
+	<div th:replace="~{fragmentos :: voltar-home}"></div>
 	<div class="container mt-4">
 		<div th:replace="~{fragmentos :: saudacoes(${funcionario})}" />
 		<div class="row justify-content-center">
