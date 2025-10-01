@@ -2,6 +2,7 @@ package br.com.fiap.projeto_mottu.model;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,9 +31,11 @@ public class Manutencao {
 	@NotNull
 	@PastOrPresent(message = "Data inválida")
 	@Column(name = "dt_entrada")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private LocalDate dt_entrada;
 	@PastOrPresent(message = "Data inválida")
 	@Column(name = "dt_saida")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private LocalDate dt_saida;
 	@NotEmpty(message = "A descrição da manutenção da moto deve ser informada!")
     @Size(max = 300, message = "A descrição da manutenção deve ter no máximo 300 caracteres")

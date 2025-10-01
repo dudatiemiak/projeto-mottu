@@ -24,11 +24,13 @@
 								<label class="form-label">Data Entrada</label>
 								<input type="date" class="form-control" th:field="*{dt_entrada}" required placeholder="Data de entrada" id="dt_entrada" th:errorclass="is-invalid"/>
 								<div class="invalid-feedback" th:errors="*{dt_entrada}"></div>
+								<div id="erroDataEntrada" class="alert alert-danger mt-2" style="display:none;"></div>
 							</div>
 							<div class="mb-4">
 								<label class="form-label">Data Saída</label>
-								<input type="date" class="form-control" th:field="*{dt_saida}" placeholder="Data de saída" th:errorclass="is-invalid"/>
+								<input type="date" id="dt_saida" class="form-control" th:field="*{dt_saida}" placeholder="Data de saída" th:errorclass="is-invalid"/>
 								<div class="invalid-feedback" th:errors="*{dt_saida}"></div>
+								<div id="erroDataSaida" class="alert alert-danger mt-2" style="display:none;"></div>
 							</div>
 							<div class="mb-4">
 								<label class="form-label">Descrição</label>
@@ -53,8 +55,11 @@
 function validarDatasManutencao(event) {
 	const dataEntradaInput = document.getElementById('dt_entrada');
 	const erroDataEntrada = document.getElementById('erroDataEntrada');
+	const dataSaidaInput = document.getElementById('dt_saida');
+	const erroDataSaida = document.getElementById('erroDataSaida');
 	erroDataEntrada.style.display = 'none';
 	erroDataEntrada.textContent = '';
+	if (erroDataSaida) { erroDataSaida.style.display = 'none'; erroDataSaida.textContent = ''; }
 	if (dataEntradaInput && dataEntradaInput.value) {
 		const hoje = new Date();
 		hoje.setHours(0,0,0,0);
@@ -63,6 +68,20 @@ function validarDatasManutencao(event) {
 			erroDataEntrada.textContent = 'A data de entrada não pode ser futura.';
 			erroDataEntrada.style.display = 'block';
 			dataEntradaInput.focus();
+			event.preventDefault();
+			return false;
+		}
+	}
+	if (dataSaidaInput && dataSaidaInput.value) {
+		const hoje = new Date();
+		hoje.setHours(0,0,0,0);
+		const dataSaida = new Date(dataSaidaInput.value);
+		if (dataSaida > hoje) {
+			if (erroDataSaida) {
+				erroDataSaida.textContent = 'A data de saída não pode ser futura.';
+				erroDataSaida.style.display = 'block';
+			}
+			dataSaidaInput.focus();
 			event.preventDefault();
 			return false;
 		}
