@@ -50,11 +50,11 @@ INSERT INTO t_cm_departamento (nm_departamento, ds_departamento) VALUES ('TI', '
 INSERT INTO t_cm_departamento (nm_departamento, ds_departamento) VALUES ('Comercial', 'Departamento de vendas e atendimento');
 
 -- FilialDepartamento
-INSERT INTO t_cm_filial_departamento (id_filial, id_departamento, dt_entrada, dt_saida) VALUES (1, 1, '2023-01-01', NULL);
-INSERT INTO t_cm_filial_departamento (id_filial, id_departamento, dt_entrada, dt_saida) VALUES (2, 2, '2023-02-01', NULL);
-INSERT INTO t_cm_filial_departamento (id_filial, id_departamento, dt_entrada, dt_saida) VALUES (3, 3, '2023-03-01', NULL);
-INSERT INTO t_cm_filial_departamento (id_filial, id_departamento, dt_entrada, dt_saida) VALUES (4, 4, '2023-04-01', NULL);
-INSERT INTO t_cm_filial_departamento (id_filial, id_departamento, dt_entrada, dt_saida) VALUES (5, 5, '2023-05-01', NULL);
+INSERT INTO t_cm_filial_departamento (id_filial, id_departamento, dt_entrada, dt_saida) VALUES (1, 1, TO_DATE('2023-01-01','YYYY-MM-DD'), NULL);
+INSERT INTO t_cm_filial_departamento (id_filial, id_departamento, dt_entrada, dt_saida) VALUES (2, 2, TO_DATE('2023-02-01','YYYY-MM-DD'), NULL);
+INSERT INTO t_cm_filial_departamento (id_filial, id_departamento, dt_entrada, dt_saida) VALUES (3, 3, TO_DATE('2023-03-01','YYYY-MM-DD'), NULL);
+INSERT INTO t_cm_filial_departamento (id_filial, id_departamento, dt_entrada, dt_saida) VALUES (4, 4, TO_DATE('2023-04-01','YYYY-MM-DD'), NULL);
+INSERT INTO t_cm_filial_departamento (id_filial, id_departamento, dt_entrada, dt_saida) VALUES (5, 5, TO_DATE('2023-05-01','YYYY-MM-DD'), NULL);
 
 -- Clientes
 INSERT INTO t_cm_cliente (nm_cliente, nr_cpf, nm_email, id_logradouro) VALUES ('João Silva', '12345678901', 'joao@email.com', 1);
@@ -78,11 +78,11 @@ INSERT INTO t_cm_moto (nm_placa, nm_modelo, st_moto, km_rodado, id_cliente, id_f
 INSERT INTO t_cm_moto (nm_placa, nm_modelo, st_moto, km_rodado, id_cliente, id_filial_departamento) VALUES ('MNO7890', 'E', 'MANUTENCAO', 2200.0, 5, 5);
 
 -- Manutenções
-INSERT INTO t_cm_manutencao (id_moto, dt_entrada, dt_saida, ds_manutencao) VALUES (1, '2024-01-01', '2024-01-05', 'Troca de óleo e revisão geral');
-INSERT INTO t_cm_manutencao (id_moto, dt_entrada, dt_saida, ds_manutencao) VALUES (2, '2024-02-10', '2024-02-15', 'Troca de pneu traseiro');
-INSERT INTO t_cm_manutencao (id_moto, dt_entrada, dt_saida, ds_manutencao) VALUES (3, '2024-03-20', NULL, 'Correção elétrica');
-INSERT INTO t_cm_manutencao (id_moto, dt_entrada, dt_saida, ds_manutencao) VALUES (4, '2024-04-12', '2024-04-14', 'Alinhamento e balanceamento');
-INSERT INTO t_cm_manutencao (id_moto, dt_entrada, dt_saida, ds_manutencao) VALUES (5, '2024-05-01', NULL, 'Troca de pastilha de freio');
+INSERT INTO t_cm_manutencao (id_moto, dt_entrada, dt_saida, ds_manutencao) VALUES (1, TO_DATE('2024-01-01','YYYY-MM-DD'), TO_DATE('2024-01-05','YYYY-MM-DD'), 'Troca de óleo e revisão geral');
+INSERT INTO t_cm_manutencao (id_moto, dt_entrada, dt_saida, ds_manutencao) VALUES (2, TO_DATE('2024-02-10','YYYY-MM-DD'), TO_DATE('2024-02-15','YYYY-MM-DD'), 'Troca de pneu traseiro');
+INSERT INTO t_cm_manutencao (id_moto, dt_entrada, dt_saida, ds_manutencao) VALUES (3, TO_DATE('2024-03-20','YYYY-MM-DD'), NULL, 'Correção elétrica');
+INSERT INTO t_cm_manutencao (id_moto, dt_entrada, dt_saida, ds_manutencao) VALUES (4, TO_DATE('2024-04-12','YYYY-MM-DD'), TO_DATE('2024-04-14','YYYY-MM-DD'), 'Alinhamento e balanceamento');
+INSERT INTO t_cm_manutencao (id_moto, dt_entrada, dt_saida, ds_manutencao) VALUES (5, TO_DATE('2024-05-01','YYYY-MM-DD'), NULL, 'Troca de pastilha de freio');
 
 -- Funções
 INSERT INTO t_cm_funcao (nm_funcao) VALUES ('ADMIN');

@@ -31,11 +31,34 @@
                                 <input type="email" th:field="*{nm_email}" class="form-control" required th:errorclass="is-invalid"/>
                                 <div class="invalid-feedback" th:errors="*{nm_email}"></div>
                             </div>
+                            <h4 class="mt-4">Logradouro</h4>
                             <div class="mb-3">
-                                <label class="form-label">Logradouro</label>
-                                <select th:field="*{logradouro}" class="form-select" required>
-                                    <option th:each="log : ${logradouros}" th:value="${log.id_logradouro}" th:text="${log.nm_logradouro}"></option>
-                                </select>
+                                <label class="form-label">Nome do logradouro</label>
+                                <input type="text" name="logradouro.nm_logradouro" class="form-control" required />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Número</label>
+                                <input type="number" name="logradouro.nr_logradouro" class="form-control" required />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Complemento</label>
+                                <input type="text" name="logradouro.complemento" class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Bairro</label>
+                                <input type="text" name="logradouro.bairro.nm_bairro" class="form-control" required />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Cidade</label>
+                                <input type="text" name="logradouro.bairro.cidade.nm_cidade" class="form-control" required />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Estado (UF)</label>
+                                <input type="text" name="logradouro.bairro.cidade.estado.nm_estado" class="form-control" required maxlength="2" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">País</label>
+                                <input type="text" name="logradouro.bairro.cidade.estado.pais.nm_pais" class="form-control" required />
                             </div>
                             <h4 class="mt-4">Telefones</h4>
                             <div id="telefones-wrapper">

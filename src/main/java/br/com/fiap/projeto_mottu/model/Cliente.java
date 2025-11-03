@@ -26,7 +26,7 @@ import jakarta.persistence.CascadeType;
 @Entity
 @Table(name = "t_cm_cliente")
 @Data
-public class Cliente extends RepresentationModel<Cliente>{
+public class Cliente{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_cliente;

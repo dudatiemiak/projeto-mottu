@@ -1,3 +1,4 @@
+<!-- Hidden IDs for address hierarchy movidos para dentro do form abaixo -->
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
@@ -16,27 +17,23 @@
                     </div>
                     <div class="card-body">
                         <form th:action="@{'/cliente/editar/' + ${cliente.id_cliente}}" th:object="${cliente}" method="post" class="form">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                            <input type="hidden" th:field="*{id_cliente}" />
+                            <input type="hidden" th:field="*{logradouro.id_logradouro}" />
                             <div class="mb-3">
                                 <label class="form-label">Nome</label>
-                                <input type="text" th:field="*{nm_cliente}" class="form-control" required />
+                                <input type="text" th:field="*{nm_cliente}" class="form-control" required th:classappend="${#fields.hasErrors('nm_cliente')} ? 'is-invalid'" />
                                 <div class="invalid-feedback" th:errors="*{nm_cliente}"></div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">CPF</label>
-                                <input type="text" th:field="*{nr_cpf}" class="form-control" required />
+                                <input type="text" th:field="*{nr_cpf}" class="form-control" required th:classappend="${#fields.hasErrors('nr_cpf')} ? 'is-invalid'" />
                                 <div class="invalid-feedback" th:errors="*{nr_cpf}"></div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Email</label>
-                                <input type="email" th:field="*{nm_email}" class="form-control" required />
+                                <input type="email" th:field="*{nm_email}" class="form-control" required th:classappend="${#fields.hasErrors('nm_email')} ? 'is-invalid'" />
                                 <div class="invalid-feedback" th:errors="*{nm_email}"></div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Logradouro</label>
-                                <select th:field="*{logradouro}" class="form-select" required>
-                                    <option th:each="log : ${logradouros}" th:value="${log.id_logradouro}" th:text="${log.nm_logradouro}" th:selected="${log.id_logradouro == cliente.logradouro.id_logradouro}"></option>
-                                </select>
-                                <div class="invalid-feedback" th:errors="*{logradouro}"></div>
                             </div>
                             <h4 class="mt-4">Telefone</h4>
                             <div class="row mb-3">
