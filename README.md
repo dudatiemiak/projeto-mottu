@@ -93,8 +93,6 @@ Perfis e regras de acesso configuradas:
 - ADMIN: acesso total (inclui `/funcionario/**` e `/h2-console/**`).
 - OPERACIONAL, ATENDIMENTO, ANALISTA (quando existentes): acesso a `/manutencao/**`, `/moto/**` e `/cliente/**`.
 
-Observação: a base H2 em arquivo (`data/mottu.mv.db`) já acompanha dados iniciais.
-
 ---
 
 ## 🗃️ Banco de Dados H2
