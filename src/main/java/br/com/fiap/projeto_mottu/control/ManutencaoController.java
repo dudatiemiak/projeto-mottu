@@ -95,7 +95,6 @@ public class ManutencaoController {
             Moto moto = new Moto();
             moto.setId_moto(manut.getMoto().getId_moto());
             moto.setNm_placa(manut.getMoto().getNm_placa());
-            moto.setNm_modelo(manut.getMoto().getNm_modelo());
             manut.setMoto(moto);
             mv.addObject("manutencao", manut);
             mv.addObject("motos", repMoto.findAll());

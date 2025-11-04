@@ -1,7 +1,7 @@
 package br.com.fiap.projeto_mottu.model;
 
 import org.hibernate.validator.constraints.br.CPF;
-import org.springframework.hateoas.RepresentationModel;
+// import removido: org.springframework.hateoas.RepresentationModel
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
+// import removido: jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 

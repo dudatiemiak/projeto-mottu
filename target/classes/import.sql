@@ -59,17 +59,13 @@ INSERT INTO t_cm_telefone (nr_telefone, nr_ddi, nr_ddd, id_cliente) VALUES ('987
 INSERT INTO t_cm_telefone (nr_telefone, nr_ddi, nr_ddd, id_cliente) VALUES ('977112233', '+55', '71', 4);
 INSERT INTO t_cm_telefone (nr_telefone, nr_ddi, nr_ddd, id_cliente) VALUES ('966554433', '+55', '51', 5);
 -- Moto
-INSERT INTO t_cm_moto (nm_placa, nm_modelo, st_moto, km_rodado, id_cliente, id_filial_departamento) VALUES ('ABC1234', 'SPORT', 'FUNCIONANDO', 1200.5, 1, 1);
-INSERT INTO t_cm_moto (nm_placa, nm_modelo, st_moto, km_rodado, id_cliente, id_filial_departamento) VALUES ('DEF5678', 'E', 'MANUTENCAO', 800.0, 2, 2);
-INSERT INTO t_cm_moto (nm_placa, nm_modelo, st_moto, km_rodado, id_cliente, id_filial_departamento) VALUES ('GHI9012', 'POP', 'PATIO', 3000.8, 3, 3);
-INSERT INTO t_cm_moto (nm_placa, nm_modelo, st_moto, km_rodado, id_cliente, id_filial_departamento) VALUES ('JKL3456', 'SPORT', 'FUNCIONANDO', 150.3, 4, 4);
-INSERT INTO t_cm_moto (nm_placa, nm_modelo, st_moto, km_rodado, id_cliente, id_filial_departamento) VALUES ('MNO7890', 'E', 'MANUTENCAO', 2200.0, 5, 5);
+INSERT INTO t_cm_moto (nm_placa, id_modelo, st_moto, km_rodado, id_cliente, id_filial_departamento) VALUES ('ABC1234', 1, 'FUNCIONANDO', 1200.5, 1, 1);
+INSERT INTO t_cm_moto (nm_placa, id_modelo, st_moto, km_rodado, id_cliente, id_filial_departamento) VALUES ('DEF5678', 2, 'MANUTENCAO', 800.0, 2, 2);
+INSERT INTO t_cm_moto (nm_placa, id_modelo, st_moto, km_rodado, id_cliente, id_filial_departamento) VALUES ('GHI9012', 3, 'PATIO', 3000.8, 3, 3);
+INSERT INTO t_cm_moto (nm_placa, id_modelo, st_moto, km_rodado, id_cliente, id_filial_departamento) VALUES ('JKL3456', 1, 'FUNCIONANDO', 150.3, 4, 4);
+INSERT INTO t_cm_moto (nm_placa, id_modelo, st_moto, km_rodado, id_cliente, id_filial_departamento) VALUES ('MNO7890', 2, 'MANUTENCAO', 2200.0, 5, 5);
 -- Manutencao
-INSERT INTO t_cm_manutencao (id_moto, dt_entrada, dt_saida, ds_manutencao) VALUES (1, '2024-01-01', '2024-01-05', 'Troca de óleo e revisão geral');
-INSERT INTO t_cm_manutencao (id_moto, dt_entrada, dt_saida, ds_manutencao) VALUES (2, '2024-02-10', '2024-02-15', 'Troca de pneu traseiro');
 INSERT INTO t_cm_manutencao (id_moto, dt_entrada, dt_saida, ds_manutencao) VALUES (3, '2024-03-20', NULL, 'Correção elétrica');
-INSERT INTO t_cm_manutencao (id_moto, dt_entrada, dt_saida, ds_manutencao) VALUES (4, '2024-04-12', '2024-04-14', 'Alinhamento e balanceamento');
-INSERT INTO t_cm_manutencao (id_moto, dt_entrada, dt_saida, ds_manutencao) VALUES (5, '2024-05-01', NULL, 'Troca de pastilha de freio');
 --Funcao
 INSERT INTO t_cm_funcao (nm_funcao) VALUES ('ADMIN');
 INSERT INTO t_cm_funcao (nm_funcao) VALUES ('OPERACIONAL');

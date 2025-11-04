@@ -114,7 +114,6 @@ public class MotoApiController {
 
 			moto_atual.setCliente(moto.getCliente());
 			moto_atual.setFilial_departamento(moto.getFilial_departamento());
-			moto_atual.setNm_modelo(moto.getNm_modelo());
 			moto_atual.setNm_placa(moto.getNm_placa());
 			moto_atual.setSt_moto(moto.getSt_moto());
 			moto_atual.setKm_rodado(moto.getKm_rodado());

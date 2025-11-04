@@ -14,7 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.fiap.projeto_mottu.model.Moto;
 import br.com.fiap.projeto_mottu.model.Funcionario;
-import br.com.fiap.projeto_mottu.model.ModeloEnum;
+// import removido: br.com.fiap.projeto_mottu.model.Modelo
+import br.com.fiap.projeto_mottu.repository.ModeloRepository;
 import br.com.fiap.projeto_mottu.model.SituacaoEnum;
 import br.com.fiap.projeto_mottu.repository.MotoRepository;
 import br.com.fiap.projeto_mottu.repository.FilialDepartamentoRepository;
@@ -28,6 +29,8 @@ public class MotoController {
 
 	@Autowired
 	private MotoRepository repM;
+	@Autowired
+	private ModeloRepository modeloRepository;
 	@Autowired
 	private FilialDepartamentoRepository repFD;
 	@Autowired
@@ -55,7 +58,7 @@ public class MotoController {
 		mv.addObject("moto", new Moto());
 		mv.addObject("filiaisDepartamentos", repFD.findAll());
 		mv.addObject("clientes", repC.findAll());
-		mv.addObject("lista_modelos", ModeloEnum.values());
+		mv.addObject("lista_modelos", modeloRepository.findAll());
 		mv.addObject("lista_situacoes", SituacaoEnum.values());
 		return mv;
 	}
@@ -67,7 +70,7 @@ public class MotoController {
 			mv.addObject("moto", moto);
 			mv.addObject("filiaisDepartamentos", repFD.findAll());
 			mv.addObject("clientes", repC.findAll());
-			mv.addObject("lista_modelos", ModeloEnum.values());
+			mv.addObject("lista_modelos", modeloRepository.findAll());
 			mv.addObject("lista_situacoes", SituacaoEnum.values());
 			return mv;
 		}
@@ -83,7 +86,7 @@ public class MotoController {
 			mv.addObject("moto", op.get());
 			mv.addObject("filiaisDepartamentos", repFD.findAll());
 			mv.addObject("clientes", repC.findAll());
-			mv.addObject("lista_modelos", ModeloEnum.values());
+			mv.addObject("lista_modelos", modeloRepository.findAll());
 			mv.addObject("lista_situacoes", SituacaoEnum.values());
 			return mv;
 		}
@@ -97,7 +100,7 @@ public class MotoController {
 			mv.addObject("moto", moto);
 			mv.addObject("filiaisDepartamentos", repFD.findAll());
 			mv.addObject("clientes", repC.findAll());
-			mv.addObject("lista_modelos", ModeloEnum.values());
+			mv.addObject("lista_modelos", modeloRepository.findAll());
 			mv.addObject("lista_situacoes", SituacaoEnum.values());
 			return mv;
 		}
@@ -105,7 +108,7 @@ public class MotoController {
 		if(op.isPresent()) {
 			Moto atual = op.get();
 			atual.setNm_placa(moto.getNm_placa());
-			atual.setNm_modelo(moto.getNm_modelo());
+			atual.setModelo(moto.getModelo());
 			atual.setKm_rodado(moto.getKm_rodado());
 			atual.setSt_moto(moto.getSt_moto());
 		}

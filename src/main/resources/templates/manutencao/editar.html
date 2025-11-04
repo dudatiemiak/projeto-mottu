@@ -18,7 +18,7 @@
 								<label class="form-label">Moto</label>
 								<select class="form-select" th:field="*{moto}" required>
 									<option value="" th:text="'Selecione...'" disabled></option>
-									<option th:each="m : ${motos}" th:value="${m.id_moto}" th:text="${m.nm_placa + ' - ' + m.nm_modelo}" th:selected="${m.id_moto == manutencao.moto.id_moto}"></option>
+									<option th:each="m : ${motos}" th:value="${m.id_moto}" th:text="${m.nm_placa + ' - ' + m.modelo.nome}" th:selected="${m.id_moto == manutencao.moto.id_moto}"></option>
 								</select>
 								<div class="invalid-feedback" th:errors="*{moto}"></div>
 							</div>

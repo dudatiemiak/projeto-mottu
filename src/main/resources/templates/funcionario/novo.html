@@ -44,8 +44,10 @@
 								<div class="mb-3">
 									<label class="form-label">Função</label>
 									<select class="form-select" name="id_funcao" required>
+										<option value="" disabled selected>Selecione...</option>
 										<option th:each="funcao : ${lista_funcoes}" th:value="${funcao.id_funcao}" th:text="${funcao.nm_funcao}" />
 									</select>
+									<div class="invalid-feedback" th:errors="*{funcoes}"></div>
 								</div>
 								<div class="mb-3">
 									<label class="form-label">Filial</label>

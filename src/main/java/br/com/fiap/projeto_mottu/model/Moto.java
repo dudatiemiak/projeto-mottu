@@ -29,10 +29,10 @@ public class Moto{
 	private Cliente cliente;
     @Size(max = 10, message = "Valor da placa inválido")
 	private String nm_placa;
-    @NotNull(message = "Não é possível inserir uma moto sem seu modelo (Sport, E ou Pop)")
-    @Enumerated(EnumType.STRING)
-    @Column(name = "nm_modelo")
-	private ModeloEnum nm_modelo;
+    @ManyToOne
+    @JoinColumn(name = "id_modelo", nullable = false)
+    @NotNull(message = "A moto deve estar vinculada a um modelo!")
+    private Modelo modelo;
     @ManyToOne
     @JoinColumn(name = "id_filial_departamento", nullable = false)
     @NotNull(message = "A moto deve estar vinculada a uma filial departamento")
