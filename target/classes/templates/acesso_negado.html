@@ -1,16 +1,16 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{fragmentos :: cabecalho('Tela de Login')}" />
+<head th:replace="~{fragmentos :: cabecalho(#{acesso.negado.titulo})}" />
 
 <body>
 	<div class="container" style="text-align: center;">
 		<div class="row">
-			<h1><b>Você não tem permissão para acessar este conteúdo</b></h1>
-		</div>
-		<br><br>
-		
-		<a href="/index"> Menu</a>
+				<h1><b th:text="#{acesso.negado.mensagem}">Você não tem permissão para acessar este conteúdo</b></h1>
+			</div>
+			<br><br>
+        
+			<a th:href="@{/home}" class="btn btn-primary" th:text="#{texto.voltar.home}">Voltar para Home</a>
 
 
 		</div>

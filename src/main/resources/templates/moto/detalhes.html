@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragmentos :: cabecalho('Detalhes da Moto')}"></head>
+<head th:replace="~{fragmentos :: cabecalho(#{titulo.detalhes.moto})}"></head>
 <body>
     <form th:replace="~{fragmentos :: form-logout}" />
     <div th:replace="~{fragmentos :: voltar-home}"></div>
@@ -9,38 +9,38 @@
             <div class="col-lg-8">
                 <div class="card shadow-sm">
                     <div class="card-header bg-info text-white text-center">
-                        <h2 class="mb-0">Detalhes da Moto</h2>
+                        <h2 class="mb-0" th:text="#{titulo.detalhes.moto}">Detalhes da Moto</h2>
                     </div>
                     <div class="card-body">
                         <dl class="row mb-0">
-                            <dt class="col-sm-4">Placa</dt>
+                            <dt class="col-sm-4" th:text="#{texto.placa}">Placa</dt>
                             <dd class="col-sm-8" th:text="${moto.nm_placa}"></dd>
-                            <dt class="col-sm-4">Modelo</dt>
+                            <dt class="col-sm-4" th:text="#{texto.modelo}">Modelo</dt>
                             <dd class="col-sm-8" th:text="${moto.modelo.nome}"></dd>
-                            <dt class="col-sm-4">Situação</dt>
+                            <dt class="col-sm-4" th:text="#{texto.situacao}">Situação</dt>
                             <dd class="col-sm-8" th:text="${moto.st_moto}"></dd>
-                            <dt class="col-sm-4">KM Rodado</dt>
+                            <dt class="col-sm-4" th:text="#{texto.km_rodado}">KM Rodado</dt>
                             <dd class="col-sm-8" th:text="${moto.km_rodado}"></dd>
-                            <dt class="col-sm-4">Filial/Departamento</dt>
+                            <dt class="col-sm-4" th:text="#{texto.filial.departamento}">Filial/Departamento</dt>
                             <dd class="col-sm-8">
                                 <span th:text="${moto.filial_departamento.filial.nome_filial}"></span>
                                 <span> / </span>
                                 <span th:text="${moto.filial_departamento.departamento.nm_departamento}"></span>
                             </dd>
-                            <dt class="col-sm-4">Cliente (Alugada para)</dt>
+                            <dt class="col-sm-4" th:text="#{texto.cliente} + ' (' + #{texto.alugada_para} + ')'">Cliente (Alugada para)</dt>
                             <dd class="col-sm-8">
                                 <span th:if="${moto.cliente != null}" th:text="${moto.cliente.nm_cliente}"></span>
                                 <span th:if="${moto.cliente == null}" class="text-muted">Nenhum</span>
                             </dd>
                         </dl>
-                        <h4 class="mt-4">Histórico de Manutenções</h4>
+                        <h4 class="mt-4" th:text="#{texto.historico.manutencoes}">Histórico de Manutenções</h4>
                         <div class="table-responsive">
                             <table class="table table-bordered align-middle">
                                 <thead class="table-light">
                                     <tr>
-                                        <th>Data Entrada</th>
-                                        <th>Data Saída</th>
-                                        <th>Descrição</th>
+                                        <th th:text="#{texto.data.entrada}">Data Entrada</th>
+                                        <th th:text="#{texto.data.saida}">Data Saída</th>
+                                        <th th:text="#{texto.descricao}">Descrição</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -55,9 +55,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="d-flex justify-content-end">
+                            <div class="d-flex justify-content-end">
                             <a th:href="@{/moto/lista}" class="btn btn-secondary btn-lg fw-bold">
-                                <i class="bi bi-arrow-left"></i> Voltar
+                                <i class="bi bi-arrow-left"></i> <span th:text="#{texto.botao.voltar}">Voltar</span>
                             </a>
                         </div>
                     </div>

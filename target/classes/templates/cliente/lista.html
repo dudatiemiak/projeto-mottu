@@ -1,7 +1,7 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{fragmentos :: cabecalho('Lista de Clientes')}" />
+<head th:replace="~{fragmentos :: cabecalho(#{texto.lista.clientes})}" />
 
 <body>
 	<form th:replace="~{fragmentos :: form-logout}" />
@@ -13,23 +13,23 @@
             <div class="col-lg-11">
                 <div class="card shadow-sm">
                     <div class="card-header bg-primary text-white text-center">
-                        <h2 class="mb-0">Lista de Clientes</h2>
+                        <h2 class="mb-0" th:text="#{texto.lista.clientes}">Lista de Clientes</h2>
                     </div>
                     <div class="card-body">
                         <a class="btn btn-success mb-3" th:href="@{/cliente/nova}">
-                            <i class="bi bi-plus-circle"></i> Novo Cliente
+                            <i class="bi bi-plus-circle"></i> <span th:text="#{texto.botao.novo.cliente}">Novo Cliente</span>
                         </a>
                         <div class="table-responsive">
                             <table class="table table-hover align-middle">
                                 <thead class="table-light">
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Nome</th>
-                                        <th>Email</th>
-                                        <th>CPF</th>
-                                        <th>Telefone</th>
-                                        <th>Logradouro</th>
-                                        <th class="text-center">Ações</th>
+                                        <th th:text="#{texto.id}">ID</th>
+                                        <th th:text="#{texto.nome}">Nome</th>
+                                        <th th:text="#{texto.email}">Email</th>
+                                        <th th:text="#{texto.cpf}">CPF</th>
+                                        <th th:text="#{texto.telefone}">Telefone</th>
+                                        <th th:text="#{texto.logradouro}">Logradouro</th>
+                                        <th class="text-center" th:text="#{texto.acoes}">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,14 +45,14 @@
                                         <td th:text="${cliente.logradouro.nm_logradouro}"></td>
                                         <td class="text-center">
                                             <div class="btn-group" role="group">
-                                                <a th:href="@{/cliente/detalhes/{id}(id=${cliente.id_cliente})}" class="btn btn-info btn-sm me-1" title="Detalhes">
-                                                    <i class="bi bi-search"></i> Detalhes
+                                                <a th:href="@{/cliente/detalhes/{id}(id=${cliente.id_cliente})}" class="btn btn-info btn-sm me-1" title="#{}">
+                                                    <i class="bi bi-search"></i> <span th:text="#{texto.botao.detalhes}">Detalhes</span>
                                                 </a>
-                                                <a th:href="@{/cliente/editar/{id}(id=${cliente.id_cliente})}" class="btn btn-warning btn-sm me-1" title="Editar">
-                                                    <i class="bi bi-pencil"></i> Editar
+                                                <a th:href="@{/cliente/editar/{id}(id=${cliente.id_cliente})}" class="btn btn-warning btn-sm me-1" title="#{}">
+                                                    <i class="bi bi-pencil"></i> <span th:text="#{texto.botao.editar}">Editar</span>
                                                 </a>
-                                                <a th:href="@{/cliente/remover/{id}(id=${cliente.id_cliente})}" class="btn btn-danger btn-sm" title="Remover" onclick="return confirm('Tem certeza que deseja remover este cliente?');">
-                                                    <i class="bi bi-trash"></i> Remover
+                                                <a th:href="@{/cliente/remover/{id}(id=${cliente.id_cliente})}" class="btn btn-danger btn-sm" title="#{}" onclick="return confirm('#{texto.confirmar.excluir}');">
+                                                    <i class="bi bi-trash"></i> <span th:text="#{texto.botao.excluir}">Remover</span>
                                                 </a>
                                             </div>
                                         </td>

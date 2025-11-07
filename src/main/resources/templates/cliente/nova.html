@@ -1,7 +1,7 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{fragmentos :: cabecalho('Novo Cliente')}" />
+<head th:replace="~{fragmentos :: cabecalho(#{titulo.novo.cliente})}" />
 
 <body>
 	<form th:replace="~{fragmentos :: form-logout}" />
@@ -12,82 +12,86 @@
             <div class="col-lg-7">
                 <div class="card shadow-sm">
                     <div class="card-header bg-success text-white text-center">
-                        <h2 class="mb-0">Novo Cliente</h2>
+                        <h2 class="mb-0" th:text="#{titulo.novo.cliente}">Novo Cliente</h2>
                     </div>
                     <div class="card-body">
                         <form th:action="@{/cliente/inserir}" th:object="${cliente}" method="post" class="form">
                             <div class="mb-3">
-                                <label class="form-label">Nome</label>
+                                <label class="form-label" th:text="#{texto.nome}">Nome</label>
                                 <input type="text" th:field="*{nm_cliente}" class="form-control" required />
                                 <div class="invalid-feedback" th:errors="*{nm_cliente}"></div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">CPF</label>
+                                <label class="form-label" th:text="#{texto.cpf}">CPF</label>
                                 <input type="text" th:field="*{nr_cpf}" class="form-control" required th:errorclass="is-invalid"/>
                                 <div class="invalid-feedback" th:errors="*{nr_cpf}"></div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Email</label>
+                                <label class="form-label" th:text="#{texto.email}">Email</label>
                                 <input type="email" th:field="*{nm_email}" class="form-control" required th:errorclass="is-invalid"/>
                                 <div class="invalid-feedback" th:errors="*{nm_email}"></div>
                             </div>
-                            <h4 class="mt-4">Logradouro</h4>
+                            <h4 class="mt-4" th:text="#{texto.logradouro}">Logradouro</h4>
                             <div class="mb-3">
-                                <label class="form-label">Nome do logradouro</label>
+                                <label class="form-label" th:text="#{texto.logradouro.nome}">Nome do logradouro</label>
                                 <input type="text" name="logradouro.nm_logradouro" class="form-control" required />
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Número</label>
+                                <label class="form-label" th:text="#{texto.numero}">Número</label>
                                 <input type="number" name="logradouro.nr_logradouro" class="form-control" required />
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Complemento</label>
+                                <label class="form-label" th:text="#{texto.complemento}">Complemento</label>
                                 <input type="text" name="logradouro.complemento" class="form-control" />
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Bairro</label>
+                                <label class="form-label" th:text="#{texto.bairro}">Bairro</label>
                                 <input type="text" name="logradouro.bairro.nm_bairro" class="form-control" required />
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Cidade</label>
+                                <label class="form-label" th:text="#{texto.cidade}">Cidade</label>
                                 <input type="text" name="logradouro.bairro.cidade.nm_cidade" class="form-control" required />
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Estado (UF)</label>
+                                <label class="form-label" th:text="#{texto.estado.uf}">Estado (UF)</label>
                                 <input type="text" name="logradouro.bairro.cidade.estado.nm_estado" class="form-control" required maxlength="2" />
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">País</label>
+                                <label class="form-label" th:text="#{texto.pais}">País</label>
                                 <input type="text" name="logradouro.bairro.cidade.estado.pais.nm_pais" class="form-control" required />
                             </div>
-                            <h4 class="mt-4">Telefones</h4>
+                            <h4 class="mt-4" th:text="#{texto.telefones}">Telefones</h4>
                             <div id="telefones-wrapper">
                                 <div th:each="tel, iterStat : *{telefones}">
                                     <div class="row mb-2">
                                         <div class="col">
-                                            <input type="text" th:field="*{telefones[__${iterStat.index}__].nr_ddd}" placeholder="DDD" class="form-control" />
+                                            <input type="text" th:field="*{telefones[__${iterStat.index}__].nr_ddd}" th:placeholder="#{texto.placeholder.ddd}" class="form-control" />
                                         </div>
                                         <div class="col">
-                                            <input type="text" th:field="*{telefones[__${iterStat.index}__].nr_ddi}" placeholder="DDI" class="form-control" />
+                                            <input type="text" th:field="*{telefones[__${iterStat.index}__].nr_ddi}" th:placeholder="#{texto.placeholder.ddi}" class="form-control" />
                                         </div>
                                         <div class="col">
-                                            <input type="text" th:field="*{telefones[__${iterStat.index}__].nr_telefone}" placeholder="Número" class="form-control" />
+                                            <input type="text" th:field="*{telefones[__${iterStat.index}__].nr_telefone}" th:placeholder="#{texto.numero}" class="form-control" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <button type="button" class="btn btn-secondary mb-2" onclick="adicionarTelefone()">
-                                <i class="bi bi-plus-circle"></i> Adicionar Telefone
+                                <i class="bi bi-plus-circle"></i> <span th:text="#{texto.botao.adicionar.telefone}">Adicionar Telefone</span>
                             </button>
                             <div class="d-flex justify-content-end gap-2 mt-3">
                                 <button type="submit" class="btn btn-success fw-bold">
-                                    <i class="bi bi-save"></i> Salvar
+                                    <i class="bi bi-save"></i> <span th:text="#{texto.botao.salvar}">Salvar</span>
                                 </button>
                                 <a th:href="@{/cliente/lista}" class="btn btn-secondary fw-bold">
-                                    <i class="bi bi-x-circle"></i> Cancelar
+                                    <i class="bi bi-x-circle"></i> <span th:text="#{texto.botao.cancelar}">Cancelar</span>
                                 </a>
                             </div>
-                            <script>
+                            <script th:inline="javascript">
+                                /*<![CDATA[*/
+                                var phDDD = /*[[#{texto.placeholder.ddd}]]*/ 'DDD';
+                                var phDDI = /*[[#{texto.placeholder.ddi}]]*/ 'DDI';
+                                var phNumero = /*[[#{texto.numero}]]*/ 'Número';
                                 function adicionarTelefone() {
                                     const wrapper = document.getElementById('telefones-wrapper');
                                     const idx = wrapper.querySelectorAll('.row.mb-2').length;
@@ -95,17 +99,18 @@
                                     row.className = 'row mb-2';
                                     row.innerHTML = `
                                         <div class="col">
-                                            <input type="text" name="telefones[${idx}].nr_ddd" placeholder="DDD" class="form-control" />
+                                            <input type="text" name="telefones[${idx}].nr_ddd" placeholder="${phDDD}" class="form-control" />
                                         </div>
                                         <div class="col">
-                                            <input type="text" name="telefones[${idx}].nr_ddi" placeholder="DDI" class="form-control" />
+                                            <input type="text" name="telefones[${idx}].nr_ddi" placeholder="${phDDI}" class="form-control" />
                                         </div>
                                         <div class="col">
-                                            <input type="text" name="telefones[${idx}].nr_telefone" placeholder="Número" class="form-control" />
+                                            <input type="text" name="telefones[${idx}].nr_telefone" placeholder="${phNumero}" class="form-control" />
                                         </div>
                                     `;
                                     wrapper.appendChild(row);
                                 }
+                                /*]]>*/
                             </script>
                         </form>
                     </div>

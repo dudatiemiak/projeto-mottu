@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragmentos :: cabecalho('Nova Moto')}"></head>
+<head th:replace="~{fragmentos :: cabecalho(#{titulo.novo.moto})}"></head>
 <body>
     <form th:replace="~{fragmentos :: form-logout}" />
     <div th:replace="~{fragmentos :: voltar-home}"></div>
@@ -9,36 +9,36 @@
             <div class="col-lg-7">
                 <div class="card shadow-sm">
                     <div class="card-header bg-success text-white text-center">
-                        <h2 class="mb-0">Cadastrar Nova Moto</h2>
+                        <h2 class="mb-0" th:text="#{titulo.novo.moto}">Cadastrar Nova Moto</h2>
                     </div>
                     <div class="card-body">
                         <form th:action="@{/moto/inserir}" th:object="${moto}" method="post">
                             <div class="mb-3">
-                                <label class="form-label">Placa</label>
+                                <label class="form-label" th:text="#{texto.placa}">Placa</label>
                                 <input type="text" class="form-control" th:field="*{nm_placa}" required th:errorclass="is-invalid"/>
                                 <div class="invalid-feedback" th:errors="*{nm_placa}"></div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Modelo</label>
+                                <label class="form-label" th:text="#{texto.modelo}">Modelo</label>
                                     <select class="form-select" th:field="*{modelo}" required>
-                                        <option value="" th:text="'Selecione...'" disabled selected></option>
+                                        <option value="" th:text="#{texto.selecione}" disabled selected></option>
                                         <option th:each="modelo : ${lista_modelos}" th:value="${modelo.id}" th:text="${modelo.nome}"></option>
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Situação</label>
+                                <label class="form-label" th:text="#{texto.situacao}">Situação</label>
                                 <select class="form-select" th:field="*{st_moto}" required>
                                     <option value="" th:text="'Selecione...'" disabled selected></option>
                                     <option th:each="sit : ${lista_situacoes}" th:value="${sit}" th:text="${sit}"></option>
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">KM Rodado</label>
+                                <label class="form-label" th:text="#{texto.km_rodado}">KM Rodado</label>
                                 <input type="number" class="form-control" th:field="*{km_rodado}" th:errorclass="is-invalid"/>
 								<div class="invalid-feedback" th:errors="*{km_rodado}"></div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Filial/Departamento</label>
+                                <label class="form-label" th:text="#{texto.filial.departamento}">Filial/Departamento</label>
                                 <select class="form-select" th:field="*{filial_departamento}" required>
                                     <option value="" th:text="'Selecione...'" disabled selected></option>
                                     <option th:each="fd : ${filiaisDepartamentos}" th:value="${fd.id_filial_departamento}">
@@ -48,18 +48,18 @@
                                 <small class="form-text text-muted">Escolha a filial e o departamento correspondente.</small>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Cliente</label>
+                                <label class="form-label" th:text="#{texto.cliente}">Cliente</label>
                                 <select class="form-select" th:field="*{cliente}">
-                                    <option th:value="__${null}__" th:text="'Nenhum'"></option>
+                                    <option th:value="__${null}__" th:text="#{texto.nenhum}"></option>
                                     <option th:each="cli : ${clientes}" th:value="${cli.id_cliente}" th:text="${cli.nm_cliente}"></option>
                                 </select>
                             </div>
                             <div class="d-flex justify-content-end gap-2">
                                 <button type="submit" class="btn btn-success fw-bold">
-                                    <i class="bi bi-save"></i> Cadastrar
+                                    <i class="bi bi-save"></i> <span th:text="#{texto.botao.salvar}">Cadastrar</span>
                                 </button>
                                 <a th:href="@{/moto/lista}" class="btn btn-secondary fw-bold">
-                                    <i class="bi bi-x-circle"></i> Cancelar
+                                    <i class="bi bi-x-circle"></i> <span th:text="#{texto.botao.cancelar}">Cancelar</span>
                                 </a>
                             </div>
                         </form>

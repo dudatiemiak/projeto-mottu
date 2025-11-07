@@ -1,42 +1,41 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{fragmentos :: cabecalho('Menu Principal')}" />
+<head th:replace="~{fragmentos :: cabecalho(#{titulo.menu.principal})}" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <body>
     <div class="container d-flex flex-column align-items-center justify-content-center" style="min-height: 90vh;">
         <div class="w-100 d-flex justify-content-end mt-3">
-            <form th:action="@{/logout}" method="post">
-                <button type="submit" class="btn btn-outline-danger">Sair</button>
-            </form>
+            <div th:replace="~{fragmentos :: form-logout}" />
+            <div th:replace="~{fragmentos :: idioma}" />
         </div>
-        <h1 class="mb-5 mt-3 text-center">Menu Principal</h1>
+        <h1 class="mb-5 mt-3 text-center" th:text="#{titulo.menu.principal}">Menu Principal</h1>
         <div class="row w-100 justify-content-center g-4">
             <div class="col-12 col-md-5 col-lg-3 d-flex justify-content-center">
                 <a class="btn btn-primary btn-lg w-100 shadow" th:href="@{/cliente/lista}">
-                    <i class="bi bi-people-fill me-2"></i> Clientes
+                    <i class="bi bi-people-fill me-2"></i> <span th:text="#{menu.clientes}">Clientes</span>
                 </a>
             </div>
             <div class="col-12 col-md-5 col-lg-3 d-flex justify-content-center">
                 <a class="btn btn-success btn-lg w-100 shadow" th:href="@{/funcionario/lista}">
-                    <i class="bi bi-person-badge-fill me-2"></i> Funcionários
+                    <i class="bi bi-person-badge-fill me-2"></i> <span th:text="#{menu.funcionarios}">Funcionários</span>
                 </a>
             </div>
             <div class="col-12 col-md-5 col-lg-3 d-flex justify-content-center">
                 <a class="btn btn-warning btn-lg w-100 shadow" th:href="@{/moto/lista}">
-                    <i class="bi bi-bicycle me-2"></i> Motos
+                    <i class="bi bi-bicycle me-2"></i> <span th:text="#{menu.motos}">Motos</span>
                 </a>
             </div>
             <div class="col-12 col-md-5 col-lg-3 d-flex justify-content-center">
                 <a class="btn btn-info btn-lg w-100 shadow" th:href="@{/manutencao/lista}">
-                    <i class="bi bi-tools me-2"></i> Manutenções
+                    <i class="bi bi-tools me-2"></i> <span th:text="#{menu.manutencoes}">Manutenções</span>
                 </a>
             </div>
         </div>
         <div class="row mt-5 w-100 justify-content-center">
             <div class="col-12 col-md-8">
                 <div class="alert alert-light text-center shadow-sm">
-                    <strong>Dica:</strong> Você pode cadastrar, editar, visualizar ou excluir registros em cada módulo.
+                    <strong th:text="#{texto.dica.home.titulo}">Dica:</strong> <span th:text="#{texto.dica.home}">Você pode cadastrar, editar, visualizar ou excluir registros em cada módulo.</span>
                 </div>
             </div>
         </div>

@@ -19,10 +19,10 @@ public class Departamento {
 	private Long id_departamento;
 	@NotEmpty
 	@Column(name = "nm_departamento")
-	@Size(max = 50, message = "O nome do departamento deve ter no máximo 50 caracteres")
+	@Size(max = 50, message = "{validacao.departamento.nome.tamanho}")
 	private String nm_departamento;
 	@NotEmpty
-	@Size(max = 250, message = "A descrição do departamento deve ter no máximo 250 caracteres")
+	@Size(max = 250, message = "{validacao.departamento.descricao.tamanho}")
 	@Column(name = "ds_departamento")
 	private String desc_departamento;
 }

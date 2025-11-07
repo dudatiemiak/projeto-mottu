@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragmentos :: cabecalho('Detalhes da Manutenção')}"></head>
+<head th:replace="~{fragmentos :: cabecalho(#{titulo.detalhes.manutencao})}"></head>
 <body>
     <form th:replace="~{fragmentos :: form-logout}" />
     <div th:replace="~{fragmentos :: voltar-home}"></div>
@@ -9,32 +9,32 @@
             <div class="col-lg-8">
                 <div class="card shadow-sm">
                     <div class="card-header bg-info text-white text-center">
-                        <h2 class="mb-0">Detalhes da Manutenção</h2>
+                        <h2 class="mb-0" th:text="#{titulo.detalhes.manutencao}">Detalhes da Manutenção</h2>
                     </div>
                     <div class="card-body">
                         <dl class="row mb-0">
-                            <dt class="col-sm-4">Moto</dt>
+                            <dt class="col-sm-4" th:text="#{texto.moto}">Moto</dt>
                             <dd class="col-sm-8">
                                 <span class="fw-bold" th:text="${manutencao.moto.nm_placa}"></span>
                                 <span class="text-muted">-</span>
                                 <span th:text="${manutencao.moto.modelo.nome}"></span>
                             </dd>
-                            <dt class="col-sm-4">Data Entrada</dt>
+                            <dt class="col-sm-4" th:text="#{texto.data.entrada}">Data Entrada</dt>
                             <dd class="col-sm-8" th:text="${manutencao.dt_entrada}"></dd>
-                            <dt class="col-sm-4">Data Saída</dt>
+                            <dt class="col-sm-4" th:text="#{texto.data.saida}">Data Saída</dt>
                             <dd class="col-sm-8" th:text="${manutencao.dt_saida}"></dd>
-                            <dt class="col-sm-4">Descrição</dt>
+                            <dt class="col-sm-4" th:text="#{texto.descricao}">Descrição</dt>
                             <dd class="col-sm-8" th:text="${manutencao.ds_manutencao}"></dd>
                         </dl>
-                        <div class="btn-group mt-4" role="group">
+                            <div class="btn-group mt-4" role="group">
                             <a class="btn btn-warning" th:href="@{'/manutencao/editar/' + ${manutencao.id_manutencao}}" title="Editar">
-                                <i class="bi bi-pencil"></i> Editar
+                                <i class="bi bi-pencil"></i> <span th:text="#{texto.botao.editar}">Editar</span>
                             </a>
-                            <a class="btn btn-danger" th:href="@{'/manutencao/excluir/' + ${manutencao.id_manutencao}}" onclick="return confirm('Tem certeza que deseja excluir?');" title="Excluir">
-                                <i class="bi bi-trash"></i> Excluir
+                            <a class="btn btn-danger" th:href="@{'/manutencao/excluir/' + ${manutencao.id_manutencao}}" onclick="return confirm('#{texto.confirmar.excluir}');" title="Excluir">
+                                <i class="bi bi-trash"></i> <span th:text="#{texto.botao.excluir}">Excluir</span>
                             </a>
                             <a class="btn btn-secondary" th:href="@{'/manutencao/lista'}" title="Voltar">
-                                <i class="bi bi-arrow-left"></i> Voltar
+                                <i class="bi bi-arrow-left"></i> <span th:text="#{texto.botao.voltar}">Voltar</span>
                             </a>
                         </div>
                     </div>

@@ -25,19 +25,19 @@ public class Moto{
 	private Long id_moto;
 	@ManyToOne
 	@JoinColumn(name = "id_cliente", nullable = false)
-    @NotNull(message = "A moto deve estar relacionada a um cliente!")
+    @NotNull(message = "{validacao.moto.cliente.presenca}")
 	private Cliente cliente;
-    @Size(max = 10, message = "Valor da placa inválido")
+    @Size(max = 10, message = "{validacao.moto.placa.invalida}")
 	private String nm_placa;
     @ManyToOne
     @JoinColumn(name = "id_modelo", nullable = false)
-    @NotNull(message = "A moto deve estar vinculada a um modelo!")
+    @NotNull(message = "{validacao.moto.modelo.presenca}")
     private Modelo modelo;
     @ManyToOne
     @JoinColumn(name = "id_filial_departamento", nullable = false)
-    @NotNull(message = "A moto deve estar vinculada a uma filial departamento")
+    @NotNull(message = "{validacao.moto.filialdepartamento.presenca}")
 	private FilialDepartamento filial_departamento;
-    @NotNull(message = "Não é possível inserir uma moto sem sua situação/condição (Manutenção, Funcionamento ou Pátio)")
+    @NotNull(message = "{validacao.moto.situacao.obrigatoria}")
     @Enumerated(EnumType.STRING)
 	private SituacaoEnum st_moto;
     @Column(name = "km_rodado")

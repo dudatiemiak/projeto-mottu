@@ -10,42 +10,42 @@
 			<div class="col-lg-10">
 				<div class="card shadow-sm">
 					<div class="card-header bg-primary text-white text-center">
-						<h2 class="mb-0">Lista de Manutenções</h2>
+						<h2 class="mb-0" th:text="#{texto.lista.manutencoes}">Lista de Manutenções</h2>
 					</div>
 					<div class="card-body">
 						<a class="btn btn-success mb-3" th:href="@{/manutencao/nova}">
-							<i class="bi bi-plus-circle"></i> Nova Manutenção
+							<i class="bi bi-plus-circle"></i> <span th:text="#{texto.botao.nova.manutencao}">Nova Manutenção</span>
 						</a>
 						<form class="row g-3 mb-3" method="get" th:action="@{/manutencao/lista}">
 							<div class="col-md-6">
-								<label for="q" class="form-label">Buscar por descrição</label>
-								<input type="text" id="q" name="q" class="form-control" placeholder="Ex.: troca de óleo" th:value="${q}">
+								<label for="q" class="form-label" th:text="#{texto.buscar.descricao}">Buscar por descrição</label>
+								<input type="text" id="q" name="q" class="form-control" placeholder="" th:placeholder="#{texto.placeholder.busca}" th:value="${q}">
 							</div>
 							<div class="col-md-3 d-flex align-items-end">
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" id="abertas" name="abertas" th:checked="${abertas}">
-									<label class="form-check-label" for="abertas">Somente em aberto</label>
+									<label class="form-check-label" for="abertas" th:text="#{texto.somente.em.aberto}">Somente em aberto</label>
 								</div>
 							</div>
 							<div class="col-md-3 d-flex align-items-end gap-2">
-								<button class="btn btn-primary" type="submit"><i class="bi bi-search"></i> Filtrar</button>
-								<a class="btn btn-outline-secondary" th:href="@{/manutencao/lista}"><i class="bi bi-x-circle"></i> Limpar</a>
+								<button class="btn btn-primary" type="submit"><i class="bi bi-search"></i> <span th:text="#{texto.botao.filtrar}">Filtrar</span></button>
+								<a class="btn btn-outline-secondary" th:href="@{/manutencao/lista}"><i class="bi bi-x-circle"></i> <span th:text="#{texto.botao.limpar}">Limpar</span></a>
 							</div>
 						</form>
 						<div class="table-responsive">
 							<table class="table table-hover align-middle">
 								<thead class="table-light">
 									<tr>
-										<th>Moto</th>
-										<th>Data Entrada</th>
-										<th>Data Saída</th>
-										<th>Descrição</th>
-										<th>Ações</th>
+										<th th:text="#{texto.moto}">Moto</th>
+										<th th:text="#{texto.data.entrada}">Data Entrada</th>
+										<th th:text="#{texto.data.saida}">Data Saída</th>
+										<th th:text="#{texto.descricao}">Descrição</th>
+										<th th:text="#{texto.acoes}">Ações</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr th:if="${#lists.isEmpty(manutencoes)}">
-										<td colspan="5" class="text-center text-muted">Nenhum registro encontrado.</td>
+										<td colspan="5" class="text-center text-muted" th:text="#{texto.nenhum.registro}">Nenhum registro encontrado.</td>
 									</tr>
 									<tr th:each="manut : ${manutencoes}">
 										<td>
@@ -59,13 +59,13 @@
 										<td>
 											<div class="btn-group" role="group">
 												<a th:href="@{'/manutencao/detalhes/' + ${manut.id_manutencao}}" class="btn btn-info btn-sm me-1">
-													<i class="bi bi-search"></i> Detalhes
+													<i class="bi bi-search"></i> <span th:text="#{texto.botao.detalhes}">Detalhes</span>
 												</a>
 												<a th:href="@{'/manutencao/editar/' + ${manut.id_manutencao}}" class="btn btn-warning btn-sm me-1">
-													<i class="bi bi-pencil"></i> Editar
+													<i class="bi bi-pencil"></i> <span th:text="#{texto.botao.editar}">Editar</span>
 												</a>
-												<a th:href="@{'/manutencao/excluir/' + ${manut.id_manutencao}}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir?');">
-													<i class="bi bi-trash"></i> Excluir
+												<a th:href="@{'/manutencao/excluir/' + ${manut.id_manutencao}}" class="btn btn-danger btn-sm" th:onclick="|return confirm('#{texto.confirmar.excluir}');|">
+													<i class="bi bi-trash"></i> <span th:text="#{texto.botao.excluir}">Excluir</span>
 												</a>
 											</div>
 										</td>

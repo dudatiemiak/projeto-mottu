@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragmentos :: cabecalho('Nova Manutenção')}"></head>
+<head th:replace="~{fragmentos :: cabecalho(#{titulo.novo.manutencao})}"></head>
 <body>
 	<form th:replace="~{fragmentos :: form-logout}" />
 	<div th:replace="~{fragmentos :: voltar-home}"></div>
@@ -9,40 +9,40 @@
 			<div class="col-lg-8">
 				<div class="card shadow-sm">
 					<div class="card-header bg-success text-white text-center">
-						<h2 class="mb-0">Cadastrar Nova Manutenção</h2>
+						<h2 class="mb-0" th:text="#{titulo.novo.manutencao}">Cadastrar Nova Manutenção</h2>
 					</div>
 					<div class="card-body">
 						<form th:action="@{/manutencao/inserir}" th:object="${manutencao}" method="post" id="manutencaoForm" onsubmit="return validarDatasManutencao(event)">
 							<div class="mb-4">
-								<label class="form-label">Moto</label>
+								<label class="form-label" th:text="#{texto.moto}">Moto</label>
 								<select class="form-select" th:field="*{moto}" required>
-									<option value="" th:text="'Selecione...'" disabled selected></option>
+									<option value="" th:text="#{texto.selecione}" disabled selected></option>
 									<option th:each="m : ${motos}" th:value="${m.id_moto}" th:text="${m.nm_placa + ' - ' + m.modelo.nome}"></option>
 								</select>
 							</div>
 							<div class="mb-4">
-								<label class="form-label">Data Entrada</label>
-								<input type="date" class="form-control" th:field="*{dt_entrada}" required placeholder="Data de entrada" id="dt_entrada" th:errorclass="is-invalid"/>
+								<label class="form-label" th:text="#{texto.data.entrada}">Data Entrada</label>
+								<input type="date" class="form-control" th:field="*{dt_entrada}" required th:placeholder="#{texto.data.entrada}" id="dt_entrada" th:errorclass="is-invalid"/>
 								<div class="invalid-feedback" th:errors="*{dt_entrada}"></div>
 								<div id="erroDataEntrada" class="alert alert-danger mt-2" style="display:none;"></div>
 							</div>
 							<div class="mb-4">
-								<label class="form-label">Data Saída</label>
-								<input type="date" id="dt_saida" class="form-control" th:field="*{dt_saida}" placeholder="Data de saída" th:errorclass="is-invalid"/>
+								<label class="form-label" th:text="#{texto.data.saida}">Data Saída</label>
+								<input type="date" id="dt_saida" class="form-control" th:field="*{dt_saida}" th:placeholder="#{texto.data.saida}" th:errorclass="is-invalid"/>
 								<div class="invalid-feedback" th:errors="*{dt_saida}"></div>
 								<div id="erroDataSaida" class="alert alert-danger mt-2" style="display:none;"></div>
 							</div>
 							<div class="mb-4">
-								<label class="form-label">Descrição</label>
-								<textarea class="form-control" th:field="*{ds_manutencao}" maxlength="300" required placeholder="Descreva a manutenção" th:errorclass="is-invalid"></textarea>
+								<label class="form-label" th:text="#{texto.descricao}">Descrição</label>
+								<textarea class="form-control" th:field="*{ds_manutencao}" maxlength="300" required th:placeholder="#{texto.placeholder.descricao_manutencao}" th:errorclass="is-invalid"></textarea>
 								<div class="invalid-feedback" th:errors="*{ds_manutencao}"></div>
 							</div>
 							<div class="d-flex justify-content-end gap-2">
 								<button type="submit" class="btn btn-success">
-									<i class="bi bi-save"></i> Salvar
+									<i class="bi bi-save"></i> <span th:text="#{texto.botao.salvar}">Salvar</span>
 								</button>
 								<a class="btn btn-secondary" th:href="@{/manutencao/lista}">
-									<i class="bi bi-x-circle"></i> Cancelar
+									<i class="bi bi-x-circle"></i> <span th:text="#{texto.botao.cancelar}">Cancelar</span>
 								</a>
 							</div>
 						</form>
@@ -51,7 +51,11 @@
 			</div>
 		</div>
 	</div>
-<script>
+<script th:inline="javascript">
+/*<![CDATA[*/
+var msgDataEntradaFutura = /*[[#{validacao.data.entrada.futura}]]*/ 'A data de entrada não pode ser futura.';
+var msgDataSaidaFutura = /*[[#{validacao.data.saida.futura}]]*/ 'A data de saída não pode ser futura.';
+
 function validarDatasManutencao(event) {
 	const dataEntradaInput = document.getElementById('dt_entrada');
 	const erroDataEntrada = document.getElementById('erroDataEntrada');
@@ -65,7 +69,7 @@ function validarDatasManutencao(event) {
 		hoje.setHours(0,0,0,0);
 		const dataEntrada = new Date(dataEntradaInput.value);
 		if (dataEntrada > hoje) {
-			erroDataEntrada.textContent = 'A data de entrada não pode ser futura.';
+			erroDataEntrada.textContent = msgDataEntradaFutura;
 			erroDataEntrada.style.display = 'block';
 			dataEntradaInput.focus();
 			event.preventDefault();
@@ -78,7 +82,7 @@ function validarDatasManutencao(event) {
 		const dataSaida = new Date(dataSaidaInput.value);
 		if (dataSaida > hoje) {
 			if (erroDataSaida) {
-				erroDataSaida.textContent = 'A data de saída não pode ser futura.';
+				erroDataSaida.textContent = msgDataSaidaFutura;
 				erroDataSaida.style.display = 'block';
 			}
 			dataSaidaInput.focus();
@@ -88,6 +92,7 @@ function validarDatasManutencao(event) {
 	}
 	return true;
 }
+/*]]>*/
 </script>
 </body>
 </html>

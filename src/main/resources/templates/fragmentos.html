@@ -10,15 +10,39 @@
 
 <form th:fragment="form-logout" th:action="@{/logout}" method="post" style="display:inline;">
     <button type="submit" class="btn btn-danger btn-lg fw-bold shadow-sm" style="float: right; margin: 10px 0 10px 10px;">
-        <i class="bi bi-box-arrow-right"></i> Sair
+        <i class="bi bi-box-arrow-right"></i> <span th:text="#{botao_sair}">Sair</span>
     </button>
 </form>
 
+<!-- fragmento para seleção de idioma -->
+<div th:fragment="idioma" style="float: right; margin: 10px;">
+    <div class="btn-group" role="group" aria-label="" th:attr="aria-label=#{label.idioma}">
+    <!-- Use client-side navigation to avoid server-side request object being null when rendering fragments -->
+    <a href="#" onclick="location.href = window.location.pathname + '?lang=pt'" th:text="#{opcao_idioma_pt}" class="btn btn-outline-secondary btn-sm">PT</a>
+    <a href="#" onclick="location.href = window.location.pathname + '?lang=en'" th:text="#{opcao_idioma_en}" class="btn btn-outline-secondary btn-sm">EN</a>
+    <a href="#" onclick="location.href = window.location.pathname + '?lang=es'" th:text="#{opcao_idioma_es}" class="btn btn-outline-secondary btn-sm">ES</a>
+    </div>
+</div>
+
 <div th:fragment="saudacoes(funcionario)" style="display: flex; align-items: center;">
-			<h1><b> Olá, <span th:text="${funcionario.nm_funcionario}"></span> !</b></h1>
-		</div>
+    <h1>
+        <b>
+            <span th:text="#{saudacao}">Olá,</span>
+            <span th:text="${funcionario.nm_funcionario}"></span>
+            <span>!</span>
+        </b>
+    </h1>
+</div>
 <div th:fragment="voltar-home">
-    <a th:href="@{/home}" class="btn btn-primary btn-lg fw-bold mb-3 shadow-sm" style="letter-spacing:1px;">
-        <i class="bi bi-house-door-fill"></i> Voltar para Home
-    </a>
+    <div style="display:flex; align-items:center; justify-content:space-between;">
+        <div>
+            <a th:href="@{/home}" class="btn btn-primary btn-lg fw-bold mb-3 shadow-sm" style="letter-spacing:1px;">
+                <i class="bi bi-house-door-fill"></i> <span th:text="#{texto.voltar.home}">Voltar para Home</span>
+            </a>
+        </div>
+        <div>
+            <!-- Reuse idioma fragment here so it appears next to the home button -->
+            <div th:replace="~{fragmentos :: idioma}" />
+        </div>
+    </div>
 </div>

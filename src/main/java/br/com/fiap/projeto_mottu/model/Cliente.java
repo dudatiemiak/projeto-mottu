@@ -32,21 +32,21 @@ public class Cliente{
 	private Long id_cliente;
 	
 	@OneToOne
-    @JoinColumn(name = "id_logradouro", nullable = false)
-    @NotNull(message = "O cliente deve estar relacionado a um logradouro")
+	@JoinColumn(name = "id_logradouro", nullable = false)
+	@NotNull(message = "{validacao.logradouro.presenca}")
 	private Logradouro logradouro;
 	
-	@NotEmpty(message = "O nome do cliente deve ser informado!")
-    @Size(max = 100, message = "O nome do cliente deve ter no máximo 100 caracteres")
+	@NotEmpty(message = "{validacao.cliente.nome.obrigatorio}")
+	@Size(max = 100, message = "{validacao.cliente.nome.tamanho}")
 	@Column(name = "nm_cliente")
 	private String nm_cliente;
-	@NotEmpty(message = "O CPF deve ser informado!")
-	@CPF(message = "O CPF informado é inválido")
+	@NotEmpty(message = "{validacao.cpf.obrigatorio}")
+	@CPF(message = "{validacao.cpf.invalido}")
 	@Column(name = "nr_cpf")
 	private String nr_cpf;
-	@NotEmpty(message = "O email deve ser informado!")
-	@Email(message = "Email deve ser válido")
-    @Size(max = 100, message = "Email deve ter no máximo 100 caracteres")
+	@NotEmpty(message = "{validacao.email.obrigatorio}")
+	@Email(message = "{validacao.email.invalido}")
+	@Size(max = 100, message = "{validacao.email.tamanho}")
 	@Column(name = "nm_email")
 	private String nm_email;
 

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragmentos :: cabecalho('Lista de Motos')}"></head>
+<head th:replace="~{fragmentos :: cabecalho(#{texto.lista.motos})}"></head>
 <body>
 	<form th:replace="~{fragmentos :: form-logout}" />
 	<div th:replace="~{fragmentos :: voltar-home}"></div>
@@ -10,23 +10,23 @@
 			<div class="col-lg-11">
 				<div class="card shadow-sm">
 					<div class="card-header bg-primary text-white text-center">
-						<h2 class="mb-0">Lista de Motos</h2>
+						<h2 class="mb-0" th:text="#{texto.lista.motos}">Lista de Motos</h2>
 					</div>
 					<div class="card-body">
 						<a class="btn btn-success mb-3" th:href="@{/moto/nova}">
-							<i class="bi bi-plus-circle"></i> Nova Moto
+							<i class="bi bi-plus-circle"></i> <span th:text="#{texto.botao.novo.moto}">Nova Moto</span>
 						</a>
 						<div class="table-responsive">
 							<table class="table table-hover align-middle">
 								<thead class="table-light">
 									<tr>
-										<th>Placa</th>
-										<th>Modelo</th>
-										<th>Situação</th>
-										<th>KM Rodado</th>
-										<th>Filial/Departamento</th>
-										<th>Cliente</th>
-										<th>Ações</th>
+										<th th:text="#{texto.placa}">Placa</th>
+										<th th:text="#{texto.modelo}">Modelo</th>
+										<th th:text="#{texto.situacao}">Situação</th>
+										<th th:text="#{texto.km_rodado}">KM Rodado</th>
+										<th th:text="#{texto.filial.departamento}">Filial/Departamento</th>
+										<th th:text="#{texto.cliente}">Cliente</th>
+										<th th:text="#{texto.acoes}">Ações</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -43,13 +43,13 @@
 										<td>
 											<div class="btn-group" role="group">
 												<a th:href="@{'/moto/detalhes/' + ${moto.id_moto}}" class="btn btn-info btn-sm me-1">
-													<i class="bi bi-search"></i> Detalhes
+													<i class="bi bi-search"></i> <span th:text="#{texto.botao.detalhes}">Detalhes</span>
 												</a>
 												<a th:href="@{'/moto/editar/' + ${moto.id_moto}}" class="btn btn-warning btn-sm me-1">
-													<i class="bi bi-pencil"></i> Editar
+													<i class="bi bi-pencil"></i> <span th:text="#{texto.botao.editar}">Editar</span>
 												</a>
-												<a th:href="@{'/moto/excluir/' + ${moto.id_moto}}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir esta moto?');">
-													<i class="bi bi-trash"></i> Excluir
+												<a th:href="@{'/moto/excluir/' + ${moto.id_moto}}" class="btn btn-danger btn-sm" onclick="return confirm('#{texto.confirmar.excluir}');">
+													<i class="bi bi-trash"></i> <span th:text="#{texto.botao.excluir}">Excluir</span>
 												</a>
 											</div>
 										</td>

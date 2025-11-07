@@ -21,11 +21,11 @@ public class Bairro {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_bairro;
 	@ManyToOne
-    @JoinColumn(name = "id_cidade", nullable = false)
-    @NotNull(message = "O bairro deve estar vinculado a uma cidade")
+	 @JoinColumn(name = "id_cidade", nullable = false)
+	 @NotNull(message = "{validacao.bairro.cidade.presenca}")
 	private Cidade cidade;
-	@NotEmpty(message = "O nome do bairro deve ser informado")
-    @Size(max = 100, message = "O nome do bairro deve ter no máximo 100 caracteres")
+	 @NotEmpty(message = "{validacao.bairro.nome.obrigatorio}")
+	 @Size(max = 100, message = "{validacao.bairro.nome.tamanho}")
 	@Column(name = "nm_bairro")
 	private String nm_bairro;
 	

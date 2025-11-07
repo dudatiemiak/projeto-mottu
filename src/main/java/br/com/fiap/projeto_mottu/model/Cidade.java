@@ -21,11 +21,11 @@ public class Cidade {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_cidade;
 	@ManyToOne
-    @JoinColumn(name = "id_estado", nullable = false)
-    @NotNull(message = "A cidade deve estar vinculada a um estado")
+	@JoinColumn(name = "id_estado", nullable = false)
+	@NotNull(message = "{validacao.cidade.estado.presenca}")
 	private Estado estado;
-	@NotEmpty(message = "O nome da cidade deve ser informado")
-    @Size(max = 50, message = "O nome da cidade deve ter no máximo 50 caracteres")
+	@NotEmpty(message = "{validacao.cidade.nome.obrigatorio}")
+	@Size(max = 50, message = "{validacao.cidade.nome.tamanho}")
 	@Column(name = "nm_cidade")
 	private String nm_cidade;
 

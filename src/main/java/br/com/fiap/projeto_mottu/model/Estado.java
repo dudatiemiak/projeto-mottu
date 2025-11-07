@@ -21,11 +21,11 @@ public class Estado {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_estado;
 	@ManyToOne
-    @JoinColumn(name = "id_pais", nullable = false)
-    @NotNull(message = "O estado deve estar vinculado a um país")
+	@JoinColumn(name = "id_pais", nullable = false)
+	@NotNull(message = "{validacao.estado.pais.presenca}")
 	private Pais pais;
-	@NotEmpty(message = "O nome do estado deve ser informado")
-    @Size(min = 2, max = 2, message = "O estado deve conter exatamente 2 letras (UF)")
+	@NotEmpty(message = "{validacao.estado.nome.obrigatorio}")
+	@Size(min = 2, max = 2, message = "{validacao.estado.uf.formato}")
 	@Column(name = "nm_estado")
 	private String nm_estado;
 	

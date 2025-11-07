@@ -1,6 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragmentos :: cabecalho('Editar Funcionário')}"></head>
+<head th:replace="~{fragmentos :: cabecalho(#{titulo.editar.funcionario})}"></head>
 <body>
 <form th:replace="~{fragmentos :: form-logout}" />
 <div th:replace="~{fragmentos :: voltar-home}"></div>
@@ -8,38 +8,38 @@
     <div class="row justify-content-center">
         <div class="col-lg-7">
             <div class="card shadow-sm">
-                <div class="card-header bg-warning text-dark text-center">
-                    <h2 class="mb-0">Editar Funcionário</h2>
+                    <div class="card-header bg-warning text-dark text-center">
+                    <h2 class="mb-0" th:text="#{titulo.editar.funcionario}">Editar Funcionário</h2>
                 </div>
                 <div class="card-body">
                     <form th:object="${funcionario}" th:action="@{/funcionario/editar}" method="post">
                         <input type="hidden" th:field="*{id_funcionario}" />
                         <div class="mb-3">
-                            <label class="form-label">Email</label>
+                            <label class="form-label" th:text="#{texto.email}">Email</label>
                             <input class="form-control" type="email" th:field="*{nmEmailCorporativo}" readonly>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Senha</label>
+                            <label class="form-label" th:text="#{texto.senha}">Senha</label>
                             <input class="form-control" type="password" th:field="*{nm_senha}">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Nome Funcionário</label>
+                            <label class="form-label" th:text="#{texto.nome}">Nome Funcionário</label>
                             <input class="form-control" type="text" th:field="*{nm_funcionario}" required th:errorclass="is-invalid">
                             <div class="invalid-feedback" th:errors="*{nm_funcionario}"></div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Cargo</label>
+                            <label class="form-label" th:text="#{texto.cargo}">Cargo</label>
                             <input class="form-control" type="text" th:field="*{nm_cargo}" required th:errorclass="is-invalid">
                             <div class="invalid-feedback" th:errors="*{nm_cargo}"></div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Função</label>
+                            <label class="form-label" th:text="#{texto.funcao}">Função</label>
                             <select class="form-select" name="id_funcao" required>
                                 <option th:each="funcao : ${lista_funcoes}" th:value="${funcao.id_funcao}" th:text="${funcao.nm_funcao}" th:selected="${funcionario.funcoes.contains(funcao)}" />
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Filial</label>
+                            <label class="form-label" th:text="#{texto.filial}">Filial</label>
                             <select class="form-select" th:field="*{filial}" required>
                                 <option th:each="filial : ${lista_filiais}" th:value="${filial.id_filial}" th:text="${filial.nome_filial}" th:selected="${filial.id_filial == funcionario.filial?.id_filial}" />
                             </select>
@@ -47,10 +47,10 @@
                         <input type="hidden" name="_csrf" th:value="${_csrf.token}">
                         <div class="d-flex justify-content-end gap-2">
                             <button type="submit" class="btn btn-success fw-bold">
-                                <i class="bi bi-save"></i> Salvar Alterações
+                                <i class="bi bi-save"></i> <span th:text="#{texto.botao.salvar.alteracoes}">Salvar Alterações</span>
                             </button>
                             <a th:href="@{/funcionario/lista}" class="btn btn-secondary fw-bold">
-                                <i class="bi bi-x-circle"></i> Cancelar
+                                <i class="bi bi-x-circle"></i> <span th:text="#{texto.botao.cancelar}">Cancelar</span>
                             </a>
                         </div>
                     </form>

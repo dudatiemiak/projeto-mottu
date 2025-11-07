@@ -24,10 +24,10 @@ public class Filial{
 	private Long id_filial;
 	@OneToOne
     @JoinColumn(name = "id_logradouro", nullable = false)
-    @NotNull(message = "A filial deve estar vinculada a um logradouro")
+	@NotNull(message = "{validacao.filial.logradouro.presenca}")
 	private Logradouro logradouro;
-	@NotEmpty(message = "Não é possível inserir uma filial sem nome")
-	@Size(min = 0, max = 100, message = "Valor de nome inválido")
+	@NotEmpty(message = "{validacao.filial.nome.obrigatorio}")
+	@Size(min = 0, max = 100, message = "{validacao.filial.nome.tamanho}")
 	@Column(name = "nm_filial")
 	private String nome_filial;
 	
