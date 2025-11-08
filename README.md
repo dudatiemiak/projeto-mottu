@@ -30,7 +30,7 @@ Projeto desenvolvido como atividade acadêmica (disciplina Java Advanced). Forne
 - Spring Security (form login)
 - Thymeleaf templates
 - Oracle Database (configurável via `application.properties`)
-- Flyway, Swagger (springdoc), Lombok
+- Swagger (springdoc), Lombok
 
 ---
 
