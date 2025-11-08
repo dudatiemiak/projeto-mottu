@@ -5,6 +5,48 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
+        <style>
+                :root{
+                    --brand-black: #0b0b0b;
+                    --brand-dark: #072b1a;
+                    --brand-green: #09c44a;
+                    --brand-green-2: #0b3b27;
+                    --brand-text: #e6efe6;
+                    --card-bg: #0f1410;
+                }
+                body{ background-color: var(--brand-black) !important; color: var(--brand-text) !important; }
+                a{ color: var(--brand-green); }
+                a:hover{ color: #6ef78a; }
+                .card{ background-color: var(--card-bg) !important; border-color: rgba(255,255,255,0.04) !important; color: var(--brand-text) !important; }
+                .card .card-body{ color: var(--brand-text) !important; }
+                .card-header{ background-color: var(--brand-dark) !important; color: var(--brand-text) !important; }
+                .btn-primary, .bg-primary{ background-color: var(--brand-green) !important; border-color: var(--brand-green) !important; color: #07110a !important; }
+                .btn-primary:hover{ background-color: #07a83f !important; border-color: #07a83f !important; }
+                .btn .bi { color: #07110a !important; opacity: 0.95 !important; }
+                .btn-primary .bi, .bg-success .bi, .bg-info .bi, .bg-warning .bi, .btn-success .bi, .btn-info .bi, .btn-warning .bi { color: #07110a !important; }
+                .btn-outline-secondary{ color: var(--brand-text) !important; border-color: rgba(255,255,255,0.12) !important; }
+                .btn-outline-secondary:hover{ background-color: rgba(255,255,255,0.03) !important; }
+                .form-label{ color: var(--brand-text) !important; }
+                .form-control{ background-color: #111615 !important; color: var(--brand-text) !important; border-color: rgba(255,255,255,0.06) !important; }
+                .table thead th{ background-color: rgba(255,255,255,0.03) !important; color: var(--brand-text) !important; }
+                .table tbody td, .table tbody th { color: rgba(230,239,230,0.95) !important; }
+                .table tbody tr { background-color: rgba(255,255,255,0.01) !important; }
+                .table tbody tr:hover { background-color: rgba(255,255,255,0.02) !important; }
+                .table a, .table td, .table th { color: rgba(230,239,230,0.95) !important; }
+                .alert{ background-color: #0b1b14 !important; color: var(--brand-text) !important; border-color: rgba(255,255,255,0.04) !important; }
+                .bg-success{ background-color: var(--brand-green-2) !important; color: var(--brand-text) !important; }
+                .bg-info{ background-color: #0a5b36 !important; color: var(--brand-text) !important; }
+                .bg-warning{ background-color: #b38600 !important; color: #07110a !important; }
+                .card .text-dark{ color: var(--brand-text) !important; }
+                .btn{ border-radius: 6px !important; }
+                .shadow-sm{ box-shadow: 0 3px 10px rgba(2,2,2,0.55) !important; }
+                .footer{ background-color: #000 !important; color: var(--brand-text) !important; }
+                .bi{ color: var(--brand-green) !important; }
+                .client-details .list-group-item { background-color: rgba(255,255,255,0.02) !important; color: rgba(230,239,230,0.95) !important; border-color: rgba(255,255,255,0.04) !important; }
+                .client-details .list-group-item b { color: rgba(230,239,230,0.95) !important; }
+                .client-details .card-header { background-color: var(--brand-green-2) !important; }
+        </style>
+
     <title th:text="${titulo}"></title>
 </head>
 
