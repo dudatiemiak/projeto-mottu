@@ -64,8 +64,12 @@ java -jar target/projeto-mottu-0.0.1-SNAPSHOT.jar
 ## Configuração do banco de dados
 
 Por padrão o projeto foi adaptado para Oracle (substituiu uso de H2 em entregas anteriores). Configure o datasource no `src/main/resources/application.properties` com URL, usuário e senha apropriados ao seu ambiente.
-
-Observação: não inclua credenciais no repositório — use variáveis de ambiente ou profiles.
+```properties
+spring.datasource.url=${DB_URL:jdbc:oracle:thin:@localhost:1521:ORCL}
+spring.datasource.username=${DB_USER:seu_usuario}
+spring.datasource.password=${DB_PASS:suasenha}
+spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
+```
 
 ---
 
