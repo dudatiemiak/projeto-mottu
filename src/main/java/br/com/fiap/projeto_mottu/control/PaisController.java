@@ -20,7 +20,7 @@ import br.com.fiap.projeto_mottu.model.Pais;
 import br.com.fiap.projeto_mottu.repository.PaisRepository;
 import br.com.fiap.projeto_mottu.service.PaisCachingService;
 
-@Controller
+@RestController
 @RequestMapping(value = "/paises")
 public class PaisController {
 

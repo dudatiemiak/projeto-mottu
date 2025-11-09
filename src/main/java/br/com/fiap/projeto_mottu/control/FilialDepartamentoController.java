@@ -26,7 +26,7 @@ import br.com.fiap.projeto_mottu.repository.FilialDepartamentoRepository;
 import br.com.fiap.projeto_mottu.service.FilialDepartamentoCachingService;
 import br.com.fiap.projeto_mottu.service.FilialDepartamentoService;
 
-@Controller
+@RestController
 @RequestMapping(value = "/filiais_departamentos")
 public class FilialDepartamentoController {
 

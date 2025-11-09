@@ -21,7 +21,7 @@ import br.com.fiap.projeto_mottu.repository.LogradouroRepository;
 import br.com.fiap.projeto_mottu.service.LogradouroCachingService;
 import br.com.fiap.projeto_mottu.service.LogradouroService;
 
-@Controller
+@RestController
 @RequestMapping(value = "/logradouros")
 public class LogradouroController {
 	

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,7 +27,7 @@ import br.com.fiap.projeto_mottu.repository.FilialRepository;
 import br.com.fiap.projeto_mottu.service.FilialCachingService;
 import br.com.fiap.projeto_mottu.service.FilialService;
 
-@Controller
+@RestController
 @RequestMapping(value = "/filiais")
 public class FilialController {
 	@Autowired
@@ -76,12 +77,12 @@ public class FilialController {
 	
 	@PostMapping(value = "/inserir")
 	public Filial inserirFilial(@RequestBody Filial filial) {
-		repF.save(filial);
+		Filial salvo = repF.save(filial);
 		cacheF.limparCache();
-		return filial;
+		return salvo;
 	}
 	
-	@GetMapping("/busca_por_nome_filial")
+	@GetMapping(value = "/busca_por_nome_filial")
 	public ResponseEntity<List<Filial>> buscarPorNome(@RequestParam String nomeFilial) {
 	    List<Filial> filiais = repF.buscarPorNome(nomeFilial);
 	    if (filiais.isEmpty()) {

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import br.com.fiap.projeto_mottu.dto.MotoDTO;
@@ -27,7 +28,7 @@ import br.com.fiap.projeto_mottu.repository.MotoRepository;
 import br.com.fiap.projeto_mottu.service.MotoCachingService;
 import br.com.fiap.projeto_mottu.service.MotoService;
 
-@Controller
+@RestController
 @RequestMapping(value = "/motos")
 public class MotoApiController {
 

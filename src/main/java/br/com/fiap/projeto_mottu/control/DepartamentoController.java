@@ -27,7 +27,7 @@ import br.com.fiap.projeto_mottu.repository.DepartamentoRepository;
 import br.com.fiap.projeto_mottu.service.DepartamentoCachingService;
 import br.com.fiap.projeto_mottu.service.DepartamentoService;
 
-@Controller
+@RestController
 @RequestMapping("/departamentos")
 public class DepartamentoController {
 

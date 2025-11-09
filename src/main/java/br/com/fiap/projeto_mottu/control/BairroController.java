@@ -20,7 +20,7 @@ import br.com.fiap.projeto_mottu.model.Bairro;
 import br.com.fiap.projeto_mottu.repository.BairroRepository;
 import br.com.fiap.projeto_mottu.service.BairroCachingService;
 
-@Controller
+@RestController
 @RequestMapping(value = "/bairros")
 public class BairroController {
 

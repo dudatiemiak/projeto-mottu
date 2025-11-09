@@ -20,7 +20,7 @@ import br.com.fiap.projeto_mottu.model.Estado;
 import br.com.fiap.projeto_mottu.repository.EstadoRepository;
 import br.com.fiap.projeto_mottu.service.EstadoCachingService;
 
-@Controller
+@RestController
 @RequestMapping(value = "/estados")
 public class EstadoController {
 

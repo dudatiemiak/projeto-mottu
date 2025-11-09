@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 // ...existing code...
 import org.springframework.web.server.ResponseStatusException;
 
@@ -21,7 +22,7 @@ import br.com.fiap.projeto_mottu.model.Telefone;
 import br.com.fiap.projeto_mottu.repository.TelefoneRepository;
 import br.com.fiap.projeto_mottu.service.TelefoneCachingService;
 
-@Controller
+@RestController
 @RequestMapping(value = "/telefones")
 public class TelefoneController {
 
